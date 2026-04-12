@@ -1,273 +1,1045 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sofía Gonzalez</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --black:#08060A;
-  --black2:#110D14;
-  --rose:#E8427C;
-  --rose-hot:#FF2D78;
-  --rose-pale:#FFB3CC;
-  --white:#FFFFFF;
-  --muted:rgba(255,255,255,0.55);
-  --border:rgba(232,66,124,0.25);
-}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--black);color:var(--white);overflow-x:hidden;}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofía Gonzalez</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
+    }
 
-/* 1. NAME */
-.top-hero{text-align:center;padding:72px 24px 44px;position:relative;}
-.top-hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:340px;height:280px;background:radial-gradient(ellipse,rgba(232,66,124,0.13) 0%,transparent 70%);pointer-events:none;}
-.live-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(232,66,124,0.1);border:1px solid var(--border);border-radius:100px;padding:6px 18px;font-size:11px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--rose-pale);margin-bottom:28px;}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--rose);animation:blink 1.8s infinite;}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
-.hero-name{font-family:'Playfair Display',serif;font-size:clamp(58px,10vw,116px);font-weight:700;line-height:0.93;letter-spacing:-2.5px;color:var(--white);position:relative;z-index:1;}
-.hero-name em{font-style:italic;color:var(--rose);display:block;}
-.hero-origin{margin-top:20px;font-size:12px;font-weight:400;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    :root {
+      --black: #08060A;
+      --black2: #110D14;
+      --rose: #E8427C;
+      --rose-hot: #FF2D78;
+      --rose-pale: #FFB3CC;
+      --white: #FFFFFF;
+      --muted: rgba(255, 255, 255, 0.55);
+      --border: rgba(232, 66, 124, 0.25);
+    }
 
-/* 2. PHOTO PAIR */
-.photo-pair{display:grid;grid-template-columns:1.1fr 1fr;gap:10px;max-width:920px;margin:0 auto;padding:0 20px;height:610px;}
-.photo-card{position:relative;overflow:hidden;border-radius:12px;}
-.photo-card img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform 0.7s ease;}
-.photo-card:hover img{transform:scale(1.04)}
-.photo-vignette{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(8,6,10,0.55) 100%);pointer-events:none;}
-.photo-tag{position:absolute;bottom:16px;left:16px;background:rgba(8,6,10,0.5);border:1px solid rgba(232,66,124,0.3);border-radius:100px;padding:4px 14px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--rose-pale);backdrop-filter:blur(6px);}
+    html { scroll-behavior: smooth }
 
-/* 3. PRESENTATION */
-.presentation{max-width:660px;margin:0 auto;padding:60px 32px 0;text-align:center;}
-.pres-divider{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
-.pres-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(232,66,124,0.4));}
-.pres-line.r{background:linear-gradient(90deg,rgba(232,66,124,0.4),transparent);}
-.pres-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);opacity:0.7;}
-.pres-bio{font-size:17px;line-height:1.95;color:rgba(255,255,255,0.72);margin-bottom:20px;font-weight:300;}
-.pres-bio strong{color:var(--white);font-weight:600;}
-.pres-highlight{font-family:'Playfair Display',serif;font-style:italic;font-size:20px;color:var(--rose-pale);margin-bottom:48px;line-height:1.55;}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
 
-/* 4. SUBSCRIBE BLOCK */
-.subscribe-block{max-width:520px;margin:0 auto;padding:0 24px 80px;}
-.subscribe-card{background:rgba(232,66,124,0.06);border:1px solid rgba(232,66,124,0.2);border-radius:16px;padding:40px 40px 36px;text-align:center;}
-.sub-eyebrow{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:10px;}
-.sub-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:8px;}
-.sub-desc{font-size:13px;color:var(--muted);margin-bottom:28px;line-height:1.7;}
-.btn-subscribe{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:var(--rose);color:var(--white);font-family:'Inter',sans-serif;font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:18px 32px;border-radius:8px;transition:background 0.2s,transform 0.15s;margin-bottom:12px;}
-.btn-subscribe:hover{background:var(--rose-hot);transform:translateY(-2px);}
-.btn-subscribe svg{width:17px;height:17px;flex-shrink:0;}
-.btn-free{display:block;font-size:12px;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-.btn-free:hover{color:var(--white)}
-.sub-perks{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:28px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);}
-.sub-perk{display:flex;align-items:center;gap:6px;font-size:11px;color:rgba(255,255,255,0.5);}
-.perk-dot-sm{width:4px;height:4px;border-radius:50%;background:var(--rose);opacity:0.7;flex-shrink:0;}
+    /* 1. NAME */
+    .top-hero {
+      text-align: center;
+      padding: 72px 24px 44px;
+      position: relative;
+    }
 
-/* 5. GALLERY */
-.gallery-section{padding:0 20px 80px;max-width:1100px;margin:0 auto;}
-.gallery-label{text-align:center;font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:28px;}
-.gallery-grid{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:10px;height:520px;}
-.gallery-card{position:relative;overflow:hidden;border-radius:12px;}
-.gallery-card img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transition:transform 0.7s;}
-.gallery-card:hover img{transform:scale(1.05)}
-.gallery-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,6,10,0.65) 0%,transparent 55%);pointer-events:none;}
-.gallery-card-label{position:absolute;bottom:16px;left:16px;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.55);}
-.gallery-locked img{filter:brightness(0.2) blur(10px) saturate(0.3) !important;}
-.lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
-.lock-circle{width:48px;height:48px;border-radius:50%;border:1.5px solid rgba(232,66,124,0.55);background:rgba(8,6,10,0.5);display:flex;align-items:center;justify-content:center;}
-.lock-circle svg{width:18px;height:18px;stroke:var(--rose-pale);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
-.lock-label{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--rose-pale);text-align:center;}
+    .top-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 340px;
+      height: 280px;
+      background: radial-gradient(ellipse, rgba(232, 66, 124, 0.13) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-/* 6. PERKS */
-.perks-strip{background:var(--black2);border-top:1px solid rgba(232,66,124,0.12);border-bottom:1px solid rgba(232,66,124,0.12);padding:32px 48px;display:flex;align-items:center;justify-content:space-around;gap:24px;flex-wrap:wrap;}
-.perk{display:flex;align-items:center;gap:14px;}
-.perk-icon{width:40px;height:40px;border-radius:10px;background:rgba(232,66,124,0.1);border:1px solid rgba(232,66,124,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.perk-icon svg{width:17px;height:17px;stroke:var(--rose);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-.perk-title{font-size:13px;font-weight:600;color:var(--white);margin-bottom:2px;}
-.perk-desc{font-size:11px;color:var(--muted);}
-.perk-sep{width:1px;height:36px;background:rgba(255,255,255,0.07);}
+    .live-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232, 66, 124, 0.1);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 6px 18px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--rose-pale);
+      margin-bottom: 28px;
+    }
 
-/* 7. ABOUT */
-.about{max-width:680px;margin:0 auto;padding:80px 32px;text-align:center;}
-.about-label{font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--rose);margin-bottom:20px;}
-.about-quote{font-family:'Playfair Display',serif;font-size:clamp(22px,3.5vw,34px);font-style:italic;font-weight:400;line-height:1.5;color:var(--white);margin-bottom:28px;}
-.about-quote span{color:var(--rose);}
-.about-text{font-size:15px;line-height:1.9;color:rgba(255,255,255,0.6);margin-bottom:14px;}
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--rose);
+      animation: blink 1.8s infinite;
+    }
 
-/* 8. FINAL CTA */
-.final-cta{text-align:center;padding:90px 24px 100px;border-top:1px solid rgba(232,66,124,0.1);position:relative;overflow:hidden;}
-.final-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(232,66,124,0.08) 0%,transparent 70%);pointer-events:none;}
-.final-cta h2{font-family:'Playfair Display',serif;font-size:clamp(34px,5vw,58px);font-weight:700;font-style:italic;line-height:1.1;color:var(--white);margin-bottom:16px;position:relative;}
-.final-cta h2 span{color:var(--rose);}
-.final-cta p{font-size:14px;color:var(--muted);margin-bottom:40px;position:relative;}
-.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;position:relative;}
-.btn-main{display:inline-flex;align-items:center;gap:10px;background:var(--rose);color:var(--white);font-size:13px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;text-decoration:none;padding:17px 36px;border-radius:8px;transition:background 0.2s,transform 0.15s;}
-.btn-main:hover{background:var(--rose-hot);transform:translateY(-2px);}
-.btn-ghost{display:inline-flex;align-items:center;border:1px solid rgba(232,66,124,0.35);color:var(--rose-pale);font-size:13px;font-weight:500;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:17px 32px;border-radius:8px;transition:border-color 0.2s,background 0.2s;}
-.btn-ghost:hover{border-color:var(--rose);background:rgba(232,66,124,0.07);}
+    @keyframes blink {
+      0%, 100% { opacity: 1 }
+      50% { opacity: 0.3 }
+    }
 
-/* FOOTER */
-footer{background:#050308;border-top:1px solid rgba(255,255,255,0.05);padding:28px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-.footer-name{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,0.5);}
-.footer-legal{font-size:11px;color:rgba(255,255,255,0.25);letter-spacing:1px;}
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(58px, 10vw, 116px);
+      font-weight: 700;
+      line-height: 0.93;
+      letter-spacing: -2.5px;
+      color: var(--white);
+      position: relative;
+      z-index: 1;
+    }
 
-/* RESPONSIVE */
-@media(max-width:768px){
-  .photo-pair{grid-template-columns:1fr;height:auto;gap:8px;}
-  .photo-pair .photo-card{height:72vw;max-height:400px;}
-  .gallery-grid{grid-template-columns:1fr 1fr;height:auto;}
-  .gallery-card{height:52vw;max-height:280px;}
-  .gallery-grid .gallery-card:nth-child(2){grid-column:1/3;height:58vw;max-height:300px;}
-  .perks-strip{padding:24px 20px;}
-  .perk-sep{display:none;}
-  .subscribe-card{padding:28px 20px;}
-  footer{padding:20px 24px;}
-}
-</style>
+    .hero-name em {
+      font-style: italic;
+      color: var(--rose);
+      display: block;
+    }
+
+    .hero-origin {
+      margin-top: 20px;
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* 2. PHOTO PAIR */
+    .photo-pair {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 10px;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0 20px;
+      height: 610px;
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.7s ease;
+    }
+
+    .photo-card:hover img { transform: scale(1.04) }
+
+    .photo-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(8, 6, 10, 0.55) 100%);
+      pointer-events: none;
+    }
+
+    .photo-tag {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      background: rgba(8, 6, 10, 0.5);
+      border: 1px solid rgba(232, 66, 124, 0.3);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--rose-pale);
+      backdrop-filter: blur(6px);
+    }
+
+    /* 3. PRESENTATION */
+    .presentation {
+      max-width: 660px;
+      margin: 0 auto;
+      padding: 60px 32px 0;
+      text-align: center;
+    }
+
+    .pres-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .pres-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232, 66, 124, 0.4));
+    }
+
+    .pres-line.r {
+      background: linear-gradient(90deg, rgba(232, 66, 124, 0.4), transparent);
+    }
+
+    .pres-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--rose);
+      opacity: 0.7;
+    }
+
+    .pres-bio {
+      font-size: 17px;
+      line-height: 1.95;
+      color: rgba(255, 255, 255, 0.72);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+
+    .pres-bio strong {
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .pres-highlight {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 20px;
+      color: var(--rose-pale);
+      margin-bottom: 48px;
+      line-height: 1.55;
+    }
+
+    /* 4. SUBSCRIBE BLOCK */
+    .subscribe-block {
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .subscribe-card {
+      background: rgba(232, 66, 124, 0.06);
+      border: 1px solid rgba(232, 66, 124, 0.2);
+      border-radius: 16px;
+      padding: 40px 40px 36px;
+      text-align: center;
+    }
+
+    .sub-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 10px;
+    }
+
+    .sub-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .sub-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .btn-subscribe {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      background: var(--rose);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 18px 32px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+      margin-bottom: 12px;
+    }
+
+    .btn-subscribe:hover {
+      background: var(--rose-hot);
+      transform: translateY(-2px);
+    }
+
+    .btn-subscribe svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .btn-free {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .btn-free:hover { color: var(--white) }
+
+    .sub-perks {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .sub-perk {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .perk-dot-sm {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--rose);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    /* 5. GALLERY */
+    .gallery-section {
+      padding: 0 20px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .gallery-label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 28px;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 10px;
+      height: 520px;
+    }
+
+    .gallery-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .gallery-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      transition: transform 0.7s;
+    }
+
+    .gallery-card:hover img { transform: scale(1.05) }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(8, 6, 10, 0.65) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .gallery-card-label {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.55);
+    }
+
+    .gallery-locked img {
+      filter: brightness(0.2) blur(10px) saturate(0.3) !important;
+    }
+
+    .lock-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lock-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(232, 66, 124, 0.55);
+      background: rgba(8, 6, 10, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lock-circle svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--rose-pale);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .lock-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--rose-pale);
+      text-align: center;
+      text-decoration: none;
+    }
+
+    /* 6. PERKS */
+    .perks-strip {
+      background: var(--black2);
+      border-top: 1px solid rgba(232, 66, 124, 0.12);
+      border-bottom: 1px solid rgba(232, 66, 124, 0.12);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .perk { display: flex; align-items: center; gap: 14px; }
+
+    .perk-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: rgba(232, 66, 124, 0.1);
+      border: 1px solid rgba(232, 66, 124, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .perk-icon svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--rose);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .perk-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+    .perk-desc  { font-size: 11px; color: var(--muted); }
+    .perk-sep   { width: 1px; height: 36px; background: rgba(255, 255, 255, 0.07); }
+
+    /* 7. ABOUT */
+    .about {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 32px;
+      text-align: center;
+    }
+
+    .about-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 20px;
+    }
+
+    .about-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 3.5vw, 34px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+
+    .about-quote span { color: var(--rose); }
+
+    .about-text {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 14px;
+    }
+
+    /* 8. FINAL CTA */
+    .final-cta {
+      text-align: center;
+      padding: 90px 24px 100px;
+      border-top: 1px solid rgba(232, 66, 124, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(ellipse, rgba(232, 66, 124, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .final-cta h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .final-cta h2 span { color: var(--rose); }
+
+    .final-cta p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .btn-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--rose);
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 17px 36px;
+      border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-main:hover { background: var(--rose-hot); transform: translateY(-2px); }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(232, 66, 124, 0.35);
+      color: var(--rose-pale);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 17px 32px;
+      border-radius: 8px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-ghost:hover { border-color: var(--rose); background: rgba(232, 66, 124, 0.07); }
+
+    /* FOOTER */
+    footer {
+      background: #050308;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 28px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer-name {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-legal {
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 1px;
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — TABLET (≤900px)
+    ═══════════════════════════════ */
+    @media (max-width: 900px) {
+      .photo-pair {
+        max-width: 100%;
+        padding: 0 16px;
+      }
+
+      .gallery-section {
+        padding: 0 16px 60px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        height: auto;
+        gap: 8px;
+      }
+
+      .gallery-card {
+        height: 48vw;
+        max-height: 320px;
+      }
+
+      /* foto central ocupa fila completa en tablet */
+      .gallery-grid .gallery-card:nth-child(2) {
+        grid-column: 1 / 3;
+        height: 52vw;
+        max-height: 340px;
+      }
+
+      .perks-strip {
+        padding: 28px 24px;
+        gap: 16px;
+      }
+
+      .perk-sep { display: none; }
+    }
+
+    /* ═══════════════════════════════
+       RESPONSIVE — MÓVIL (≤640px)
+    ═══════════════════════════════ */
+    @media (max-width: 640px) {
+
+      /* — Nombre — */
+      .top-hero {
+        padding: 48px 20px 28px;
+      }
+
+      .hero-name {
+        letter-spacing: -1px;
+      }
+
+      .hero-origin {
+        font-size: 11px;
+        letter-spacing: 2.5px;
+        margin-top: 14px;
+      }
+
+      /* — Fotos: apiladas verticalmente — */
+      .photo-pair {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 8px;
+        padding: 0 14px;
+      }
+
+      .photo-pair .photo-card {
+        height: 80vw;
+        max-height: 440px;
+      }
+
+      /* — Presentación — */
+      .presentation {
+        padding: 40px 20px 0;
+      }
+
+      .pres-bio {
+        font-size: 15px;
+        line-height: 1.85;
+      }
+
+      .pres-highlight {
+        font-size: 16px;
+        margin-bottom: 36px;
+      }
+
+      /* — Suscripción — */
+      .subscribe-block {
+        padding: 0 14px 60px;
+      }
+
+      .subscribe-card {
+        padding: 28px 20px 24px;
+        border-radius: 12px;
+      }
+
+      .sub-title {
+        font-size: 22px;
+      }
+
+      .sub-desc {
+        font-size: 12px;
+      }
+
+      .sub-perks {
+        gap: 12px;
+      }
+
+      /* — Galería: una columna — */
+      .gallery-section {
+        padding: 0 14px 60px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 8px;
+      }
+
+      .gallery-card {
+        height: 75vw;
+        max-height: 400px;
+      }
+
+      /* anula la regla del tablet para la foto central */
+      .gallery-grid .gallery-card:nth-child(2) {
+        grid-column: auto;
+        height: 75vw;
+        max-height: 400px;
+      }
+
+      /* — Perks: lista vertical — */
+      .perks-strip {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 28px 20px;
+        gap: 18px;
+      }
+
+      /* — About — */
+      .about {
+        padding: 60px 20px;
+      }
+
+      .about-text {
+        font-size: 14px;
+      }
+
+      /* — CTA final — */
+      .final-cta {
+        padding: 60px 20px 70px;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn-main,
+      .btn-ghost {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+        text-align: center;
+      }
+
+      /* — Footer — */
+      footer {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 6px;
+      }
+    }
+  </style>
 </head>
+<!-- TRADUCTOR -->
+ <script>
+  const translations = {
+    es: {
+      liveTag: "Ahora en Fanvue",
+      origin: "🇨🇴 Colombiana · Del campo",
+      bio: `Hola, soy <strong>Sofía</strong> — una chica colombiana nacida entre montañas cafeteras y campos dorados. Comparto mi vida real y sin filtros con quienes de verdad quieren conocerme. Sin máscaras. Sin fingir. Solo <strong>yo, la verdadera Sofía.</strong>`,
+      highlight: `"Lo que ves en redes sociales es solo el comienzo —<br>la verdadera yo te espera en Fanvue."`,
+      subEyebrow: "Acceso exclusivo",
+      subTitle: "Únete al mundo de Sofía",
+      subDesc: "Fotos diarias, videos personales, DMs privados y contenido que no encontrarás en ningún otro lado. Primer mes con descuento.",
+      btnSubscribe: "Suscríbete en Fanvue",
+      btnFree: "Vista previa gratis — sin tarjeta de crédito",
+      perk1: "Contenido diario", perk2: "DMs personales", perk3: "Cancela cuando quieras", perk4: "Contenido personalizado",
+      galleryLabel: "Un vistazo adentro",
+      perkTitle1: "Fotos y videos diarios", perkDesc1: "Contenido exclusivo y fresco cada día",
+      perkTitle2: "DMs personales", perkDesc2: "Ella lee y responde a cada fan",
+      perkTitle3: "Contenido personalizado", perkDesc3: "Hecho solo para ti a pedido",
+      perkTitle4: "Acceso VIP anticipado", perkDesc4: "Antes que nadie lo vea",
+      aboutLabel: "Su historia",
+      aboutQuote: `"Crecí donde <span>los Andes tocan el cielo</span> — y traje esa libertad conmigo."`,
+      aboutText1: "Sofía es una creadora colombiana del campo — región cafetera, atardeceres cálidos y una sonrisa honesta que no miente.",
+      aboutText2: "En Fanvue encontrarás a la Sofía real: momentos íntimos, mensajes personales y contenido que no verás en ningún otro lugar.",
+      ctaTitle: `Lista para conocer<br><span>a la verdadera Sofía?</span>`,
+      ctaDesc: "Contenido nuevo cada día · Cancela cuando quieras · Primer mes con descuento",
+      btnMain: "Suscríbete en Fanvue",
+      btnGhost: "Vista previa gratis",
+      lockLabel: "Solo para<br>suscriptores",
+    }
+  };
+
+  function applyTranslation(t) {
+    const s = (sel) => document.querySelector(sel);
+    const all = (sel) => document.querySelectorAll(sel);
+
+    s('.live-tag').innerHTML = `<span class="live-dot"></span> ${t.liveTag}`;
+    s('.hero-origin').textContent = t.origin;
+    s('.pres-bio').innerHTML = t.bio;
+    s('.pres-highlight').innerHTML = t.highlight;
+    s('.sub-eyebrow').textContent = t.subEyebrow;
+    s('.sub-title').textContent = t.subTitle;
+    s('.sub-desc').textContent = t.subDesc;
+    s('.btn-subscribe').innerHTML = s('.btn-subscribe').innerHTML.replace(/Subscribe on Fanvue/, t.btnSubscribe);
+    s('.btn-free').textContent = t.btnFree;
+    s('.gallery-label').textContent = t.galleryLabel;
+    s('.about-label').textContent = t.aboutLabel;
+    s('.about-quote').innerHTML = t.aboutQuote;
+    all('.about-text')[0].textContent = t.aboutText1;
+    all('.about-text')[1].textContent = t.aboutText2;
+    s('.final-cta h2').innerHTML = t.ctaTitle;
+    s('.final-cta p').textContent = t.ctaDesc;
+    s('.btn-main').textContent = t.btnMain;
+    s('.btn-ghost').textContent = t.btnGhost;
+    s('.lock-label').innerHTML = t.lockLabel;
+
+    const perks = all('.sub-perk');
+    [t.perk1, t.perk2, t.perk3, t.perk4].forEach((text, i) => {
+      if (perks[i]) perks[i].innerHTML = `<span class="perk-dot-sm"></span>${text}`;
+    });
+
+    const perkTitles = all('.perk-title');
+    const perkDescs  = all('.perk-desc');
+    [[t.perkTitle1, t.perkDesc1],[t.perkTitle2, t.perkDesc2],[t.perkTitle3, t.perkDesc3],[t.perkTitle4, t.perkDesc4]]
+      .forEach(([title, desc], i) => {
+        if (perkTitles[i]) perkTitles[i].textContent = title;
+        if (perkDescs[i])  perkDescs[i].textContent  = desc;
+      });
+  }
+
+  const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().slice(0, 2);
+  if (translations[lang]) applyTranslation(translations[lang]);
+</script>
 <body>
 
-<!-- 1. NAME -->
-<div class="top-hero">
-  <div class="live-tag">
-    <span class="live-dot"></span>
-    Now on Fanvue
+  <!-- 1. NAME -->
+  <div class="top-hero">
+    <div class="live-tag">
+      <span class="live-dot"></span>
+      Now on Fanvue
+    </div>
+    <h1 class="hero-name">
+      Sofía
+      <em>Gonzalez</em>
+    </h1>
+    <p class="hero-origin">🇨🇴 Colombian &nbsp;·&nbsp; From the countryside</p>
   </div>
-  <h1 class="hero-name">
-    Sofía
-    <em>Gonzalez</em>
-  </h1>
-  <p class="hero-origin">🇨🇴 Colombian &nbsp;·&nbsp; From the countryside</p>
-</div>
 
-<!-- 2. PHOTOS -->
-<div class="photo-pair">
-  <div class="photo-card">
-    <img src="src/img5.jpeg" alt="Sofía Gonzalez" loading="eager"/>
-    <div class="photo-vignette"></div>
-    <span class="photo-tag">Sofía G.</span>
-  </div>
-  <div class="photo-card">
-    <img src="src/ing4.png" alt="Sofía exclusive" loading="eager"/>
-    <div class="photo-vignette"></div>
-    <span class="photo-tag">Exclusive</span>
-  </div>
-</div>
-
-<!-- 3. PRESENTATION -->
-<div class="presentation">
-  <div class="pres-divider">
-    <div class="pres-line"></div>
-    <div class="pres-dot"></div>
-    <div class="pres-line r"></div>
-  </div>
-  <p class="pres-bio">
-    Hi, I'm <strong>Sofía</strong> — a Colombian girl born between coffee mountains and golden fields.
-    I share my real, unfiltered life with the people who truly want to know me.
-    No filters. No pretending. Just <strong>me, the real Sofía.</strong>
-  </p>
-  <p class="pres-highlight">
-    "What you see on social media is just the beginning —<br>
-    the real me is waiting for you on Fanvue."
-  </p>
-</div>
-
-<!-- 4. SUBSCRIBE -->
-<div class="subscribe-block">
-  <div class="subscribe-card">
-    <p class="sub-eyebrow">Exclusive access</p>
-    <h2 class="sub-title">Join Sofía's World</h2>
-    <p class="sub-desc">Daily photos, personal videos, private DMs and content you won't find anywhere else. First month discounted.</p>
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-subscribe" target="_blank">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-        <line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
-      </svg>
-      Subscribe on Fanvue
-    </a>
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-free" target="_blank">Free preview available — no credit card required</a>
-    <div class="sub-perks">
-      <div class="sub-perk"><span class="perk-dot-sm"></span>Daily content</div>
-      <div class="sub-perk"><span class="perk-dot-sm"></span>Personal DMs</div>
-      <div class="sub-perk"><span class="perk-dot-sm"></span>Cancel anytime</div>
-      <div class="sub-perk"><span class="perk-dot-sm"></span>Custom requests</div>
+  <!-- 2. PHOTOS -->
+  <div class="photo-pair">
+    <div class="photo-card">
+      <img src="src/img5.jpeg" alt="Sofía Gonzalez" loading="eager" />
+      <div class="photo-vignette"></div>
+      <span class="photo-tag">Sofía G.</span>
+    </div>
+    <div class="photo-card">
+      <img src="src/ing4.png" alt="Sofía exclusive" loading="eager" />
+      <div class="photo-vignette"></div>
+      <span class="photo-tag">Exclusive</span>
     </div>
   </div>
-</div>
 
-<!-- 5. GALLERY -->
-<div class="gallery-section">
-  <p class="gallery-label">A glimpse inside</p>
-  <div class="gallery-grid">
-    <div class="gallery-card">
-      <img src="src/img1.jpeg" alt="Sofía portrait"/>
-      <div class="gallery-overlay"></div>
-      <span class="gallery-card-label">Portrait</span>
+  <!-- 3. PRESENTATION -->
+  <div class="presentation">
+    <div class="pres-divider">
+      <div class="pres-line"></div>
+      <div class="pres-dot"></div>
+      <div class="pres-line r"></div>
     </div>
-    <div class="gallery-card">
-      <img src="src/img2.png" alt="Sofía Colombia"/>
-      <div class="gallery-overlay"></div>
-      <span class="gallery-card-label">Colombia</span>
-    </div>
-    <div class="gallery-card gallery-locked">
-      <img src="src/img6.jpg" alt="Exclusive"/>
-      <div class="lock-overlay">
-        <div class="lock-circle">
-          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        </div>
-        <a href="https://www.fanvue.com/sofiagonzalezofficial" class="lock-label" target="_blank">Suscribers <br>only</a>
-        <!-- <span class="lock-label">Subscribers<br>only</span> -->
+    <p class="pres-bio">
+      Hi, I'm <strong>Sofía</strong> — a Colombian girl born between coffee mountains and golden fields.
+      I share my real, unfiltered life with the people who truly want to know me.
+      No filters. No pretending. Just <strong>me, the real Sofía.</strong>
+    </p>
+    <p class="pres-highlight">
+      "What you see on social media is just the beginning —<br>
+      the real me is waiting for you on Fanvue."
+    </p>
+  </div>
+
+  <!-- 4. SUBSCRIBE -->
+  <div class="subscribe-block">
+    <div class="subscribe-card">
+      <p class="sub-eyebrow">Exclusive access</p>
+      <h2 class="sub-title">Join Sofía's World</h2>
+      <p class="sub-desc">Daily photos, personal videos, private DMs and content you won't find anywhere else. First month discounted.</p>
+      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-subscribe" target="_blank">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+          <line x1="6" y1="1" x2="6" y2="4" />
+          <line x1="10" y1="1" x2="10" y2="4" />
+          <line x1="14" y1="1" x2="14" y2="4" />
+        </svg>
+        Subscribe on Fanvue
+      </a>
+      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-free" target="_blank">Free preview available — no credit card required</a>
+      <div class="sub-perks">
+        <div class="sub-perk"><span class="perk-dot-sm"></span>Daily content</div>
+        <div class="sub-perk"><span class="perk-dot-sm"></span>Personal DMs</div>
+        <div class="sub-perk"><span class="perk-dot-sm"></span>Cancel anytime</div>
+        <div class="sub-perk"><span class="perk-dot-sm"></span>Custom requests</div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- 6. PERKS STRIP -->
-<div class="perks-strip">
-  <div class="perk">
-    <div class="perk-icon"><svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-    <div><div class="perk-title">Daily photos & videos</div><div class="perk-desc">Fresh exclusive content every day</div></div>
+  <!-- 5. GALLERY -->
+  <div class="gallery-section">
+    <p class="gallery-label">A glimpse inside</p>
+    <div class="gallery-grid">
+      <div class="gallery-card">
+        <img src="src/img1.jpeg" alt="Sofía portrait" />
+        <div class="gallery-overlay"></div>
+        <span class="gallery-card-label">Portrait</span>
+      </div>
+      <div class="gallery-card">
+        <img src="src/img2.png" alt="Sofía Colombia" />
+        <div class="gallery-overlay"></div>
+        <span class="gallery-card-label">Colombia</span>
+      </div>
+      <div class="gallery-card gallery-locked">
+        <img src="src/img6.jpg" alt="Exclusive" />
+        <div class="lock-overlay">
+          <div class="lock-circle">
+            <svg viewBox="0 0 24 24">
+              <rect x="3" y="11" width="18" height="11" rx="2" />
+              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+            </svg>
+          </div>
+          <a href="https://www.fanvue.com/sofiagonzalezofficial" class="lock-label" target="_blank">Subscribers<br>only</a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="perk-sep"></div>
-  <div class="perk">
-    <div class="perk-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-    <div><div class="perk-title">Personal DMs</div><div class="perk-desc">She reads & replies to every fan</div></div>
-  </div>
-  <div class="perk-sep"></div>
-  <div class="perk">
-    <div class="perk-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-    <div><div class="perk-title">Custom content</div><div class="perk-desc">Made just for you on request</div></div>
-  </div>
-  <div class="perk-sep"></div>
-  <div class="perk">
-    <div class="perk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
-    <div><div class="perk-title">VIP early access</div><div class="perk-desc">Before anyone else sees it</div></div>
-  </div>
-</div>
 
-<!-- 7. ABOUT -->
-<div class="about">
-  <p class="about-label">Her story</p>
-  <p class="about-quote">"I grew up where the <span>Andes meets the sky</span> — and I brought that wildness with me."</p>
-  <p class="about-text">Sofía is a Colombian creator from the countryside — coffee region, warm sunsets, and an honest smile that doesn't lie. She shares her daily life, her culture, and her authentic self.</p>
-  <p class="about-text">On Fanvue you'll find the real Sofía: behind-the-scenes moments, personal messages, and content you won't see anywhere else. Come experience Colombia through her eyes.</p>
-</div>
-
-<!-- 8. FINAL CTA -->
-<section class="final-cta">
-  <h2>Ready to meet<br><span>the real Sofía?</span></h2>
-  <p>New content every day · Cancel anytime · First month discounted</p>
-  <div class="cta-row">
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-main" target="_blank">Subscribe on Fanvue</a>
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-ghost" target="_blank">Free Preview</a>
+  <!-- 6. PERKS STRIP -->
+  <div class="perks-strip">
+    <div class="perk">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+          <circle cx="12" cy="13" r="4" />
+        </svg>
+      </div>
+      <div>
+        <div class="perk-title">Daily photos & videos</div>
+        <div class="perk-desc">Fresh exclusive content every day</div>
+      </div>
+    </div>
+    <div class="perk-sep"></div>
+    <div class="perk">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+        </svg>
+      </div>
+      <div>
+        <div class="perk-title">Personal DMs</div>
+        <div class="perk-desc">She reads & replies to every fan</div>
+      </div>
+    </div>
+    <div class="perk-sep"></div>
+    <div class="perk">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
+      </div>
+      <div>
+        <div class="perk-title">Custom content</div>
+        <div class="perk-desc">Made just for you on request</div>
+      </div>
+    </div>
+    <div class="perk-sep"></div>
+    <div class="perk">
+      <div class="perk-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="7" />
+          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+        </svg>
+      </div>
+      <div>
+        <div class="perk-title">VIP early access</div>
+        <div class="perk-desc">Before anyone else sees it</div>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer>
-  <span class="footer-name">Sofía Gonzalez</span>
-  <span class="footer-legal">© 2026 · All rights reserved · 18+ Only</span>
-</footer>
+  <!-- 7. ABOUT -->
+  <div class="about">
+    <p class="about-label">Her story</p>
+    <p class="about-quote">"I grew up where the <span>Andes meets the sky</span> — and I brought that wildness with me."</p>
+    <p class="about-text">Sofía is a Colombian creator from the countryside — coffee region, warm sunsets, and an honest smile that doesn't lie. She shares her daily life, her culture, and her authentic self.</p>
+    <p class="about-text">On Fanvue you'll find the real Sofía: behind-the-scenes moments, personal messages, and content you won't see anywhere else. Come experience Colombia through her eyes.</p>
+  </div>
+
+  <!-- 8. FINAL CTA -->
+  <section class="final-cta">
+    <h2>Ready to meet<br><span>the real Sofía?</span></h2>
+    <p>New content every day · Cancel anytime · First month discounted</p>
+    <div class="cta-row">
+      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-main" target="_blank">Subscribe on Fanvue</a>
+      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-ghost" target="_blank">Free Preview</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-name">Sofía Gonzalez</span>
+    <span class="footer-legal">© 2026 · All rights reserved · 18+ Only</span>
+  </footer>
 
 </body>
 </html>
