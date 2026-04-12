@@ -26,7 +26,9 @@
       --border: rgba(232, 66, 124, 0.25);
     }
 
-    html { scroll-behavior: smooth }
+    html {
+      scroll-behavior: smooth
+    }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -79,8 +81,15 @@
     }
 
     @keyframes blink {
-      0%, 100% { opacity: 1 }
-      50% { opacity: 0.3 }
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.3
+      }
     }
 
     .hero-name {
@@ -109,38 +118,54 @@
       color: var(--muted);
     }
 
-    /* 2. PHOTO PAIR */
-    .photo-pair {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 10px;
-      max-width: 920px;
+    .ai-disclaimer {
+      margin-top: 16px;
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.28);
+      font-style: italic;
+    }
+
+    /* 2. CAROUSEL */
+    .carousel-wrap {
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 20px;
-      height: 610px;
+      position: relative;
     }
 
-    .photo-card {
+    .carousel {
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 16px;
     }
 
-    .photo-card img {
+    .carousel-track {
+      display: flex;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      position: relative;
+    }
+
+    .carousel-slide img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
+      height: auto;
       display: block;
-      transition: transform 0.7s ease;
+      object-fit: contain;
+      object-position: center top;
+      max-height: 88vh;
+      background: var(--black);
     }
 
-    .photo-card:hover img { transform: scale(1.04) }
-
-    .photo-vignette {
+    .carousel-vignette {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(8, 6, 10, 0.55) 100%);
+      background: linear-gradient(to bottom, transparent 60%, rgba(8, 6, 10, 0.6) 100%);
       pointer-events: none;
     }
 
@@ -158,6 +183,89 @@
       text-transform: uppercase;
       color: var(--rose-pale);
       backdrop-filter: blur(6px);
+    }
+
+    /* Prev / Next arrows */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: rgba(8, 6, 10, 0.55);
+      border: 1px solid rgba(232, 66, 124, 0.35);
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      backdrop-filter: blur(6px);
+    }
+
+    .carousel-btn:hover {
+      background: rgba(232, 66, 124, 0.2);
+      border-color: var(--rose);
+    }
+
+    .carousel-btn svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--rose-pale);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .carousel-btn.prev {
+      left: -22px;
+    }
+
+    .carousel-btn.next {
+      right: -22px;
+    }
+
+    /* Dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .carousel-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: background 0.25s, transform 0.25s;
+      border: none;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: var(--rose);
+      transform: scale(1.35);
+    }
+
+    /* Counter badge */
+    .carousel-counter {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(8, 6, 10, 0.55);
+      border: 1px solid rgba(232, 66, 124, 0.25);
+      border-radius: 100px;
+      padding: 3px 12px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      color: var(--rose-pale);
+      backdrop-filter: blur(6px);
+      z-index: 5;
     }
 
     /* 3. PRESENTATION */
@@ -293,7 +401,9 @@
       transition: color 0.2s;
     }
 
-    .btn-free:hover { color: var(--white) }
+    .btn-free:hover {
+      color: var(--white)
+    }
 
     .sub-perks {
       display: flex;
@@ -361,7 +471,9 @@
       transition: transform 0.7s;
     }
 
-    .gallery-card:hover img { transform: scale(1.05) }
+    .gallery-card:hover img {
+      transform: scale(1.05)
+    }
 
     .gallery-overlay {
       position: absolute;
@@ -439,7 +551,11 @@
       flex-wrap: wrap;
     }
 
-    .perk { display: flex; align-items: center; gap: 14px; }
+    .perk {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
     .perk-icon {
       width: 40px;
@@ -463,9 +579,23 @@
       stroke-linejoin: round;
     }
 
-    .perk-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
-    .perk-desc  { font-size: 11px; color: var(--muted); }
-    .perk-sep   { width: 1px; height: 36px; background: rgba(255, 255, 255, 0.07); }
+    .perk-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px;
+    }
+
+    .perk-desc {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .perk-sep {
+      width: 1px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.07);
+    }
 
     /* 7. ABOUT */
     .about {
@@ -494,7 +624,9 @@
       margin-bottom: 28px;
     }
 
-    .about-quote span { color: var(--rose); }
+    .about-quote span {
+      color: var(--rose);
+    }
 
     .about-text {
       font-size: 15px;
@@ -535,7 +667,9 @@
       position: relative;
     }
 
-    .final-cta h2 span { color: var(--rose); }
+    .final-cta h2 span {
+      color: var(--rose);
+    }
 
     .final-cta p {
       font-size: 14px;
@@ -568,7 +702,10 @@
       transition: background 0.2s, transform 0.15s;
     }
 
-    .btn-main:hover { background: var(--rose-hot); transform: translateY(-2px); }
+    .btn-main:hover {
+      background: var(--rose-hot);
+      transform: translateY(-2px);
+    }
 
     .btn-ghost {
       display: inline-flex;
@@ -585,7 +722,10 @@
       transition: border-color 0.2s, background 0.2s;
     }
 
-    .btn-ghost:hover { border-color: var(--rose); background: rgba(232, 66, 124, 0.07); }
+    .btn-ghost:hover {
+      border-color: var(--rose);
+      background: rgba(232, 66, 124, 0.07);
+    }
 
     /* FOOTER */
     footer {
@@ -616,9 +756,17 @@
        RESPONSIVE — TABLET (≤900px)
     ═══════════════════════════════ */
     @media (max-width: 900px) {
-      .photo-pair {
+      .carousel-wrap {
         max-width: 100%;
-        padding: 0 16px;
+        padding: 0 14px;
+      }
+
+      .carousel-btn.prev {
+        left: -10px;
+      }
+
+      .carousel-btn.next {
+        right: -10px;
       }
 
       .gallery-section {
@@ -649,7 +797,9 @@
         gap: 16px;
       }
 
-      .perk-sep { display: none; }
+      .perk-sep {
+        display: none;
+      }
     }
 
     /* ═══════════════════════════════
@@ -672,17 +822,22 @@
         margin-top: 14px;
       }
 
-      /* — Fotos: apiladas verticalmente — */
-      .photo-pair {
-        grid-template-columns: 1fr;
-        height: auto;
-        gap: 8px;
-        padding: 0 14px;
+      /* — Fotos: carrusel a ancho completo — */
+      .carousel-wrap {
+        padding: 0 8px;
       }
 
-      .photo-pair .photo-card {
-        height: 80vw;
-        max-height: 440px;
+      .carousel-btn.prev {
+        left: -8px;
+      }
+
+      .carousel-btn.next {
+        right: -8px;
+      }
+
+      .carousel-btn {
+        width: 36px;
+        height: 36px;
       }
 
       /* — Presentación — */
@@ -790,78 +945,7 @@
     }
   </style>
 </head>
-<!-- TRADUCTOR -->
- <script>
-  const translations = {
-    es: {
-      liveTag: "Ahora en Fanvue",
-      origin: "🇨🇴 Colombiana · Del campo",
-      bio: `Hola, soy <strong>Sofía</strong> — una chica colombiana nacida entre montañas cafeteras y campos dorados. Comparto mi vida real y sin filtros con quienes de verdad quieren conocerme. Sin máscaras. Sin fingir. Solo <strong>yo, la verdadera Sofía.</strong>`,
-      highlight: `"Lo que ves en redes sociales es solo el comienzo —<br>la verdadera yo te espera en Fanvue."`,
-      subEyebrow: "Acceso exclusivo",
-      subTitle: "Únete al mundo de Sofía",
-      subDesc: "Fotos diarias, videos personales, DMs privados y contenido que no encontrarás en ningún otro lado. Primer mes con descuento.",
-      btnSubscribe: "Suscríbete en Fanvue",
-      btnFree: "Vista previa gratis — sin tarjeta de crédito",
-      perk1: "Contenido diario", perk2: "DMs personales", perk3: "Cancela cuando quieras", perk4: "Contenido personalizado",
-      galleryLabel: "Un vistazo adentro",
-      perkTitle1: "Fotos y videos diarios", perkDesc1: "Contenido exclusivo y fresco cada día",
-      perkTitle2: "DMs personales", perkDesc2: "Ella lee y responde a cada fan",
-      perkTitle3: "Contenido personalizado", perkDesc3: "Hecho solo para ti a pedido",
-      perkTitle4: "Acceso VIP anticipado", perkDesc4: "Antes que nadie lo vea",
-      aboutLabel: "Su historia",
-      aboutQuote: `"Crecí donde <span>los Andes tocan el cielo</span> — y traje esa libertad conmigo."`,
-      aboutText1: "Sofía es una creadora colombiana del campo — región cafetera, atardeceres cálidos y una sonrisa honesta que no miente.",
-      aboutText2: "En Fanvue encontrarás a la Sofía real: momentos íntimos, mensajes personales y contenido que no verás en ningún otro lugar.",
-      ctaTitle: `Lista para conocer<br><span>a la verdadera Sofía?</span>`,
-      ctaDesc: "Contenido nuevo cada día · Cancela cuando quieras · Primer mes con descuento",
-      btnMain: "Suscríbete en Fanvue",
-      btnGhost: "Vista previa gratis",
-      lockLabel: "Solo para<br>suscriptores",
-    }
-  };
 
-  function applyTranslation(t) {
-    const s = (sel) => document.querySelector(sel);
-    const all = (sel) => document.querySelectorAll(sel);
-
-    s('.live-tag').innerHTML = `<span class="live-dot"></span> ${t.liveTag}`;
-    s('.hero-origin').textContent = t.origin;
-    s('.pres-bio').innerHTML = t.bio;
-    s('.pres-highlight').innerHTML = t.highlight;
-    s('.sub-eyebrow').textContent = t.subEyebrow;
-    s('.sub-title').textContent = t.subTitle;
-    s('.sub-desc').textContent = t.subDesc;
-    s('.btn-subscribe').innerHTML = s('.btn-subscribe').innerHTML.replace(/Subscribe on Fanvue/, t.btnSubscribe);
-    s('.btn-free').textContent = t.btnFree;
-    s('.gallery-label').textContent = t.galleryLabel;
-    s('.about-label').textContent = t.aboutLabel;
-    s('.about-quote').innerHTML = t.aboutQuote;
-    all('.about-text')[0].textContent = t.aboutText1;
-    all('.about-text')[1].textContent = t.aboutText2;
-    s('.final-cta h2').innerHTML = t.ctaTitle;
-    s('.final-cta p').textContent = t.ctaDesc;
-    s('.btn-main').textContent = t.btnMain;
-    s('.btn-ghost').textContent = t.btnGhost;
-    s('.lock-label').innerHTML = t.lockLabel;
-
-    const perks = all('.sub-perk');
-    [t.perk1, t.perk2, t.perk3, t.perk4].forEach((text, i) => {
-      if (perks[i]) perks[i].innerHTML = `<span class="perk-dot-sm"></span>${text}`;
-    });
-
-    const perkTitles = all('.perk-title');
-    const perkDescs  = all('.perk-desc');
-    [[t.perkTitle1, t.perkDesc1],[t.perkTitle2, t.perkDesc2],[t.perkTitle3, t.perkDesc3],[t.perkTitle4, t.perkDesc4]]
-      .forEach(([title, desc], i) => {
-        if (perkTitles[i]) perkTitles[i].textContent = title;
-        if (perkDescs[i])  perkDescs[i].textContent  = desc;
-      });
-  }
-
-  const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase().slice(0, 2);
-  if (translations[lang]) applyTranslation(translations[lang]);
-</script>
 <body>
 
   <!-- 1. NAME -->
@@ -875,20 +959,70 @@
       <em>Gonzalez</em>
     </h1>
     <p class="hero-origin">🇨🇴 Colombian &nbsp;·&nbsp; From the countryside</p>
+    <p class="ai-disclaimer">✦ Sofía is a 100% AI-generated virtual model. All content is fictional and for
+      entertainment.</p>
   </div>
 
-  <!-- 2. PHOTOS -->
-  <div class="photo-pair">
-    <div class="photo-card">
-      <img src="src/img5.jpeg" alt="Sofía Gonzalez" loading="eager" />
-      <div class="photo-vignette"></div>
-      <span class="photo-tag">Sofía G.</span>
+  <!-- 2. CAROUSEL (5 fotos) -->
+  <div class="carousel-wrap">
+
+    <button class="carousel-btn prev" id="prev" aria-label="Previous">
+      <svg viewBox="0 0 24 24">
+        <polyline points="15 18 9 12 15 6" />
+      </svg>
+    </button>
+
+    <div class="carousel" id="carousel">
+      <div class="carousel-track" id="track">
+
+        <div class="carousel-slide">
+          <img src="src/img8.jpeg" alt="Tired" loading="eager" />
+          <div class="carousel-vignette"></div>
+          <span class="photo-tag">Tired.</span>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="src/ing4.png" alt="Sofía make Coffe" loading="eager" />
+          <div class="carousel-vignette"></div>
+          <span class="photo-tag">Coffe</span>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="src/img10.jpeg" alt="Sofía Cooking" loading="lazy" />
+          <div class="carousel-vignette"></div>
+          <span class="photo-tag">Cooking</span>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="src/img7.jpeg" alt="Sofía Enjoying" loading="lazy" />
+          <div class="carousel-vignette"></div>
+          <span class="photo-tag">Enjoying</span>
+        </div>
+
+        <div class="carousel-slide">
+          <img src="src/img9.jpeg" alt="Sofía Colombia" loading="lazy" />
+          <div class="carousel-vignette"></div>
+          <span class="photo-tag">Colombia</span>
+        </div>
+
+      </div>
+      <span class="carousel-counter" id="counter">1 / 5</span>
     </div>
-    <div class="photo-card">
-      <img src="src/ing4.png" alt="Sofía exclusive" loading="eager" />
-      <div class="photo-vignette"></div>
-      <span class="photo-tag">Exclusive</span>
+
+    <button class="carousel-btn next" id="next" aria-label="Next">
+      <svg viewBox="0 0 24 24">
+        <polyline points="9 18 15 12 9 6" />
+      </svg>
+    </button>
+
+    <div class="carousel-dots" id="dots">
+      <button class="carousel-dot active" data-i="0"></button>
+      <button class="carousel-dot" data-i="1"></button>
+      <button class="carousel-dot" data-i="2"></button>
+      <button class="carousel-dot" data-i="3"></button>
+      <button class="carousel-dot" data-i="4"></button>
     </div>
+
   </div>
 
   <!-- 3. PRESENTATION -->
@@ -905,7 +1039,7 @@
     </p>
     <p class="pres-highlight">
       "What you see on social media is just the beginning —<br>
-      the real me is waiting for you on Fanvue."
+      the real me is waiting for you inside."
     </p>
   </div>
 
@@ -914,18 +1048,21 @@
     <div class="subscribe-card">
       <p class="sub-eyebrow">Exclusive access</p>
       <h2 class="sub-title">Join Sofía's World</h2>
-      <p class="sub-desc">Daily photos, personal videos, private DMs and content you won't find anywhere else. First month discounted.</p>
+      <p class="sub-desc">Daily photos, personal videos, private DMs and content you won't find anywhere else. First
+        month discounted.</p>
       <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-subscribe" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round">
           <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
           <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
           <line x1="6" y1="1" x2="6" y2="4" />
           <line x1="10" y1="1" x2="10" y2="4" />
           <line x1="14" y1="1" x2="14" y2="4" />
         </svg>
-        Subscribe on Fanvue
+        Enter My Private Farm
       </a>
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-free" target="_blank">Free preview available — no credit card required</a>
+      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-free" target="_blank">Free preview available —
+        no credit card required</a>
       <div class="sub-perks">
         <div class="sub-perk"><span class="perk-dot-sm"></span>Daily content</div>
         <div class="sub-perk"><span class="perk-dot-sm"></span>Personal DMs</div>
@@ -958,7 +1095,8 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           </div>
-          <a href="https://www.fanvue.com/sofiagonzalezofficial" class="lock-label" target="_blank">Subscribers<br>only</a>
+          <a href="https://www.fanvue.com/sofiagonzalezofficial" class="lock-label"
+            target="_blank">Subscribers<br>only</a>
         </div>
       </div>
     </div>
@@ -994,7 +1132,8 @@
     <div class="perk">
       <div class="perk-icon">
         <svg viewBox="0 0 24 24">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
       </div>
       <div>
@@ -1020,9 +1159,12 @@
   <!-- 7. ABOUT -->
   <div class="about">
     <p class="about-label">Her story</p>
-    <p class="about-quote">"I grew up where the <span>Andes meets the sky</span> — and I brought that wildness with me."</p>
-    <p class="about-text">Sofía is a Colombian creator from the countryside — coffee region, warm sunsets, and an honest smile that doesn't lie. She shares her daily life, her culture, and her authentic self.</p>
-    <p class="about-text">On Fanvue you'll find the real Sofía: behind-the-scenes moments, personal messages, and content you won't see anywhere else. Come experience Colombia through her eyes.</p>
+    <p class="about-quote">"I grew up where the <span>Andes meets the sky</span> — and I brought that wildness with me."
+    </p>
+    <p class="about-text">Sofía is a Colombian creator from the countryside — coffee region, warm sunsets, and an honest
+      smile that doesn't lie. She shares her daily life, her culture, and her authentic self.</p>
+    <p class="about-text">Inside you'll find the real Sofía: behind-the-scenes moments, personal messages, and content
+      you won't see anywhere else. Come experience Colombia through her eyes.</p>
   </div>
 
   <!-- 8. FINAL CTA -->
@@ -1030,7 +1172,7 @@
     <h2>Ready to meet<br><span>the real Sofía?</span></h2>
     <p>New content every day · Cancel anytime · First month discounted</p>
     <div class="cta-row">
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-main" target="_blank">Subscribe on Fanvue</a>
+      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-main" target="_blank">Enter My Private Farm</a>
       <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-ghost" target="_blank">Free Preview</a>
     </div>
   </section>
@@ -1041,5 +1183,40 @@
     <span class="footer-legal">© 2026 · All rights reserved · 18+ Only</span>
   </footer>
 
+  <script>
+    const track = document.getElementById('track');
+    const dots = document.querySelectorAll('.carousel-dot');
+    const counter = document.getElementById('counter');
+    const total = 5;
+    let current = 0;
+    let autoTimer;
+
+    function goTo(index) {
+      current = (index + total) % total;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      counter.textContent = `${current + 1} / ${total}`;
+    }
+
+    document.getElementById('prev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
+    document.getElementById('next').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
+    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); resetAuto(); }));
+
+    /* Auto-advance every 4s */
+    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 4000); }
+    function resetAuto() { clearInterval(autoTimer); startAuto(); }
+    startAuto();
+
+    /* Touch / swipe support */
+    let touchStartX = 0;
+    const carousel = document.getElementById('carousel');
+    carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    carousel.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
+    }, { passive: true });
+  </script>
+
 </body>
+
 </html>
