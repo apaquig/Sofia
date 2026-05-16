@@ -39,16 +39,23 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-
-    /* =====================================================
-       HERO BACKGROUND IMAGE
-       Replace the URL below with your image:
-       background-image: url('YOUR_IMAGE_HERE.jpg');
-       ===================================================== */
     background-color: #2A1820;
-    background-image: url('src/img1.png'); /* <-- PUT YOUR BACKGROUND IMAGE URL HERE */
-    background-size: cover;
-    background-position: center top;
+  }
+
+  /* Imagen de fondo como <img> para control total del encuadre */
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Ajusta object-position para mover el encuadre:
+       "65% center" → mueve el foco al 65% desde la izquierda
+       Cambia el primer valor para desplazar horizontalmente */
+    object-position: 65% center;
+    z-index: 0;
+    pointer-events: none;
+    display: block;
   }
 
   .hero::before {
@@ -568,17 +575,14 @@
 <!-- HERO -->
 <section class="hero">
 
+  <!-- Imagen de fondo: usa <img> en lugar de background-image para control total del encuadre -->
+  <img class="hero-bg" src="src/img1.png" alt="">
+
   <div class="glow-orb glow-1"></div>
   <div class="glow-orb glow-2"></div>
 
   <div class="hero-inner">
 
-    <!-- =====================================================
-         PROFILE AVATAR
-         Replace src="" with your photo URL:
-         Example: src="https://yourdomain.com/photos/sofia-avatar.jpg"
-         Recommended size: 300x300 px minimum, square crop
-         ===================================================== -->
     <div class="avatar-wrap">
       <div class="avatar-ring">
         <div class="avatar-inner">
@@ -742,14 +746,6 @@
   </p>
   <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;">Exclusive content for adults 18+ only</p>
 </footer>
-
-<!-- FLOATING CTA mobile -->
-<div class="floating-cta">
-  <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-    Join Fanvue
-  </a>
-</div>
 
 </body>
 </html>
