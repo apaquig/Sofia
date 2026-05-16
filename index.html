@@ -1,1179 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sofía Gonzalez</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box
-    }
-
-    :root {
-      --black: #08060A;
-      --black2: #110D14;
-      --rose: #E8427C;
-      --rose-hot: #FF2D78;
-      --rose-pale: #FFB3CC;
-      --white: #FFFFFF;
-      --muted: rgba(255, 255, 255, 0.55);
-      --border: rgba(232, 66, 124, 0.25);
-    }
-
-    html { scroll-behavior: smooth }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--black);
-      color: var(--white);
-      overflow-x: hidden;
-    }
-
-    /* 1. NAME */
-    .top-hero {
-      text-align: center;
-      padding: 72px 24px 44px;
-      position: relative;
-    }
-
-    .top-hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 340px;
-      height: 280px;
-      background: radial-gradient(ellipse, rgba(232, 66, 124, 0.13) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .live-tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(232, 66, 124, 0.1);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 6px 18px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--rose-pale);
-      margin-bottom: 28px;
-    }
-
-    .live-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--rose);
-      animation: blink 1.8s infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1 }
-      50% { opacity: 0.3 }
-    }
-
-    .hero-name {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(58px, 10vw, 116px);
-      font-weight: 700;
-      line-height: 0.93;
-      letter-spacing: -2.5px;
-      color: var(--white);
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--rose);
-      display: block;
-    }
-
-    .hero-origin {
-      margin-top: 20px;
-      font-size: 12px;
-      font-weight: 400;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-
-    .ai-disclaimer {
-      margin-top: 16px;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      color: rgba(255, 255, 255, 0.28);
-      font-style: italic;
-    }
-
-    /* 2. CAROUSEL */
-    .carousel-wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 20px;
-      position: relative;
-    }
-
-    .carousel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
-      will-change: transform;
-    }
-
-    .carousel-slide {
-      flex: 0 0 100%;
-      position: relative;
-    }
-
-    .carousel-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: contain;
-      object-position: center top;
-      max-height: 55vh;
-      background: var(--black);
-    }
-
-    .carousel-vignette {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 60%, rgba(8,6,10,0.6) 100%);
-      pointer-events: none;
-    }
-
-    .photo-tag {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      background: rgba(8, 6, 10, 0.5);
-      border: 1px solid rgba(232, 66, 124, 0.3);
-      border-radius: 100px;
-      padding: 4px 14px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--rose-pale);
-      backdrop-filter: blur(6px);
-    }
-
-    /* Prev / Next arrows */
-    .carousel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 10;
-      background: rgba(8,6,10,0.55);
-      border: 1px solid rgba(232,66,124,0.35);
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s;
-      backdrop-filter: blur(6px);
-    }
-
-    .carousel-btn:hover {
-      background: rgba(232,66,124,0.2);
-      border-color: var(--rose);
-    }
-
-    .carousel-btn svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--rose-pale);
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .carousel-btn.prev { left: -22px; }
-    .carousel-btn.next { right: -22px; }
-
-    /* Dots */
-    .carousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 16px;
-    }
-
-    .carousel-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      cursor: pointer;
-      transition: background 0.25s, transform 0.25s;
-      border: none;
-      padding: 0;
-    }
-
-    .carousel-dot.active {
-      background: var(--rose);
-      transform: scale(1.35);
-    }
-
-    /* Counter badge */
-    .carousel-counter {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      background: rgba(8,6,10,0.55);
-      border: 1px solid rgba(232,66,124,0.25);
-      border-radius: 100px;
-      padding: 3px 12px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      color: var(--rose-pale);
-      backdrop-filter: blur(6px);
-      z-index: 5;
-    }
-
-    /* 3. PRESENTATION */
-    .presentation {
-      max-width: 660px;
-      margin: 0 auto;
-      padding: 60px 32px 0;
-      text-align: center;
-    }
-
-    .pres-divider {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 32px;
-    }
-
-    .pres-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(232, 66, 124, 0.4));
-    }
-
-    .pres-line.r {
-      background: linear-gradient(90deg, rgba(232, 66, 124, 0.4), transparent);
-    }
-
-    .pres-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--rose);
-      opacity: 0.7;
-    }
-
-    .pres-bio {
-      font-size: 17px;
-      line-height: 1.95;
-      color: rgba(255, 255, 255, 0.72);
-      margin-bottom: 20px;
-      font-weight: 300;
-    }
-
-    .pres-bio strong {
-      color: var(--white);
-      font-weight: 600;
-    }
-
-    .pres-highlight {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 20px;
-      color: var(--rose-pale);
-      margin-bottom: 48px;
-      line-height: 1.55;
-    }
-
-    /* 4. SUBSCRIBE BLOCK */
-    .subscribe-block {
-      max-width: 520px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
-    }
-
-    .subscribe-card {
-      background: rgba(232, 66, 124, 0.06);
-      border: 1px solid rgba(232, 66, 124, 0.2);
-      border-radius: 16px;
-      padding: 40px 40px 36px;
-      text-align: center;
-    }
-
-    .sub-eyebrow {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 10px;
-    }
-
-    .sub-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 8px;
-    }
-
-    .sub-desc {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 28px;
-      line-height: 1.7;
-    }
-
-    .btn-subscribe {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      width: 100%;
-      background: var(--rose);
-      color: var(--white);
-      font-family: 'Inter', sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 18px 32px;
-      border-radius: 8px;
-      transition: background 0.2s, transform 0.15s;
-      margin-bottom: 12px;
-    }
-
-    .btn-subscribe:hover {
-      background: var(--rose-hot);
-      transform: translateY(-2px);
-    }
-
-    .btn-subscribe svg {
-      width: 17px;
-      height: 17px;
-      flex-shrink: 0;
-    }
-
-    .btn-free {
-      display: block;
-      font-size: 12px;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-
-    .btn-free:hover { color: var(--white) }
-
-    .sub-perks {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .sub-perk {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .perk-dot-sm {
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      background: var(--rose);
-      opacity: 0.7;
-      flex-shrink: 0;
-    }
-
-    /* 5. GALLERY */
-    .gallery-section {
-      padding: 0 20px 80px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .gallery-label {
-      text-align: center;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 28px;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr 1fr;
-      gap: 10px;
-      height: 520px;
-    }
-
-    .gallery-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-
-    .gallery-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-      transition: transform 0.7s;
-    }
-
-    .gallery-card:hover img { transform: scale(1.05) }
-
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(8, 6, 10, 0.65) 0%, transparent 55%);
-      pointer-events: none;
-    }
-
-    .gallery-card-label {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(255, 255, 255, 0.55);
-    }
-
-    .gallery-locked img {
-      filter: brightness(0.2) blur(10px) saturate(0.3) !important;
-    }
-
-    .lock-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    .lock-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(232, 66, 124, 0.55);
-      background: rgba(8, 6, 10, 0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lock-circle svg {
-      width: 18px;
-      height: 18px;
-      stroke: var(--rose-pale);
-      fill: none;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .lock-label {
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--rose-pale);
-      text-align: center;
-      text-decoration: none;
-    }
-
-    /* 6. PERKS */
-    .perks-strip {
-      background: var(--black2);
-      border-top: 1px solid rgba(232, 66, 124, 0.12);
-      border-bottom: 1px solid rgba(232, 66, 124, 0.12);
-      padding: 32px 48px;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .perk { display: flex; align-items: center; gap: 14px; }
-
-    .perk-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      background: rgba(232, 66, 124, 0.1);
-      border: 1px solid rgba(232, 66, 124, 0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .perk-icon svg {
-      width: 17px;
-      height: 17px;
-      stroke: var(--rose);
-      fill: none;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .perk-title { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
-    .perk-desc  { font-size: 11px; color: var(--muted); }
-    .perk-sep   { width: 1px; height: 36px; background: rgba(255, 255, 255, 0.07); }
-
-    /* 7. ABOUT */
-    .about {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 80px 32px;
-      text-align: center;
-    }
-
-    .about-label {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 20px;
-    }
-
-    .about-quote {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(22px, 3.5vw, 34px);
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--white);
-      margin-bottom: 28px;
-    }
-
-    .about-quote span { color: var(--rose); }
-
-    .about-text {
-      font-size: 15px;
-      line-height: 1.9;
-      color: rgba(255, 255, 255, 0.6);
-      margin-bottom: 14px;
-    }
-
-    /* 8. FINAL CTA */
-    .final-cta {
-      text-align: center;
-      padding: 90px 24px 100px;
-      border-top: 1px solid rgba(232, 66, 124, 0.1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .final-cta::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 300px;
-      background: radial-gradient(ellipse, rgba(232, 66, 124, 0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .final-cta h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(34px, 5vw, 58px);
-      font-weight: 700;
-      font-style: italic;
-      line-height: 1.1;
-      color: var(--white);
-      margin-bottom: 16px;
-      position: relative;
-    }
-
-    .final-cta h2 span { color: var(--rose); }
-
-    .final-cta p {
-      font-size: 14px;
-      color: var(--muted);
-      margin-bottom: 40px;
-      position: relative;
-    }
-
-    .cta-row {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    .btn-main {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--rose);
-      color: var(--white);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 17px 36px;
-      border-radius: 8px;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-main:hover { background: var(--rose-hot); transform: translateY(-2px); }
-
-    .btn-ghost {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(232, 66, 124, 0.35);
-      color: var(--rose-pale);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      text-decoration: none;
-      padding: 17px 32px;
-      border-radius: 8px;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .btn-ghost:hover { border-color: var(--rose); background: rgba(232, 66, 124, 0.07); }
-
-    /* FOOTER */
-    footer {
-      background: #050308;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      padding: 28px 48px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .footer-name {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 18px;
-      color: rgba(255, 255, 255, 0.5);
-    }
-
-    .footer-legal {
-      font-size: 11px;
-      color: rgba(255, 255, 255, 0.25);
-      letter-spacing: 1px;
-    }
-
-    .ai-disclaimer {
-      width: 100%;
-      font-size: 10px;
-      font-weight: 400;
-      letter-spacing: 0.5px;
-      color: rgba(255, 255, 255, 0.22);
-      font-style: italic;
-      text-align: center;
-      padding-top: 10px;
-      border-top: 1px solid rgba(255,255,255,0.05);
-    }
-
-    /* ═══════════════════════════════
-       RESPONSIVE — TABLET (≤900px)
-    ═══════════════════════════════ */
-    @media (max-width: 900px) {
-      .carousel-wrap {
-        max-width: 100%;
-        padding: 0 14px;
-      }
-
-      .carousel-btn.prev { left: -10px; }
-      .carousel-btn.next { right: -10px; }
-
-      .gallery-section {
-        padding: 0 16px 60px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto auto;
-        height: auto;
-        gap: 8px;
-      }
-
-      .gallery-card {
-        height: 48vw;
-        max-height: 320px;
-      }
-
-      /* foto central ocupa fila completa en tablet */
-      .gallery-grid .gallery-card:nth-child(2) {
-        grid-column: 1 / 3;
-        height: 52vw;
-        max-height: 340px;
-      }
-
-      .perks-strip {
-        padding: 28px 24px;
-        gap: 16px;
-      }
-
-      .perk-sep { display: none; }
-    }
-
-    /* ═══════════════════════════════
-       RESPONSIVE — MÓVIL (≤640px)
-    ═══════════════════════════════ */
-    @media (max-width: 640px) {
-
-      /* — Nombre — */
-      .top-hero {
-        padding: 48px 20px 28px;
-      }
-
-      .hero-name {
-        letter-spacing: -1px;
-      }
-
-      .hero-origin {
-        font-size: 11px;
-        letter-spacing: 2.5px;
-        margin-top: 14px;
-      }
-
-      /* — Fotos: carrusel a ancho completo — */
-      .carousel-wrap {
-        padding: 0 8px;
-      }
-
-      .carousel-slide img {
-        max-height: 45vh;
-      }
-
-      .carousel-btn.prev { left: -8px; }
-      .carousel-btn.next { right: -8px; }
-
-      .carousel-btn {
-        width: 36px;
-        height: 36px;
-      }
-
-      /* — Presentación — */
-      .presentation {
-        padding: 40px 20px 0;
-      }
-
-      .pres-bio {
-        font-size: 15px;
-        line-height: 1.85;
-      }
-
-      .pres-highlight {
-        font-size: 16px;
-        margin-bottom: 36px;
-      }
-
-      /* — Suscripción — */
-      .subscribe-block {
-        padding: 0 14px 60px;
-      }
-
-      .subscribe-card {
-        padding: 28px 20px 24px;
-        border-radius: 12px;
-      }
-
-      .sub-title {
-        font-size: 22px;
-      }
-
-      .sub-desc {
-        font-size: 12px;
-      }
-
-      .sub-perks {
-        gap: 12px;
-      }
-
-      /* — Galería: una columna — */
-      .gallery-section {
-        padding: 0 14px 60px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-        height: auto;
-        gap: 8px;
-      }
-
-      .gallery-card {
-        height: 75vw;
-        max-height: 400px;
-      }
-
-      /* anula la regla del tablet para la foto central */
-      .gallery-grid .gallery-card:nth-child(2) {
-        grid-column: auto;
-        height: 75vw;
-        max-height: 400px;
-      }
-
-      /* — Perks: lista vertical — */
-      .perks-strip {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 28px 20px;
-        gap: 18px;
-      }
-
-      /* — About — */
-      .about {
-        padding: 60px 20px;
-      }
-
-      .about-text {
-        font-size: 14px;
-      }
-
-      /* — CTA final — */
-      .final-cta {
-        padding: 60px 20px 70px;
-      }
-
-      .cta-row {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      .btn-main,
-      .btn-ghost {
-        width: 100%;
-        max-width: 320px;
-        justify-content: center;
-        text-align: center;
-      }
-
-      /* — Footer — */
-      footer {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 20px;
-        gap: 6px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofia Gonzalez — Fanvue</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #C8647A;
+    --rose-light: #F5DDE3;
+    --rose-dark: #8B3A4F;
+    --gold: #C9A96E;
+    --gold-light: #F0E6D3;
+    --cream: #FAF7F4;
+    --dark: #1A1218;
+    --mid: #3D2E35;
+    --text-muted: #7A6570;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--dark);
+    color: #F5EEF0;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    /* =====================================================
+       HERO BACKGROUND IMAGE
+       Replace the URL below with your image:
+       background-image: url('YOUR_IMAGE_HERE.jpg');
+       ===================================================== */
+    background-color: #2A1820;
+    background-image: url('src/img1.png'); /* <-- PUT YOUR BACKGROUND IMAGE URL HERE */
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(15,8,12,0.55) 0%, rgba(15,8,12,0.70) 60%, rgba(15,8,12,0.92) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: pulse 6s ease-in-out infinite;
+  }
+  .glow-1 { width: 400px; height: 400px; background: rgba(200,100,122,0.18); top: -100px; right: -80px; }
+  .glow-2 { width: 300px; height: 300px; background: rgba(201,169,110,0.12); bottom: 0; left: -60px; animation-delay: 3s; }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+  }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 2rem;
+    max-width: 680px;
+    animation: fadeUp 1s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── AVATAR ── */
+  .avatar-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 2rem;
+  }
+
+  .avatar-ring {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--rose), var(--gold));
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin-ring 8s linear infinite;
+  }
+
+  @keyframes spin-ring {
+    from { background: linear-gradient(0deg, var(--rose), var(--gold)); }
+    to   { background: linear-gradient(360deg, var(--rose), var(--gold)); }
+  }
+
+  .avatar-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #2A1820;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .avatar-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 50%;
+    display: block;
+  }
+
+  .avatar-inner img[src=""],
+  .avatar-inner img:not([src]) {
+    display: none;
+  }
+
+  .avatar-fallback {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    color: var(--rose);
+    letter-spacing: -2px;
+  }
+
+  .live-badge {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: #E8395A;
+    color: white;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .live-dot {
+    width: 6px; height: 6px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 1.2s ease infinite;
+  }
+
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .tagline {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+    line-height: 1.05;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #F5EEF0 30%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--rose-light) 0%, var(--rose) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(245,238,240,0.65);
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.7;
+  }
+
+  @keyframes cta-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,100,122,0.7), 0 0 0 0 rgba(200,100,122,0.4); }
+    50% { box-shadow: 0 0 0 10px rgba(200,100,122,0), 0 0 0 20px rgba(200,100,122,0); }
+  }
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%) skewX(-15deg); }
+    100% { transform: translateX(250%) skewX(-15deg); }
+  }
+
+  @keyframes cta-float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 1rem 2.5rem;
+    border-radius: 60px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    animation: cta-pulse 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite;
+  }
+
+  .cta-primary::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    animation: shimmer 2.2s ease-in-out infinite;
+  }
+
+  .cta-primary::after {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 60px;
+    background: linear-gradient(135deg, var(--rose), var(--gold), var(--rose));
+    background-size: 200% 200%;
+    z-index: -1;
+    animation: border-spin 3s linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes border-spin {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .cta-primary:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 16px 48px rgba(200,100,122,0.6);
+    animation: none;
+  }
+
+  .cta-primary svg { width: 18px; height: 18px; flex-shrink: 0; animation: heartbeat 1.8s ease infinite; }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14% { transform: scale(1.25); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.15); }
+    56% { transform: scale(1); }
+  }
+
+  .cta-note {
+    font-size: 0.78rem;
+    color: rgba(245,238,240,0.35);
+    letter-spacing: 0.5px;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.3;
+    animation: bounce 2s ease infinite;
+    z-index: 2;
+  }
+
+  .scroll-hint span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(200,100,122,0.15);
+    border-bottom: 1px solid rgba(200,100,122,0.15);
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    flex-wrap: wrap;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,238,240,0.35); margin-top: 4px; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 0.75rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title em { font-style: italic; color: var(--rose-light); }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    .stats-bar { gap: 1.5rem; }
+  }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: rgba(245,238,240,0.7);
+  }
+
+  .about-text strong { color: var(--rose-light); font-weight: 500; }
+
+  .feature-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: rgba(245,238,240,0.75);
+  }
+
+  .feature-list li::before {
+    content: '';
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(200,100,122,0.2);
+    border: 1px solid var(--rose);
+    flex-shrink: 0;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23C8647A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  /* ── OFFER CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2.5rem;
+  }
+
+  .offer-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(200,100,122,0.2);
+    border-radius: 16px;
+    padding: 1.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .offer-card:hover { border-color: rgba(200,100,122,0.5); transform: translateY(-4px); }
+  .offer-card:hover::before { opacity: 1; }
+
+  .card-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+    color: #F5EEF0;
+  }
+
+  .card-desc { font-size: 0.85rem; color: rgba(245,238,240,0.5); line-height: 1.6; }
+
+  .card-featured { border-color: rgba(201,169,110,0.4); background: rgba(201,169,110,0.05); }
+  .card-featured .card-title { color: var(--gold); }
+
+  /* ── TESTIMONIALS ── */
+  .testimonials { background: rgba(255,255,255,0.02); border-top: 1px solid rgba(200,100,122,0.1); border-bottom: 1px solid rgba(200,100,122,0.1); }
+  .testimonials .section { padding: 4rem 2rem; }
+
+  .quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin-top: 2rem;
+  }
+
+  .quote-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+
+  .quote-stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 0.75rem; }
+  .quote-text { font-size: 0.88rem; line-height: 1.7; color: rgba(245,238,240,0.65); font-style: italic; margin-bottom: 0.75rem; }
+  .quote-author { font-size: 0.78rem; color: var(--rose); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── FINAL CTA ── */
+  .final-cta {
+    text-align: center;
+    padding: 6rem 2rem;
+    background: radial-gradient(ellipse at center, #3D1E2A 0%, #1A1218 70%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .final-cta::before {
+    content: 'SG';
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 30vw;
+    color: rgba(200,100,122,0.04);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .final-cta .section-title { margin-bottom: 1rem; }
+
+  .final-cta p {
+    font-size: 1rem;
+    color: rgba(245,238,240,0.5);
+    margin-bottom: 2.5rem;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-group { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.75rem;
+    color: rgba(245,238,240,0.2);
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  footer a { color: var(--rose); text-decoration: none; }
+
+  /* ── FLOATING CTA (mobile) ── */
+  .floating-cta {
+    display: none;
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    width: calc(100% - 3rem);
+    max-width: 380px;
+  }
+
+  .floating-cta a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 1rem;
+    border-radius: 60px;
+    box-shadow: 0 8px 32px rgba(200,100,122,0.5);
+  }
+
+  @media (max-width: 640px) {
+    .floating-cta { display: block; }
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, var(--rose), transparent);
+    margin: 0 auto 1rem;
+  }
+</style>
 </head>
-
 <body>
 
-  <!-- 1. NAME -->
-  <div class="top-hero">
-    <!-- <div class="live-tag">
-      <span class="live-dot"></span>
-      Now on Fanvue
-    </div> -->
-    <h1 class="hero-name">
-      Sofía
-      <em>Gonzalez</em>
-    </h1>
-    <p class="hero-origin">My Private Farm… where no one sees us and everything is permitted.</p>
-  </div>
+<!-- HERO -->
+<section class="hero">
 
-  <!-- 2. CAROUSEL (5 fotos) -->
-  <div class="carousel-wrap">
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
 
-    <button class="carousel-btn prev" id="prev" aria-label="Previous">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
+  <div class="hero-inner">
 
-    <div class="carousel" id="carousel">
-      <div class="carousel-track" id="track">
-
-        <div class="carousel-slide">
-          <img src="src/img8.jpeg" alt="Sofía Gonzalez" loading="eager"/>
-          <div class="carousel-vignette"></div>
-          <span class="photo-tag">Sofía G.</span>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="src/ing4.png" alt="Sofía exclusive" loading="eager"/>
-          <div class="carousel-vignette"></div>
-          <span class="photo-tag">Exclusive</span>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="src/img10.jpeg" alt="Sofía portrait" loading="lazy"/>
-          <div class="carousel-vignette"></div>
-          <span class="photo-tag">Portrait</span>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="src/img2.png" alt="Sofía Colombia" loading="lazy"/>
-          <div class="carousel-vignette"></div>
-          <span class="photo-tag">Colombia</span>
-        </div>
-
-        <div class="carousel-slide">
-          <img src="src/img9.jpeg" alt="Sofía countryside" loading="lazy"/>
-          <div class="carousel-vignette"></div>
-          <span class="photo-tag">Countryside</span>
-        </div>
-
-      </div>
-      <span class="carousel-counter" id="counter">1 / 5</span>
-    </div>
-
-    <button class="carousel-btn next" id="next" aria-label="Next">
-      <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-
-    <div class="carousel-dots" id="dots">
-      <button class="carousel-dot active" data-i="0"></button>
-      <button class="carousel-dot" data-i="1"></button>
-      <button class="carousel-dot" data-i="2"></button>
-      <button class="carousel-dot" data-i="3"></button>
-      <button class="carousel-dot" data-i="4"></button>
-    </div>
-
-  </div>
-
-  <!-- 3. PRESENTATION -->
-  <div class="presentation">
-    <div class="pres-divider">
-      <div class="pres-line"></div>
-      <div class="pres-dot"></div>
-      <div class="pres-line r"></div>
-    </div>
-    <!-- -->
-  </div>
-
-  <!-- 4. SUBSCRIBE -->
-  <div class="subscribe-block">
-    <div class="subscribe-card">
-      <p class="sub-eyebrow">Exclusive access</p>
-      <h2 class="sub-title">Join Sofía's World</h2>
-      <p class="sub-desc">Daily photos, personal videos, private DMs and content you won't find anywhere else. First month discounted.</p>
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-subscribe" target="_blank">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
-          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
-          <line x1="6" y1="1" x2="6" y2="4" />
-          <line x1="10" y1="1" x2="10" y2="4" />
-          <line x1="14" y1="1" x2="14" y2="4" />
-        </svg>
-        Enter My Private Farm
-      </a>
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-free" target="_blank">Free preview available — no credit card required</a>
-    </div>
-  </div>
-
-  <!-- 5. GALLERY -->
-  <div class="gallery-section">
-    <p class="gallery-label">A glimpse inside</p>
-    <div class="gallery-grid">
-      <div class="gallery-card">
-        <img src="src/img1.jpeg" alt="Sofía portrait" />
-        <div class="gallery-overlay"></div>
-        <span class="gallery-card-label">Portrait</span>
-      </div>
-      <div class="gallery-card">
-        <img src="src/img2.png" alt="Sofía Colombia" />
-        <div class="gallery-overlay"></div>
-        <span class="gallery-card-label">Colombia</span>
-      </div>
-      <div class="gallery-card gallery-locked">
-        <img src="src/img6.jpg" alt="Exclusive" />
-        <div class="lock-overlay">
-          <div class="lock-circle">
-            <svg viewBox="0 0 24 24">
-              <rect x="3" y="11" width="18" height="11" rx="2" />
-              <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-            </svg>
-          </div>
-          <a href="https://www.fanvue.com/sofiagonzalezofficial" class="lock-label" target="_blank">Subscribers<br>only</a>
+    <!-- =====================================================
+         PROFILE AVATAR
+         Replace src="" with your photo URL:
+         Example: src="https://yourdomain.com/photos/sofia-avatar.jpg"
+         Recommended size: 300x300 px minimum, square crop
+         ===================================================== -->
+    <div class="avatar-wrap">
+      <div class="avatar-ring">
+        <div class="avatar-inner">
+          <img
+            src="src/img2.png"
+            alt="Sofia Gonzalez"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <span class="avatar-fallback" style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
         </div>
       </div>
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        Online
+      </div>
     </div>
-  </div>
 
-  <!-- 6. PERKS STRIP -->
-  <div class="perks-strip">
-    <div class="perk">
-      <div class="perk-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-          <circle cx="12" cy="13" r="4" />
-        </svg>
-      </div>
-      <div>
-        <div class="perk-title">Daily photos & videos</div>
-        <div class="perk-desc">Fresh exclusive content every day</div>
-      </div>
-    </div>
-    <div class="perk-sep"></div>
-    <div class="perk">
-      <div class="perk-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        </svg>
-      </div>
-      <div>
-        <div class="perk-title">Personal DMs</div>
-        <div class="perk-desc">She reads & replies to every fan</div>
-      </div>
-    </div>
-    <div class="perk-sep"></div>
-    <div class="perk">
-      <div class="perk-icon">
-        <svg viewBox="0 0 24 24">
-          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-        </svg>
-      </div>
-      <div>
-        <div class="perk-title">Custom content</div>
-        <div class="perk-desc">Made just for you on request</div>
-      </div>
-    </div>
-    <div class="perk-sep"></div>
-    <div class="perk">
-      <div class="perk-icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="8" r="7" />
-          <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
-        </svg>
-      </div>
-      <div>
-        <div class="perk-title">VIP early access</div>
-        <div class="perk-desc">Before anyone else sees it</div>
-      </div>
-    </div>
-  </div>
+    <p class="tagline">Fanvue Exclusive &middot; Colombia</p>
 
-  <!-- 7. ABOUT -->
-<div class="about">
-    <p class="about-label">Her story</p>
-    
-    <p class="about-quote">"Hey, I’m Sofía <span>✨</span>"</p>
-    
-    <p class="about-text">
-        Colombian girl born between misty coffee mountains and golden fields that kiss the sun. 
-        I grew up where the Andes touch the sky… and I brought all that wild, untamed heat with me.
+    <h1>Sofia<br><em>Gonzalez</em></h1>
+
+    <p class="hero-sub">
+      Exclusive, authentic and deeply personal content.<br>
+      Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.
     </p>
-    
-    <p class="about-text">
-        I’m not here to pretend. No filters, no masks — just the real Sofía. 
-        Warm countryside smile, sun-kissed skin, and a naughty side I only show to those who really want to know me.
-    </p>
-    
-    <p class="about-text">
-        Inside my world you’ll find the authentic me:
-        <br><br>
-        • My daily life in the countryside<br>
-        • Spicy behind-the-scenes moments<br>
-        • Personal messages just for you<br>
-        • Unfiltered & intimate content I’d never post anywhere else
-    </p>
-    
-    <p class="about-text text-pink-300 font-medium">
-        Come closer, papi… let me take you deep into my private Colombia. 
-        Where the sun is hot… and the nights are even hotter.
-    </p>
-    
-    <p class="about-text mt-6 italic">
-        Welcome to my secret little paradise 🌾
-    </p>
+
+    <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Join Now &mdash; Fanvue
+    </a>
+
+    <p class="cta-note">&#128274; Secure access &middot; Cancel anytime</p>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat">
+    <span class="stat-num">23</span>
+    <span class="stat-label">Years old</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">&#127464;&#127476;</span>
+    <span class="stat-label">Colombia</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">5K+</span>
+    <span class="stat-label">Subscribers</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">100%</span>
+    <span class="stat-label">Original content</span>
+  </div>
 </div>
 
-  <!-- 8. FINAL CTA -->
-  <section class="final-cta">
-    <h2>Ready to meet<br><span>the real Sofía?</span></h2>
-    <p>New content every day · Cancel anytime · First month discounted</p>
-    <div class="cta-row">
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-main" target="_blank">Enter My Private Farm</a>
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" class="btn-ghost" target="_blank">Free Preview</a>
+<!-- ABOUT -->
+<section class="section">
+  <div class="about-grid">
+    <div>
+      <p class="section-label">About me</p>
+      <h2 class="section-title">The woman behind<br>the <em>screen</em></h2>
+      <p class="about-text">
+        Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you. I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.
+        <br><br>
+        My Fanvue is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll never find on any social media. Every piece of content is created with love, just for you.
+      </p>
     </div>
-  </section>
+    <ul class="feature-list">
+      <li>Exclusive photos &amp; videos I don&rsquo;t post anywhere else</li>
+      <li>Daily updates for my subscribers</li>
+      <li>Private chat directly with me &mdash; I reply personally</li>
+      <li>Custom content on request for special subscribers</li>
+      <li>Early access to all my new content</li>
+      <li>Private, discreet community &mdash; 100% safe</li>
+    </ul>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer>
-    <span class="footer-name">Sofía Gonzalez</span>
-    <span class="footer-legal">© 2026 · All rights reserved · 18+ Only</span>
-    <p class="ai-disclaimer">✦ Sofía is a 100% AI-generated virtual model. All content is fictional and for entertainment.</p>
-  </footer>
+<!-- OFFER CARDS -->
+<section style="padding: 0 2rem 5rem; max-width: 900px; margin: 0 auto;">
+  <div class="divider"></div>
+  <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;">What awaits you</p>
+  <h2 class="section-title" style="text-align:center;">A truly <em>unique</em> experience</h2>
 
-  <script>
-    const track   = document.getElementById('track');
-    const dots    = document.querySelectorAll('.carousel-dot');
-    const counter = document.getElementById('counter');
-    const total   = 5;
-    let current   = 0;
-    let autoTimer;
+  <div class="cards-grid">
+    <div class="offer-card">
+      <span class="card-icon">&#128248;</span>
+      <h3 class="card-title">Exclusive Photos</h3>
+      <p class="card-desc">Professional and candid photo sets I share only with my subscribers.</p>
+    </div>
+    <div class="offer-card card-featured">
+      <span class="card-icon">&#127916;</span>
+      <h3 class="card-title">Private Videos</h3>
+      <p class="card-desc">High-quality, intimate and authentic video content. The community favorite.</p>
+    </div>
+    <div class="offer-card">
+      <span class="card-icon">&#128172;</span>
+      <h3 class="card-title">Direct Chat</h3>
+      <p class="card-desc">Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.</p>
+    </div>
+    <div class="offer-card">
+      <span class="card-icon">&#11088;</span>
+      <h3 class="card-title">VIP Content</h3>
+      <p class="card-desc">Personalized custom content for those who want something truly special.</p>
+    </div>
+  </div>
+</section>
 
-    function goTo(index) {
-      current = (index + total) % total;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
-      counter.textContent = `${current + 1} / ${total}`;
-    }
+<!-- TESTIMONIALS -->
+<div class="testimonials">
+  <div class="section">
+    <div class="divider"></div>
+    <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;">What they say</p>
+    <h2 class="section-title" style="text-align:center;">My <em>community</em> speaks</h2>
 
-    document.getElementById('prev').addEventListener('click', () => { goTo(current - 1); resetAuto(); });
-    document.getElementById('next').addEventListener('click', () => { goTo(current + 1); resetAuto(); });
-    dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i); resetAuto(); }));
+    <div class="quotes-grid">
+      <div class="quote-card">
+        <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote-text">&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;</p>
+        <span class="quote-author">&mdash; J. M., VIP subscriber</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote-text">&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;</p>
+        <span class="quote-author">&mdash; R. T., Premium subscriber</span>
+      </div>
+      <div class="quote-card">
+        <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="quote-text">&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;</p>
+        <span class="quote-author">&mdash; A. K., active member</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-    /* Auto-advance every 4s */
-    function startAuto() { autoTimer = setInterval(() => goTo(current + 1), 4000); }
-    function resetAuto()  { clearInterval(autoTimer); startAuto(); }
-    startAuto();
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="divider"></div>
+  <p class="section-label">Start today</p>
+  <h2 class="section-title">Ready to<br><em>join?</em></h2>
+  <p>Subscribe now and access the exclusive content only my fans get to see.</p>
+  <div class="cta-group">
+    <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary" style="font-size:1rem; padding: 1.1rem 3rem;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      View my Fanvue &mdash; @sofiagonzalezofficial
+    </a>
+    <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;">&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed</span>
+  </div>
+</section>
 
-    /* Touch / swipe support */
-    let touchStartX = 0;
-    const carousel = document.getElementById('carousel');
-    carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-    carousel.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) { goTo(diff > 0 ? current + 1 : current - 1); resetAuto(); }
-    }, { passive: true });
-  </script>
+<!-- FOOTER -->
+<footer>
+  <p>&copy; 2025 Sofia Gonzalez &middot; All rights reserved</p>
+  <p style="margin-top: 6px;">
+    <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener">fanvue.com/sofiagonzalezofficial</a>
+  </p>
+  <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;">Exclusive content for adults 18+ only</p>
+</footer>
+
+<!-- FLOATING CTA mobile -->
+<div class="floating-cta">
+  <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    Join Fanvue
+  </a>
+</div>
 
 </body>
 </html>
