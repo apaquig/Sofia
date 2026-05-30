@@ -1,751 +1,1093 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sofia Gonzalez — Fanvue</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sofia Gonzalez — Exclusive Content</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  :root {
-    --rose: #C8647A;
-    --rose-light: #F5DDE3;
-    --rose-dark: #8B3A4F;
-    --gold: #C9A96E;
-    --gold-light: #F0E6D3;
-    --cream: #FAF7F4;
-    --dark: #1A1218;
-    --mid: #3D2E35;
-    --text-muted: #7A6570;
-  }
+    :root {
+      --rose: #C8647A;
+      --rose-light: #F5DDE3;
+      --rose-dark: #8B3A4F;
+      --gold: #C9A96E;
+      --gold-light: #F0E6D3;
+      --cream: #FAF7F4;
+      --dark: #1A1218;
+      --mid: #3D2E35;
+      --text-muted: #7A6570;
+    }
 
-  html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-  body {
-    font-family: 'Jost', sans-serif;
-    background: var(--dark);
-    color: #F5EEF0;
-    overflow-x: hidden;
-    cursor: default;
-  }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--dark);
+      color: #F5EEF0;
+      overflow-x: hidden;
+      cursor: default;
+    }
 
-  /* ── HERO ── */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    background-color: #2A1820;
-  }
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background-color: #2A1820;
+    }
 
-  /* Imagen de fondo como <img> para control total del encuadre */
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Ajusta object-position para mover el encuadre:
+    /* Imagen de fondo como <img> para control total del encuadre */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Ajusta object-position para mover el encuadre:
        "65% center" → mueve el foco al 65% desde la izquierda
        Cambia el primer valor para desplazar horizontalmente */
-    object-position: 65% center;
-    z-index: 0;
-    pointer-events: none;
-    display: block;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(15,8,12,0.55) 0%, rgba(15,8,12,0.70) 60%, rgba(15,8,12,0.92) 100%);
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .glow-orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    animation: pulse 6s ease-in-out infinite;
-  }
-  .glow-1 { width: 400px; height: 400px; background: rgba(200,100,122,0.18); top: -100px; right: -80px; }
-  .glow-2 { width: 300px; height: 300px; background: rgba(201,169,110,0.12); bottom: 0; left: -60px; animation-delay: 3s; }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; }
-  }
-
-  .hero-inner {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding: 2rem;
-    max-width: 680px;
-    animation: fadeUp 1s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── AVATAR ── */
-  .avatar-wrap {
-    position: relative;
-    display: inline-block;
-    margin-bottom: 2rem;
-  }
-
-  .avatar-ring {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--rose), var(--gold));
-    padding: 3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: spin-ring 8s linear infinite;
-  }
-
-  @keyframes spin-ring {
-    from { background: linear-gradient(0deg, var(--rose), var(--gold)); }
-    to   { background: linear-gradient(360deg, var(--rose), var(--gold)); }
-  }
-
-  .avatar-inner {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #2A1820;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .avatar-inner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 50%;
-    display: block;
-  }
-
-  .avatar-inner img[src=""],
-  .avatar-inner img:not([src]) {
-    display: none;
-  }
-
-  .avatar-fallback {
-    font-family: 'Playfair Display', serif;
-    font-size: 3rem;
-    color: var(--rose);
-    letter-spacing: -2px;
-  }
-
-  .live-badge {
-    position: absolute;
-    bottom: 6px;
-    right: 6px;
-    background: #E8395A;
-    color: white;
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 1.5px;
-    padding: 3px 9px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-
-  .live-dot {
-    width: 6px; height: 6px;
-    background: white;
-    border-radius: 50%;
-    animation: blink 1.2s ease infinite;
-  }
-
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
-
-  .tagline {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-  }
-
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.8rem, 8vw, 4.5rem);
-    line-height: 1.05;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    background: linear-gradient(135deg, #F5EEF0 30%, var(--gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  h1 em {
-    font-style: italic;
-    background: linear-gradient(135deg, var(--rose-light) 0%, var(--rose) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .hero-sub {
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: rgba(245,238,240,0.65);
-    max-width: 420px;
-    margin: 0 auto 2.5rem;
-    line-height: 1.7;
-  }
-
-  @keyframes cta-pulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(200,100,122,0.7), 0 0 0 0 rgba(200,100,122,0.4); }
-    50% { box-shadow: 0 0 0 10px rgba(200,100,122,0), 0 0 0 20px rgba(200,100,122,0); }
-  }
-
-  @keyframes shimmer {
-    0% { transform: translateX(-100%) skewX(-15deg); }
-    100% { transform: translateX(250%) skewX(-15deg); }
-  }
-
-  @keyframes cta-float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-  }
-
-  .cta-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
-    color: white;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 1rem 2.5rem;
-    border-radius: 60px;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 1rem;
-    animation: cta-pulse 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite;
-  }
-
-  .cta-primary::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
-    animation: shimmer 2.2s ease-in-out infinite;
-  }
-
-  .cta-primary::after {
-    content: '';
-    position: absolute;
-    inset: -3px;
-    border-radius: 60px;
-    background: linear-gradient(135deg, var(--rose), var(--gold), var(--rose));
-    background-size: 200% 200%;
-    z-index: -1;
-    animation: border-spin 3s linear infinite;
-    opacity: 0.7;
-  }
-
-  @keyframes border-spin {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .cta-primary:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 16px 48px rgba(200,100,122,0.6);
-    animation: none;
-  }
-
-  .cta-primary svg { width: 18px; height: 18px; flex-shrink: 0; animation: heartbeat 1.8s ease infinite; }
-
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    14% { transform: scale(1.25); }
-    28% { transform: scale(1); }
-    42% { transform: scale(1.15); }
-    56% { transform: scale(1); }
-  }
-
-  .cta-note {
-    font-size: 0.78rem;
-    color: rgba(245,238,240,0.35);
-    letter-spacing: 0.5px;
-  }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    opacity: 0.3;
-    animation: bounce 2s ease infinite;
-    z-index: 2;
-  }
-
-  .scroll-hint span { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
-
-  @keyframes bounce {
-    0%,100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(6px); }
-  }
-
-  /* ── STATS BAR ── */
-  .stats-bar {
-    background: rgba(255,255,255,0.03);
-    border-top: 1px solid rgba(200,100,122,0.15);
-    border-bottom: 1px solid rgba(200,100,122,0.15);
-    padding: 1.5rem 2rem;
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    flex-wrap: wrap;
-    animation: fadeUp 1s ease 0.3s both;
-  }
-
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-  }
-  .stat-label { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(245,238,240,0.35); margin-top: 4px; }
-
-  /* ── SECTIONS ── */
-  .section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
-
-  .section-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 0.75rem;
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 2.6rem);
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-  }
-
-  .section-title em { font-style: italic; color: var(--rose-light); }
-
-  /* ── ABOUT ── */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-
-  @media (max-width: 640px) {
-    .about-grid { grid-template-columns: 1fr; }
-    .stats-bar { gap: 1.5rem; }
-  }
-
-  .about-text {
-    font-size: 1rem;
-    line-height: 1.85;
-    color: rgba(245,238,240,0.7);
-  }
-
-  .about-text strong { color: var(--rose-light); font-weight: 500; }
-
-  .feature-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .feature-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 0.95rem;
-    color: rgba(245,238,240,0.75);
-  }
-
-  .feature-list li::before {
-    content: '';
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: rgba(200,100,122,0.2);
-    border: 1px solid var(--rose);
-    flex-shrink: 0;
-    margin-top: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23C8647A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: center;
-  }
-
-  /* ── OFFER CARDS ── */
-  .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
-    margin-top: 2.5rem;
-  }
-
-  .offer-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(200,100,122,0.2);
-    border-radius: 16px;
-    padding: 1.75rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .offer-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--rose), var(--gold));
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-
-  .offer-card:hover { border-color: rgba(200,100,122,0.5); transform: translateY(-4px); }
-  .offer-card:hover::before { opacity: 1; }
-
-  .card-icon { font-size: 1.5rem; margin-bottom: 1rem; display: block; }
-
-  .card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
-    margin-bottom: 0.5rem;
-    color: #F5EEF0;
-  }
-
-  .card-desc { font-size: 0.85rem; color: rgba(245,238,240,0.5); line-height: 1.6; }
-
-  .card-featured { border-color: rgba(201,169,110,0.4); background: rgba(201,169,110,0.05); }
-  .card-featured .card-title { color: var(--gold); }
-
-  /* ── TESTIMONIALS ── */
-  .testimonials { background: rgba(255,255,255,0.02); border-top: 1px solid rgba(200,100,122,0.1); border-bottom: 1px solid rgba(200,100,122,0.1); }
-  .testimonials .section { padding: 4rem 2rem; }
-
-  .quotes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.25rem;
-    margin-top: 2rem;
-  }
-
-  .quote-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    padding: 1.5rem;
-  }
-
-  .quote-stars { color: var(--gold); font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 0.75rem; }
-  .quote-text { font-size: 0.88rem; line-height: 1.7; color: rgba(245,238,240,0.65); font-style: italic; margin-bottom: 0.75rem; }
-  .quote-author { font-size: 0.78rem; color: var(--rose); letter-spacing: 1px; text-transform: uppercase; }
-
-  /* ── FINAL CTA ── */
-  .final-cta {
-    text-align: center;
-    padding: 6rem 2rem;
-    background: radial-gradient(ellipse at center, #3D1E2A 0%, #1A1218 70%);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .final-cta::before {
-    content: 'SG';
-    position: absolute;
-    font-family: 'Playfair Display', serif;
-    font-size: 30vw;
-    color: rgba(200,100,122,0.04);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    line-height: 1;
-  }
-
-  .final-cta .section-title { margin-bottom: 1rem; }
-
-  .final-cta p {
-    font-size: 1rem;
-    color: rgba(245,238,240,0.5);
-    margin-bottom: 2.5rem;
-    max-width: 380px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cta-group { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 2rem;
-    font-size: 0.75rem;
-    color: rgba(245,238,240,0.2);
-    letter-spacing: 1px;
-    border-top: 1px solid rgba(255,255,255,0.05);
-  }
-
-  footer a { color: var(--rose); text-decoration: none; }
-
-  /* ── FLOATING CTA (mobile) ── */
-  .floating-cta {
-    display: none;
-    position: fixed;
-    bottom: 1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 100;
-    width: calc(100% - 3rem);
-    max-width: 380px;
-  }
-
-  .floating-cta a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
-    color: white;
-    text-decoration: none;
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    padding: 1rem;
-    border-radius: 60px;
-    box-shadow: 0 8px 32px rgba(200,100,122,0.5);
-  }
-
-  @media (max-width: 640px) {
-    .floating-cta { display: block; }
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    width: 60px; height: 1px;
-    background: linear-gradient(90deg, var(--rose), transparent);
-    margin: 0 auto 1rem;
-  }
-</style>
+      object-position: 65% center;
+      z-index: 0;
+      pointer-events: none;
+      display: block;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(15, 8, 12, 0.55) 0%, rgba(15, 8, 12, 0.70) 60%, rgba(15, 8, 12, 0.92) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: pulse 6s ease-in-out infinite;
+    }
+
+    .glow-1 {
+      width: 400px;
+      height: 400px;
+      background: rgba(200, 100, 122, 0.18);
+      top: -100px;
+      right: -80px;
+    }
+
+    .glow-2 {
+      width: 300px;
+      height: 300px;
+      background: rgba(201, 169, 110, 0.12);
+      bottom: 0;
+      left: -60px;
+      animation-delay: 3s;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 680px;
+      animation: fadeUp 1s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ── AVATAR ── */
+    .avatar-wrap {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-ring {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--gold));
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: spin-ring 8s linear infinite;
+    }
+
+    @keyframes spin-ring {
+      from {
+        background: linear-gradient(0deg, var(--rose), var(--gold));
+      }
+
+      to {
+        background: linear-gradient(360deg, var(--rose), var(--gold));
+      }
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #2A1820;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .avatar-inner img[src=""],
+    .avatar-inner img:not([src]) {
+      display: none;
+    }
+
+    .avatar-fallback {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: var(--rose);
+      letter-spacing: -2px;
+    }
+
+    .live-badge {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      background: #E8395A;
+      color: white;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      padding: 3px 9px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      animation: blink 1.2s ease infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: 0.2
+      }
+    }
+
+    .tagline {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 8vw, 4.5rem);
+      line-height: 1.05;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #F5EEF0 30%, var(--gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--rose-light) 0%, var(--rose) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(245, 238, 240, 0.65);
+      max-width: 420px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    @keyframes cta-pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(200, 100, 122, 0.7), 0 0 0 0 rgba(200, 100, 122, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(200, 100, 122, 0), 0 0 0 20px rgba(200, 100, 122, 0);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%) skewX(-15deg);
+      }
+
+      100% {
+        transform: translateX(250%) skewX(-15deg);
+      }
+    }
+
+    @keyframes cta-float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .cta-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 0;
+      animation: cta-pulse 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite;
+    }
+
+    .cta-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      animation: shimmer 2.2s ease-in-out infinite;
+    }
+
+    .cta-primary::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 60px;
+      background: linear-gradient(135deg, var(--rose), var(--gold), var(--rose));
+      background-size: 200% 200%;
+      z-index: -1;
+      animation: border-spin 3s linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes border-spin {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .cta-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 16px 48px rgba(200, 100, 122, 0.6);
+      animation: none;
+    }
+
+    .cta-primary svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      animation: heartbeat 1.8s ease infinite;
+    }
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      14% {
+        transform: scale(1.25);
+      }
+
+      28% {
+        transform: scale(1);
+      }
+
+      42% {
+        transform: scale(1.15);
+      }
+
+      56% {
+        transform: scale(1);
+      }
+    }
+
+    .cta-container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      margin-bottom: 1.5rem;
+      width: 100%;
+    }
+
+    @media (max-width: 640px) {
+      .cta-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    .cta-telegram {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #24A1DE 0%, #1D78B2 100%);
+      color: white;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 0;
+      animation: cta-pulse-blue 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite;
+      animation-delay: 0.5s;
+    }
+
+    .cta-telegram::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      animation: shimmer 2.2s ease-in-out infinite;
+      animation-delay: 0.5s;
+    }
+
+    .cta-telegram::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 60px;
+      background: linear-gradient(135deg, #24A1DE, var(--gold), #24A1DE);
+      background-size: 200% 200%;
+      z-index: -1;
+      animation: border-spin 3s linear infinite;
+      opacity: 0.7;
+    }
+
+    .cta-telegram:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 16px 48px rgba(36, 161, 222, 0.6);
+      animation: none;
+    }
+
+    .cta-telegram svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      animation: paper-plane-float 1.8s ease infinite;
+    }
+
+    @keyframes cta-pulse-blue {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(36, 161, 222, 0.7), 0 0 0 0 rgba(36, 161, 222, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 10px rgba(36, 161, 222, 0), 0 0 0 20px rgba(36, 161, 222, 0);
+      }
+    }
+
+    @keyframes paper-plane-float {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      50% {
+        transform: translate(2px, -2px) scale(1.05);
+      }
+    }
+
+    .cta-note {
+      font-size: 0.78rem;
+      color: rgba(245, 238, 240, 0.35);
+      letter-spacing: 0.5px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0.3;
+      animation: bounce 2s ease infinite;
+      z-index: 2;
+    }
+
+    .scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    @keyframes bounce {
+
+      0%,
+      100% {
+        transform: translateX(-50%) translateY(0);
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(6px);
+      }
+    }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: rgba(255, 255, 255, 0.03);
+      border-top: 1px solid rgba(200, 100, 122, 0.15);
+      border-bottom: 1px solid rgba(200, 100, 122, 0.15);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      animation: fadeUp 1s ease 0.3s both;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(245, 238, 240, 0.35);
+      margin-top: 4px;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--rose);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--rose-light);
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 640px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-bar {
+        gap: 1.5rem;
+      }
+    }
+
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.85;
+      color: rgba(245, 238, 240, 0.7);
+    }
+
+    .about-text strong {
+      color: var(--rose-light);
+      font-weight: 500;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: rgba(245, 238, 240, 0.75);
+    }
+
+    .feature-list li::before {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(200, 100, 122, 0.2);
+      border: 1px solid var(--rose);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23C8647A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    /* ── OFFER CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2.5rem;
+    }
+
+    .offer-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(200, 100, 122, 0.2);
+      border-radius: 16px;
+      padding: 1.75rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--rose), var(--gold));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .offer-card:hover {
+      border-color: rgba(200, 100, 122, 0.5);
+      transform: translateY(-4px);
+    }
+
+    .offer-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      color: #F5EEF0;
+    }
+
+    .card-desc {
+      font-size: 0.85rem;
+      color: rgba(245, 238, 240, 0.5);
+      line-height: 1.6;
+    }
+
+    .card-featured {
+      border-color: rgba(201, 169, 110, 0.4);
+      background: rgba(201, 169, 110, 0.05);
+    }
+
+    .card-featured .card-title {
+      color: var(--gold);
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      background: rgba(255, 255, 255, 0.02);
+      border-top: 1px solid rgba(200, 100, 122, 0.1);
+      border-bottom: 1px solid rgba(200, 100, 122, 0.1);
+    }
+
+    .testimonials .section {
+      padding: 4rem 2rem;
+    }
+
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+
+    .quote-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+
+    .quote-stars {
+      color: var(--gold);
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    .quote-text {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: rgba(245, 238, 240, 0.65);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+
+    .quote-author {
+      font-size: 0.78rem;
+      color: var(--rose);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── FINAL CTA ── */
+    .final-cta {
+      text-align: center;
+      padding: 6rem 2rem;
+      background: radial-gradient(ellipse at center, #3D1E2A 0%, #1A1218 70%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .final-cta::before {
+      content: 'SG';
+      position: absolute;
+      font-family: 'Playfair Display', serif;
+      font-size: 30vw;
+      color: rgba(200, 100, 122, 0.04);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .final-cta .section-title {
+      margin-bottom: 1rem;
+    }
+
+    .final-cta p {
+      font-size: 1rem;
+      color: rgba(245, 238, 240, 0.5);
+      margin-bottom: 2.5rem;
+      max-width: 380px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      color: rgba(245, 238, 240, 0.2);
+      letter-spacing: 1px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    footer a {
+      color: var(--rose);
+      text-decoration: none;
+    }
+
+    /* ── FLOATING CTA (mobile) ── */
+    .floating-cta {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      width: calc(100% - 3rem);
+      max-width: 380px;
+    }
+
+    .floating-cta a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
+      color: white;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      padding: 1rem;
+      border-radius: 60px;
+      box-shadow: 0 8px 32px rgba(200, 100, 122, 0.5);
+    }
+
+    @media (max-width: 640px) {
+      .floating-cta {
+        display: block;
+      }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--rose), transparent);
+      margin: 0 auto 1rem;
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- HERO -->
-<section class="hero">
+  <!-- HERO -->
+  <section class="hero">
 
-  <!-- Imagen de fondo: usa <img> en lugar de background-image para control total del encuadre -->
-  <img class="hero-bg" src="src/img1.png" alt="">
+    <!-- Imagen de fondo: usa <img> en lugar de background-image para control total del encuadre -->
+    <img class="hero-bg" src="src/img1.png" alt="">
 
-  <div class="glow-orb glow-1"></div>
-  <div class="glow-orb glow-2"></div>
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
 
-  <div class="hero-inner">
+    <div class="hero-inner">
 
-    <div class="avatar-wrap">
-      <div class="avatar-ring">
-        <div class="avatar-inner">
-          <img
-            src="src/img2.png"
-            alt="Sofia Gonzalez"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
-          >
-          <span class="avatar-fallback" style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
+      <div class="avatar-wrap">
+        <div class="avatar-ring">
+          <div class="avatar-inner">
+            <img src="src/img2.png" alt="Sofia Gonzalez"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="avatar-fallback"
+              style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
+          </div>
+        </div>
+        <div class="live-badge">
+          <div class="live-dot"></div>
+          Online
         </div>
       </div>
-      <div class="live-badge">
-        <div class="live-dot"></div>
-        Online
-      </div>
-    </div>
 
-    <p class="tagline">Fanvue Exclusive &middot; Colombia</p>
+      <p class="tagline">Exclusive Content &middot; Colombia</p>
 
-    <h1>Sofia<br><em>Gonzalez</em></h1>
+      <h1>Sofia<br><em>Gonzalez</em></h1>
 
-    <p class="hero-sub">
-      Exclusive, authentic and deeply personal content.<br>
-      Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.
-    </p>
-
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      Join Now &mdash; Fanvue
-    </a>
-
-    <p class="cta-note">&#128274; Secure access &middot; Cancel anytime</p>
-  </div>
-
-  <div class="scroll-hint">
-    <span>Scroll</span>
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
-  </div>
-</section>
-
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat">
-    <span class="stat-num">23</span>
-    <span class="stat-label">Years old</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">&#127464;&#127476;</span>
-    <span class="stat-label">Colombia</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">5K+</span>
-    <span class="stat-label">Subscribers</span>
-  </div>
-  <div class="stat">
-    <span class="stat-num">100%</span>
-    <span class="stat-label">Original content</span>
-  </div>
-</div>
-
-<!-- ABOUT -->
-<section class="section">
-  <div class="about-grid">
-    <div>
-      <p class="section-label">About me</p>
-      <h2 class="section-title">The woman behind<br>the <em>screen</em></h2>
-      <p class="about-text">
-        Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you. I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.
-        <br><br>
-        My Fanvue is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll never find on any social media. Every piece of content is created with love, just for you.
+      <p class="hero-sub">
+        Exclusive, authentic and deeply personal content.<br>
+        Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.
       </p>
+
+      <div class="cta-container">
+        <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          Join Now &mdash; Premium Content
+        </a>
+        <a href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" class="cta-telegram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="m22 2-7 20-4-9-9-4Z" />
+            <path d="M22 2 11 13" />
+          </svg>
+          Join Free &mdash; Telegram
+        </a>
+      </div>
+
+      <p class="cta-note">&#128274; Secure access &middot; Cancel anytime</p>
     </div>
-    <ul class="feature-list">
-      <li>Exclusive photos &amp; videos I don&rsquo;t post anywhere else</li>
-      <li>Daily updates for my subscribers</li>
-      <li>Private chat directly with me &mdash; I reply personally</li>
-      <li>Custom content on request for special subscribers</li>
-      <li>Early access to all my new content</li>
-      <li>Private, discreet community &mdash; 100% safe</li>
-    </ul>
+
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat">
+      <span class="stat-num">23</span>
+      <span class="stat-label">Years old</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">&#127464;&#127476;</span>
+      <span class="stat-label">Colombia</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">5K+</span>
+      <span class="stat-label">Subscribers</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Original content</span>
+    </div>
   </div>
-</section>
 
-<!-- OFFER CARDS -->
-<section style="padding: 0 2rem 5rem; max-width: 900px; margin: 0 auto;">
-  <div class="divider"></div>
-  <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;">What awaits you</p>
-  <h2 class="section-title" style="text-align:center;">A truly <em>unique</em> experience</h2>
+  <!-- ABOUT -->
+  <section class="section">
+    <div class="about-grid">
+      <div>
+        <p class="section-label">About me</p>
+        <h2 class="section-title">The woman behind<br>the <em>screen</em></h2>
+        <p class="about-text">
+          Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you.
+          I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.
+          <br><br>
+          My private profile is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll
+          never find on any social media. Every piece of content is created with love, just for you.
+        </p>
+      </div>
+      <ul class="feature-list">
+        <li>Exclusive photos &amp; videos I don&rsquo;t post anywhere else</li>
+        <li>Daily updates for my subscribers</li>
+        <li>Private chat directly with me &mdash; I reply personally</li>
+        <li>Custom content on request for special subscribers</li>
+        <li>Early access to all my new content</li>
+        <li>Private, discreet community &mdash; 100% safe</li>
+      </ul>
+    </div>
+  </section>
 
-  <div class="cards-grid">
-    <div class="offer-card">
-      <span class="card-icon">&#128248;</span>
-      <h3 class="card-title">Exclusive Photos</h3>
-      <p class="card-desc">Professional and candid photo sets I share only with my subscribers.</p>
-    </div>
-    <div class="offer-card card-featured">
-      <span class="card-icon">&#127916;</span>
-      <h3 class="card-title">Private Videos</h3>
-      <p class="card-desc">High-quality, intimate and authentic video content. The community favorite.</p>
-    </div>
-    <div class="offer-card">
-      <span class="card-icon">&#128172;</span>
-      <h3 class="card-title">Direct Chat</h3>
-      <p class="card-desc">Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.</p>
-    </div>
-    <div class="offer-card">
-      <span class="card-icon">&#11088;</span>
-      <h3 class="card-title">VIP Content</h3>
-      <p class="card-desc">Personalized custom content for those who want something truly special.</p>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<div class="testimonials">
-  <div class="section">
+  <!-- OFFER CARDS -->
+  <section style="padding: 0 2rem 5rem; max-width: 900px; margin: 0 auto;">
     <div class="divider"></div>
-    <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;">What they say</p>
-    <h2 class="section-title" style="text-align:center;">My <em>community</em> speaks</h2>
+    <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;">What awaits you</p>
+    <h2 class="section-title" style="text-align:center;">A truly <em>unique</em> experience</h2>
 
-    <div class="quotes-grid">
-      <div class="quote-card">
-        <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="quote-text">&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;</p>
-        <span class="quote-author">&mdash; J. M., VIP subscriber</span>
+    <div class="cards-grid">
+      <div class="offer-card">
+        <span class="card-icon">&#128248;</span>
+        <h3 class="card-title">Exclusive Photos</h3>
+        <p class="card-desc">Professional and candid photo sets I share only with my subscribers.</p>
       </div>
-      <div class="quote-card">
-        <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="quote-text">&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;</p>
-        <span class="quote-author">&mdash; R. T., Premium subscriber</span>
+      <div class="offer-card card-featured">
+        <span class="card-icon">&#127916;</span>
+        <h3 class="card-title">Private Videos</h3>
+        <p class="card-desc">High-quality, intimate and authentic video content. The community favorite.</p>
       </div>
-      <div class="quote-card">
-        <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-        <p class="quote-text">&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;</p>
-        <span class="quote-author">&mdash; A. K., active member</span>
+      <div class="offer-card">
+        <span class="card-icon">&#128172;</span>
+        <h3 class="card-title">Direct Chat</h3>
+        <p class="card-desc">Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan
+          experience.</p>
+      </div>
+      <div class="offer-card">
+        <span class="card-icon">&#11088;</span>
+        <h3 class="card-title">VIP Content</h3>
+        <p class="card-desc">Personalized custom content for those who want something truly special.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <div class="testimonials">
+    <div class="section">
+      <div class="divider"></div>
+      <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;">What they say</p>
+      <h2 class="section-title" style="text-align:center;">My <em>community</em> speaks</h2>
+
+      <div class="quotes-grid">
+        <div class="quote-card">
+          <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="quote-text">&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every
+            penny.&rdquo;</p>
+          <span class="quote-author">&mdash; J. M., VIP subscriber</span>
+        </div>
+        <div class="quote-card">
+          <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="quote-text">&ldquo;I had been looking for something authentic for a while and Sofia has it all.
+            Natural, beautiful and very attentive.&rdquo;</p>
+          <span class="quote-author">&mdash; R. T., Premium subscriber</span>
+        </div>
+        <div class="quote-card">
+          <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p class="quote-text">&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always
+            surprises.&rdquo;</p>
+          <span class="quote-author">&mdash; A. K., active member</span>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- FINAL CTA -->
-<section class="final-cta">
-  <div class="divider"></div>
-  <p class="section-label">Start today</p>
-  <h2 class="section-title">Ready to<br><em>join?</em></h2>
-  <p>Subscribe now and access the exclusive content only my fans get to see.</p>
-  <div class="cta-group">
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary" style="font-size:1rem; padding: 1.1rem 3rem;">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-      View my Fanvue &mdash; @sofiagonzalezofficial
-    </a>
-    <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;">&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed</span>
-  </div>
-</section>
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="divider"></div>
+    <p class="section-label">Start today</p>
+    <h2 class="section-title">Ready to<br><em>join?</em></h2>
+    <p>Subscribe now and access the exclusive content only my fans get to see.</p>
+    <div class="cta-group">
+      <div class="cta-container">
+        <a href="https://bit.ly/4cDyCTU" target="_blank" rel="noopener" class="cta-primary"
+          style="font-size:1rem; padding: 1.1rem 3rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" width="18" height="18">
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+          </svg>
+          View my Premium Profile &mdash; @sofiagonzalezofficial
+        </a>
+        <a href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" class="cta-telegram"
+          style="font-size:1rem; padding: 1.1rem 3rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" width="18" height="18">
+            <path d="m22 2-7 20-4-9-9-4Z" />
+            <path d="M22 2 11 13" />
+          </svg>
+          Join Free &mdash; Telegram
+        </a>
+      </div>
+      <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;">&#128274; Secure platform
+        &middot; Protected payment &middot; Privacy guaranteed</span>
+    </div>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <p>&copy; 2025 Sofia Gonzalez &middot; All rights reserved</p>
-  <p style="margin-top: 6px;">
-    <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener">fanvue.com/sofiagonzalezofficial</a>
-  </p>
-  <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;">Exclusive content for adults 18+ only</p>
-</footer>
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Sofia Gonzalez &middot; All rights reserved</p>
+    <p style="margin-top: 6px;">
+      <a href="https://bit.ly/4cDyCTU" target="_blank" rel="noopener">@sofiagonzalezofficial</a>
+    </p>
+    <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;">Exclusive content for adults 18+ only</p>
+  </footer>
 
 </body>
+
 </html>
