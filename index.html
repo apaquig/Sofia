@@ -579,6 +579,15 @@
       margin-top: 4px;
     }
 
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 2px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(90deg, var(--rose), var(--gold));
+      border-radius: 2px;
+    }
+
     /* ── SECTIONS ── */
     .section {
       padding: 5rem 2rem;
@@ -963,7 +972,517 @@
       font-weight: 500;
       background: rgba(201, 169, 110, 0.1);
     }
+
+    /* ── AGE GATE OVERLAY STYLE ── */
+    .age-overlay-backdrop {
+      --mouse-x: 0;
+      --mouse-y: 0;
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(14, 9, 11, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+      perspective: 1200px;
+      overflow: hidden;
+    }
+
+    .age-overlay-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* ── BACKGROUND ORBS FOR OVERLAY ── */
+    .age-overlay-glows {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .age-glow-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.35;
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    .age-glow-1 {
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(201, 96, 64, 0.22) 0%, rgba(201, 96, 64, 0) 70%);
+      top: -10vw;
+      left: -10vw;
+      animation: age-floatGlow1 22s ease-in-out infinite alternate;
+    }
+
+    .age-glow-2 {
+      width: 45vw;
+      height: 45vw;
+      background: radial-gradient(circle, rgba(212, 80, 122, 0.18) 0%, rgba(212, 80, 122, 0) 70%);
+      bottom: -15vw;
+      right: -10vw;
+      animation: age-floatGlow2 28s ease-in-out infinite alternate;
+    }
+
+    .age-glow-3 {
+      width: 30vw;
+      height: 30vw;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, rgba(201, 169, 110, 0) 70%);
+      top: 55%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: age-floatGlow3 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes age-floatGlow1 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(4vw, 3vw) scale(1.1);
+      }
+    }
+
+    @keyframes age-floatGlow2 {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      100% {
+        transform: translate(-5vw, -4vw) scale(1.15);
+      }
+    }
+
+    @keyframes age-floatGlow3 {
+      0% {
+        transform: translate(-50%, -50%) scale(0.9);
+      }
+
+      100% {
+        transform: translate(-47%, -53%) scale(1.1);
+      }
+    }
+
+    /* ── SCENE & CARD WRAPPERS ── */
+    .age-scene-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+    }
+
+    .age-card-float-wrapper {
+      animation: age-card-auto-float 7s ease-in-out infinite;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    /* Make floating wrappers non-interactive so inner card/buttons receive pointer events reliably */
+    .age-card-float-wrapper,
+    .age-card-tilt-wrapper,
+    .age-overlay-glows {
+      pointer-events: none;
+    }
+
+    /* The card itself and buttons must remain interactive */
+    .age-overlay-card {
+      pointer-events: auto;
+    }
+
+    @keyframes age-card-auto-float {
+
+      0%,
+      100% {
+        transform: translateY(0px);
+      }
+
+      50% {
+        transform: translateY(-12px);
+      }
+    }
+
+    .age-card-tilt-wrapper {
+      transform-style: preserve-3d;
+      transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+      will-change: transform;
+    }
+
+    /* ── THE CARD ── */
+    .age-overlay-card {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(24, 15, 18, 0.7);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(201, 169, 110, 0.15);
+      border-radius: 24px;
+      padding: 3rem 2.2rem;
+      box-shadow:
+        0 25px 55px rgba(0, 0, 0, 0.65),
+        inset 0 1px 2px rgba(255, 255, 255, 0.08);
+      position: relative;
+      transform-style: preserve-3d;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .age-overlay-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.007) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.007) 1px, transparent 1px);
+      background-size: 20px 20px;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    /* ── FLOATING ELEMENTS (ANTIGRAVITY) ── */
+    .age-parallax-element {
+      --px: calc(var(--depth) * var(--mouse-x) * -0.7px);
+      --py: calc(var(--depth) * var(--mouse-y) * -0.7px);
+      --pz: calc(var(--depth) * 1.3px);
+
+      transform: translate3d(var(--px), var(--py), var(--pz));
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .age-layer-lock {
+      --depth: 42;
+      animation: age-float-lock 5.5s ease-in-out infinite;
+    }
+
+    .age-logo-label {
+      --depth: 14;
+      animation: age-float-logo 8s ease-in-out infinite;
+
+      /* Typography styling for logo-label inside overlay */
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #c9a96e;
+      opacity: 0.85;
+      margin-bottom: 0.5rem;
+    }
+
+    .age-layer-title {
+      --depth: 30;
+      animation: age-float-title 6.5s ease-in-out infinite;
+    }
+
+    .age-layer-subtitle {
+      --depth: 20;
+      animation: age-float-subtitle 7.5s ease-in-out infinite;
+    }
+
+    .age-layer-question {
+      --depth: 24;
+      animation: age-float-question 6s ease-in-out infinite;
+    }
+
+    .age-layer-buttons {
+      --depth: 35;
+      animation: age-float-buttons 5s ease-in-out infinite;
+    }
+
+    .age-layer-legal {
+      --depth: 10;
+      animation: age-float-legal 9s ease-in-out infinite;
+    }
+
+    /* Animations for individual suspension */
+    @keyframes age-float-lock {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-12px) rotate(3deg);
+      }
+    }
+
+    @keyframes age-float-logo {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-3px);
+      }
+    }
+
+    @keyframes age-float-title {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-7px) rotate(-1deg);
+      }
+    }
+
+    @keyframes age-float-subtitle {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-5px);
+      }
+    }
+
+    @keyframes age-float-question {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-4px);
+      }
+    }
+
+    @keyframes age-float-buttons {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px) rotate(0deg);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-9px) rotate(0.6deg);
+      }
+    }
+
+    @keyframes age-float-legal {
+
+      0%,
+      100% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
+      }
+
+      50% {
+        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-3px);
+      }
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .age-overlay-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 2.6rem);
+      font-weight: 400;
+      line-height: 1.15;
+      margin: 1rem 0;
+      color: #f5eef0;
+    }
+
+    .age-coral-italic {
+      font-style: italic;
+      font-weight: 500;
+      background: linear-gradient(135deg, #c96040 0%, #d4507a 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .age-overlay-subtitle {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      line-height: 1.6;
+      color: #a38a95;
+      margin-bottom: 1.5rem;
+      max-width: 380px;
+    }
+
+    .age-overlay-question {
+      font-family: 'Jost', sans-serif;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #f5eef0;
+      margin-bottom: 1.6rem;
+      letter-spacing: 0.3px;
+    }
+
+    .age-overlay-legal {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem;
+      line-height: 1.5;
+      color: rgba(245, 238, 240, 0.3);
+      margin-top: 2rem;
+      max-width: 380px;
+    }
+
+    /* ── LOCK ICON OVERLAY ── */
+    .age-icon-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      margin-bottom: 0.5rem;
+    }
+
+    .age-icon-glow-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 80, 122, 0.12) 0%, rgba(212, 80, 122, 0) 70%);
+      animation: age-pulse-ring 3.5s ease-in-out infinite;
+    }
+
+    @keyframes age-pulse-ring {
+
+      0%,
+      100% {
+        transform: scale(0.9);
+        opacity: 0.8;
+      }
+
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
+
+    .age-lock-icon {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 4px 12px rgba(201, 96, 64, 0.2));
+    }
+
+    /* ── BUTTONS OVERLAY ── */
+    .age-btn-group {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+      .age-btn-group {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .age-overlay-card {
+        padding: 2.5rem 1.5rem;
+      }
+    }
+
+    .age-overlay-btn {
+      pointer-events: auto !important;
+      z-index: 10;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      padding: 0.95rem 2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      min-width: 160px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .age-btn-yes {
+      background: linear-gradient(135deg, #c96040 0%, #d4507a 100%);
+      color: white;
+      box-shadow: 0 4px 18px rgba(201, 96, 64, 0.35);
+    }
+
+    .age-btn-yes::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+      transform: translateX(-100%) skewX(-15deg);
+      transition: none;
+    }
+
+    .age-btn-yes:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(212, 80, 122, 0.5);
+    }
+
+    .age-btn-yes:hover::before {
+      animation: age-button-shimmer 1.5s infinite;
+    }
+
+    @keyframes age-button-shimmer {
+      0% {
+        transform: translateX(-100%) skewX(-15deg);
+      }
+
+      100% {
+        transform: translateX(250%) skewX(-15deg);
+      }
+    }
+
+    .age-btn-no {
+      background: rgba(255, 255, 255, 0.04);
+      color: rgba(245, 238, 240, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .age-btn-no:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+      transform: translateY(-2px) scale(1.02);
+    }
   </style>
+  <noscript>
+    <style>
+      body {
+        opacity: 1 !important;
+      }
+    </style>
+  </noscript>
 </head>
 
 <body>
@@ -989,7 +1508,7 @@
   <section class="hero">
 
     <!-- Imagen de fondo: usa <img> en lugar de background-image para control total del encuadre -->
-    <img class="hero-bg" src="src/img1.png" alt="">
+    <img class="hero-bg" src="src/img1.jpg" alt="">
 
     <div class="glow-orb glow-1"></div>
     <div class="glow-orb glow-2"></div>
@@ -999,7 +1518,7 @@
       <div class="avatar-wrap">
         <div class="avatar-ring">
           <div class="avatar-inner">
-            <img src="src/img2.png" alt="Sofia Gonzalez"
+            <img src="src/img2.jpg" alt="Sofia Gonzalez"
               onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
             <span class="avatar-fallback"
               style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
@@ -1024,7 +1543,7 @@
       </p>
 
       <div class="cta-container">
-        <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary">
+        <a href="javascript:void(0)" data-url="https://goo.su/WAas1zF" class="cta-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round">
             <path
@@ -1173,7 +1692,7 @@
     <p data-i18n="final_desc">Subscribe now and access the exclusive content only my fans get to see.</p>
     <div class="cta-group">
       <div class="cta-container">
-        <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener" class="cta-primary"
+        <a href="javascript:void(0)" data-url="https://goo.su/WAas1zF" class="cta-primary"
           style="font-size:1rem; padding: 1.1rem 3rem;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" width="18" height="18">
@@ -1182,7 +1701,7 @@
           </svg>
           <span data-i18n="final_btn_premium">View my Premium Profile &mdash; @sofiagonzalezofficial</span>
         </a>
-        <a href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" class="cta-telegram"
+        <!-- <a href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" class="cta-telegram"
           style="font-size:1rem; padding: 1.1rem 3rem;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
             stroke-linejoin="round" width="18" height="18">
@@ -1190,7 +1709,7 @@
             <path d="M22 2 11 13" />
           </svg>
           <span data-i18n="final_btn_telegram">Join Free &mdash; Telegram</span>
-        </a>
+        </a> -->
       </div>
       <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;"
         data-i18n="final_disclaimer">&#128274; Secure platform
@@ -1200,9 +1719,9 @@
 
   <!-- FOOTER -->
   <footer>
-    <p data-i18n="footer_copyright">&copy; 2025 Sofia Gonzalez &middot; All rights reserved</p>
+    <p data-i18n="footer_copyright">&copy; 2026 Sofia Gonzalez &middot; All rights reserved</p>
     <p style="margin-top: 6px;">
-      <a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener">@sofiagonzalezofficial</a>
+      <a href="https://goo.su/WAas1zF" target="_blank" rel="noopener">@sofiagonzalezofficial</a>
     </p>
     <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;" data-i18n="footer_disclaimer">Exclusive content for
       adults 18+ only</p>
@@ -1263,8 +1782,15 @@
         final_btn_premium: "View my Premium Profile &mdash; @sofiagonzalezofficial",
         final_btn_telegram: "Join Free &mdash; Telegram",
         final_disclaimer: "&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed",
-        footer_copyright: "&copy; 2025 Sofia Gonzalez &middot; All rights reserved",
-        footer_disclaimer: "Exclusive content for adults 18+ only"
+        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; All rights reserved",
+        footer_disclaimer: "Exclusive content for adults 18+ only",
+        age_logo: "Sofia Gonzalez &bull; Exclusive Content",
+        age_title: "Before you enter,<br><em class='age-coral-italic'>verify your age</em>",
+        age_subtitle: "This site contains content intended for adults only. You must be 18 years or older to continue.",
+        age_question: "Are you 18 years of age or older?",
+        age_btn_yes: "Yes, I'm 18+",
+        age_btn_no: "No, exit",
+        age_legal: "By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy Policy. This site uses cookies to remember your age verification."
       },
       es: {
         title: "Sofia Gonzalez — Contenido Exclusivo",
@@ -1318,8 +1844,15 @@
         final_btn_premium: "Ver mi Perfil Premium &mdash; @sofiagonzalezofficial",
         final_btn_telegram: "Únete Gratis &mdash; Telegram",
         final_disclaimer: "&#128274; Plataforma segura &middot; Pago protegido &middot; Privacidad garantizada",
-        footer_copyright: "&copy; 2025 Sofia Gonzalez &middot; Todos los derechos reservados",
-        footer_disclaimer: "Contenido exclusivo solo para adultos mayores de 18 años"
+        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; Todos los derechos reservados",
+        footer_disclaimer: "Contenido exclusivo solo para adultos mayores de 18 años",
+        age_logo: "Sofía González &bull; Contenido Exclusivo",
+        age_title: "Antes de entrar,<br><em class='age-coral-italic'>verifica tu edad</em>",
+        age_subtitle: "Este sitio contiene contenido destinado únicamente a adultos. Debes tener 18 años o más para continuar.",
+        age_question: "¿Tienes 18 años de edad o más?",
+        age_btn_yes: "Sí, soy mayor de 18",
+        age_btn_no: "No, salir",
+        age_legal: "Al entrar, confirmas que tienes al menos 18 años y aceptas nuestros Términos de Servicio y Política de Privacidad. Este sitio utiliza cookies para recordar tu verificación de edad."
       }
     };
 
@@ -1327,10 +1860,57 @@
     const DEFAULT_LANG = 'en';
     const SUPPORTED_LANGS = ['en', 'es'];
 
+    const PREMIUM_URL = 'https://goo.su/WAas1zF';
+
+    // Acceso seguro a localStorage (puede estar bloqueado: modo privado, cookies deshabilitadas, webviews)
+    function safeGetItem(key) {
+      try { return localStorage.getItem(key); } catch (e) { return null; }
+    }
+    function safeSetItem(key, value) {
+      try { localStorage.setItem(key, value); } catch (e) { /* ignorar */ }
+    }
+
+    function openAgeGateOverlay(url) {
+      pendingRedirectUrl = url || PREMIUM_URL;
+      const overlay = document.getElementById('age-gate-overlay');
+      // Asegurar listeners antes de mostrar
+      attachOverlayListeners();
+      if (overlay) {
+        overlay.style.display = 'flex';
+        overlay.offsetHeight; // Force layout for transition
+        overlay.classList.add('active');
+      }
+    }
+
+    function setAgeVerifiedCookie() {
+      const date = new Date();
+      date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
+      document.cookie = `age-verified=true; expires=${date.toUTCString()}; path=/; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+    }
+
+    function getTargetUrl() {
+      return pendingRedirectUrl || PREMIUM_URL;
+    }
+
+    function closeActiveOverlay() {
+      const overlayEl = document.getElementById('age-gate-overlay');
+      if (overlayEl) {
+        overlayEl.classList.remove('active');
+        setTimeout(() => { overlayEl.style.display = 'none'; }, 500);
+      }
+    }
+
+    function verifyAgeAndRedirect() {
+      setAgeVerifiedCookie();
+      const targetUrl = getTargetUrl();
+      closeActiveOverlay();
+      window.location.href = targetUrl;
+    }
+
     // Detección automática del idioma
     function detectLanguage() {
       // 1. Verificar localStorage
-      const savedLang = localStorage.getItem('user-language');
+      const savedLang = safeGetItem('user-language');
       if (savedLang && SUPPORTED_LANGS.includes(savedLang)) {
         return savedLang;
       }
@@ -1370,6 +1950,9 @@
         metaDesc.setAttribute('content', translation.meta_description);
       }
 
+      // Actualizar el atributo lang del documento (SEO y accesibilidad)
+      document.documentElement.lang = lang;
+
       // Sincronizar el selector visual de idioma
       document.getElementById('activeLangText').textContent = lang.toUpperCase();
       document.querySelectorAll('.lang-option').forEach(opt => {
@@ -1381,11 +1964,101 @@
       });
 
       // Guardar preferencia
-      localStorage.setItem('user-language', lang);
+      safeSetItem('user-language', lang);
+    }
+
+    // --- Overlay listeners helper ---
+    let overlayListenersAttached = false;
+    function attachOverlayListeners() {
+      if (overlayListenersAttached) return;
+      const overlayYesBtn = document.getElementById('age-overlay-yes-btn');
+      const overlayNoBtn = document.getElementById('age-overlay-no-btn');
+      const overlayElement = document.getElementById('age-gate-overlay');
+
+      if (!overlayYesBtn || !overlayNoBtn) {
+        // Buttons not present yet
+        return;
+      }
+
+      overlayYesBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        verifyAgeAndRedirect();
+      });
+      // Delegated click handler on overlay as a fallback if buttons don't receive events
+      if (overlayElement) {
+        overlayElement.addEventListener('click', function delegatedOverlayClick(e) {
+          // First try composedPath (preferred) to find the real clicked button
+          let btn = null;
+          const path = (e.composedPath && e.composedPath()) || e.path || null;
+          if (path && path.length) {
+            for (const node of path) {
+              if (!node) continue;
+              try {
+                if (node.classList && node.classList.contains && node.classList.contains('age-overlay-btn')) {
+                  btn = node;
+                  break;
+                }
+              } catch (_) { /* ignore */ }
+            }
+          }
+
+          // Fallback to elementFromPoint if composedPath didn't find the button
+          if (!btn) {
+            const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY);
+            try { const realEl = document.elementFromPoint(x, y); btn = realEl && realEl.closest ? realEl.closest('.age-overlay-btn') : null; } catch (err) { /* ignore */ }
+          }
+
+          if (!btn) return;
+          e.preventDefault();
+          e.stopPropagation();
+          if (btn.id === 'age-overlay-yes-btn') {
+            verifyAgeAndRedirect();
+          } else if (btn.id === 'age-overlay-no-btn') {
+            closeActiveOverlay();
+          }
+        });
+      }
+
+      overlayNoBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeActiveOverlay();
+      });
+
+      // Geometry-based fallback: check click coordinates against button bounding boxes
+      if (!window.__ageOverlayGeometryFallbackAttached) {
+        window.__ageOverlayGeometryFallbackAttached = true;
+        document.addEventListener('click', function geometryFallback(e) {
+          try {
+            const overlay = document.getElementById('age-gate-overlay');
+            if (!overlay || overlay.style.display === 'none' || !overlay.classList.contains('active')) return;
+            const yesBtn = document.getElementById('age-overlay-yes-btn');
+            const noBtn = document.getElementById('age-overlay-no-btn');
+            if (!yesBtn || !noBtn) return;
+            const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX);
+            const y = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY);
+            const yesRect = yesBtn.getBoundingClientRect();
+            const noRect = noBtn.getBoundingClientRect();
+            if (x >= yesRect.left && x <= yesRect.right && y >= yesRect.top && y <= yesRect.bottom) {
+              e.preventDefault(); e.stopPropagation();
+              verifyAgeAndRedirect();
+            } else if (x >= noRect.left && x <= noRect.right && y >= noRect.top && y <= noRect.bottom) {
+              e.preventDefault(); e.stopPropagation();
+              closeActiveOverlay();
+            }
+          } catch (err) {
+            // ignore
+          }
+        }, true);
+      }
+
+      overlayListenersAttached = true;
     }
 
     // Inicialización al cargar la página
-    document.addEventListener('DOMContentLoaded', () => {
+    function initializeWebsite() {
       const initialLang = detectLanguage();
       translatePage(initialLang);
 
@@ -1418,8 +2091,161 @@
         langDropdown.classList.remove('active');
         langBtn.setAttribute('aria-expanded', 'false');
       });
-    });
+
+      // Ensure overlay listeners are attached (helper will noop if already attached)
+      const overlayElement = document.getElementById('age-gate-overlay');
+      attachOverlayListeners();
+      const overlayTiltWrapper = document.querySelector('.age-card-tilt-wrapper');
+
+      // Parallax effect for overlay card
+      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if (!isMobileDevice && overlayElement) {
+        document.addEventListener('mousemove', (e) => {
+          // Only perform parallax if overlay is visible
+          if (overlayElement.classList.contains('active')) {
+            const x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+            const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+
+            document.documentElement.style.setProperty('--mouse-x', x);
+            document.documentElement.style.setProperty('--mouse-y', y);
+
+            if (overlayTiltWrapper) {
+              const rotateX = y * -9;
+              const rotateY = x * 9;
+              overlayTiltWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
+          }
+        });
+
+        // Reset on mouse leave
+        overlayElement.addEventListener('mouseleave', () => {
+          document.documentElement.style.setProperty('--mouse-x', 0);
+          document.documentElement.style.setProperty('--mouse-y', 0);
+          if (overlayTiltWrapper) {
+            overlayTiltWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
+          }
+        });
+      }
+
+      // Dynamic click binding fallback for ALL cta-primary buttons
+      document.querySelectorAll('.cta-primary').forEach(button => {
+        button.addEventListener('click', (event) => {
+          event.preventDefault();
+          const url = button.dataset.url || button.href;
+          const value = `; ${document.cookie}`;
+          const parts = value.split(`; age-verified=`);
+          const verified = (parts.length === 2 && parts.pop().split(';').shift() === 'true');
+
+          if (verified) {
+            if (url) {
+              window.location.href = url;
+            }
+          } else {
+            openAgeGateOverlay(url);
+          }
+        });
+      });
+    }
+
+    // Failsafe: si algo falla, mostrar la página igualmente tras 1.5s
+    setTimeout(() => document.body.classList.add('loaded'), 1500);
+
+    // Safe initialization triggering
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeWebsite);
+    } else {
+      initializeWebsite();
+    }
+
+    // Age verification overlay logic
+    let pendingRedirectUrl = '';
+    // Fallback public functions for inline onclick (defensive)
+    function confirmAgeAndRedirect(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      verifyAgeAndRedirect();
+    }
+
+    function closeAgeOverlay(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      closeActiveOverlay();
+    }
   </script>
+
+  <!-- AGE VERIFICATION OVERLAY HTML -->
+  <div id="age-gate-overlay" class="age-overlay-backdrop" style="display: none;">
+    <!-- BACKGROUND RADIAL GLOWS -->
+    <div class="age-overlay-glows">
+      <div class="age-glow-orb age-glow-1"></div>
+      <div class="age-glow-orb age-glow-2"></div>
+      <div class="age-glow-orb age-glow-3"></div>
+    </div>
+
+    <div class="age-scene-container">
+      <div class="age-card-float-wrapper">
+        <div class="age-card-tilt-wrapper">
+          <div class="age-overlay-card">
+            <!-- Lock Icon -->
+            <div class="age-icon-container age-parallax-element age-layer-lock">
+              <div class="age-icon-glow-ring"></div>
+              <svg class="age-lock-icon" viewBox="0 0 24 24" width="72" height="72">
+                <rect x="5" y="11" width="14" height="11" rx="2.5" stroke="url(#overlay-accent-gradient)"
+                  stroke-width="1.5" fill="rgba(201, 169, 110, 0.05)" />
+                <path d="M12 2a5 5 0 0 0-5 5v4h10V7a5 5 0 0 0-5-5z" stroke="url(#overlay-accent-gradient)"
+                  stroke-width="1.5" fill="none" stroke-linejoin="round" />
+                <circle cx="12" cy="16" r="1.5" fill="url(#overlay-accent-gradient)" />
+                <line x1="12" y1="17.5" x2="12" y2="19.5" stroke="url(#overlay-accent-gradient)" stroke-width="1.5"
+                  stroke-linecap="round" />
+                <defs>
+                  <linearGradient id="overlay-accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#c96040" />
+                    <stop offset="100%" stop-color="#d4507a" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <!-- Logo label -->
+            <div class="age-logo-label age-parallax-element age-layer-logo" data-i18n="age_logo">
+              Sofia Gonzalez &bull; Exclusive Content
+            </div>
+
+            <!-- Title -->
+            <h2 class="age-overlay-title age-parallax-element age-layer-title" data-i18n="age_title">
+              Before you enter,<br>
+              <em class="age-coral-italic">verify your age</em>
+            </h2>
+
+            <!-- Subtitle -->
+            <p class="age-overlay-subtitle age-parallax-element age-layer-subtitle" data-i18n="age_subtitle">
+              This site contains content intended for adults only. You must be 18 years or older to continue.
+            </p>
+
+            <!-- Question -->
+            <div class="age-overlay-question age-parallax-element age-layer-question" data-i18n="age_question">
+              Are you 18 years of age or older?
+            </div>
+
+            <!-- Buttons -->
+            <div class="age-btn-group age-parallax-element age-layer-buttons">
+              <button type="button" class="age-overlay-btn age-btn-yes" id="age-overlay-yes-btn" data-i18n="age_btn_yes" onclick="confirmAgeAndRedirect(event)">
+                Yes, I'm 18+
+              </button>
+              <button type="button" class="age-overlay-btn age-btn-no" id="age-overlay-no-btn" data-i18n="age_btn_no" onclick="closeAgeOverlay(event)">
+                No, exit
+              </button>
+            </div>
+
+            <!-- Legal text -->
+            <p class="age-overlay-legal age-parallax-element age-layer-legal" data-i18n="age_legal">
+              By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy
+              Policy. This site uses cookies to remember your age verification.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
+
