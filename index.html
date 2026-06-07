@@ -11,1491 +11,162 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
     rel="stylesheet">
   <style>
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --rose: #C8647A;
-      --rose-light: #F5DDE3;
-      --rose-dark: #8B3A4F;
-      --gold: #C9A96E;
-      --gold-light: #F0E6D3;
-      --cream: #FAF7F4;
-      --dark: #1A1218;
-      --mid: #3D2E35;
-      --text-muted: #7A6570;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Jost', sans-serif;
-      background: var(--dark);
-      color: #F5EEF0;
-      overflow-x: hidden;
-      cursor: default;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    body.loaded {
-      opacity: 1;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-      background-color: #2A1820;
-    }
-
-    /* Imagen de fondo como <img> para control total del encuadre */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      /* Ajusta object-position para mover el encuadre:
-       "65% center" → mueve el foco al 65% desde la izquierda
-       Cambia el primer valor para desplazar horizontalmente */
-      object-position: 65% center;
-      z-index: 0;
-      pointer-events: none;
-      display: block;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(15, 8, 12, 0.55) 0%, rgba(15, 8, 12, 0.70) 60%, rgba(15, 8, 12, 0.92) 100%);
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      pointer-events: none;
-      animation: pulse 6s ease-in-out infinite;
-    }
-
-    .glow-1 {
-      width: 400px;
-      height: 400px;
-      background: rgba(200, 100, 122, 0.18);
-      top: -100px;
-      right: -80px;
-    }
-
-    .glow-2 {
-      width: 300px;
-      height: 300px;
-      background: rgba(201, 169, 110, 0.12);
-      bottom: 0;
-      left: -60px;
-      animation-delay: 3s;
-    }
-
-    @keyframes pulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.8;
-      }
-
-      50% {
-        transform: scale(1.1);
-        opacity: 1;
-      }
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      padding: 2rem;
-      max-width: 680px;
-      animation: fadeUp 1s ease both;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ── AVATAR ── */
-    .avatar-wrap {
-      position: relative;
-      display: inline-block;
-      margin-bottom: 2rem;
-    }
-
-    .avatar-ring {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--rose), var(--gold));
-      padding: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: spin-ring 8s linear infinite;
-    }
-
-    @keyframes spin-ring {
-      from {
-        background: linear-gradient(0deg, var(--rose), var(--gold));
-      }
-
-      to {
-        background: linear-gradient(360deg, var(--rose), var(--gold));
-      }
-    }
-
-    .avatar-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #2A1820;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-inner img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      border-radius: 50%;
-      display: block;
-    }
-
-    .avatar-inner img[src=""],
-    .avatar-inner img:not([src]) {
-      display: none;
-    }
-
-    .avatar-fallback {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      color: var(--rose);
-      letter-spacing: -2px;
-    }
-
-    .live-badge {
-      position: absolute;
-      bottom: 6px;
-      right: 6px;
-      background: #E8395A;
-      color: white;
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 1.5px;
-      padding: 3px 9px;
-      border-radius: 20px;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .live-dot {
-      width: 6px;
-      height: 6px;
-      background: white;
-      border-radius: 50%;
-      animation: blink 1.2s ease infinite;
-    }
-
-    @keyframes blink {
-
-      0%,
-      100% {
-        opacity: 1
-      }
-
-      50% {
-        opacity: 0.2
-      }
-    }
-
-    .tagline {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 8vw, 4.5rem);
-      line-height: 1.05;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #F5EEF0 30%, var(--gold) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    h1 em {
-      font-style: italic;
-      background: linear-gradient(135deg, var(--rose-light) 0%, var(--rose) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .hero-sub {
-      font-size: 1.05rem;
-      font-weight: 300;
-      color: rgba(245, 238, 240, 0.65);
-      max-width: 420px;
-      margin: 0 auto 2.5rem;
-      line-height: 1.7;
-    }
-
-    @keyframes cta-pulse {
-
-      0%,
-      100% {
-        box-shadow: 0 0 0 0 rgba(200, 100, 122, 0.7), 0 0 0 0 rgba(200, 100, 122, 0.4);
-      }
-
-      50% {
-        box-shadow: 0 0 0 10px rgba(200, 100, 122, 0), 0 0 0 20px rgba(200, 100, 122, 0);
-      }
-    }
-
-    @keyframes shimmer {
-      0% {
-        transform: translateX(-100%) skewX(-15deg);
-      }
-
-      100% {
-        transform: translateX(250%) skewX(-15deg);
-      }
-    }
-
-    @keyframes cta-float {
-
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-5px);
-      }
-    }
-
-    .cta-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
-      color: white;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      padding: 1rem 2.5rem;
-      border-radius: 60px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 0;
-      animation: cta-pulse 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite;
-    }
-
-    .cta-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 40%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-      animation: shimmer 2.2s ease-in-out infinite;
-    }
-
-    .cta-primary::after {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 60px;
-      background: linear-gradient(135deg, var(--rose), var(--gold), var(--rose));
-      background-size: 200% 200%;
-      z-index: -1;
-      animation: border-spin 3s linear infinite;
-      opacity: 0.7;
-    }
-
-    @keyframes border-spin {
-      0% {
-        background-position: 0% 50%;
-      }
-
-      50% {
-        background-position: 100% 50%;
-      }
-
-      100% {
-        background-position: 0% 50%;
-      }
-    }
-
-    .cta-primary:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 16px 48px rgba(200, 100, 122, 0.6);
-      animation: none;
-    }
-
-    .cta-primary svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      animation: heartbeat 1.8s ease infinite;
-    }
-
-    @keyframes heartbeat {
-
-      0%,
-      100% {
-        transform: scale(1);
-      }
-
-      14% {
-        transform: scale(1.25);
-      }
-
-      28% {
-        transform: scale(1);
-      }
-
-      42% {
-        transform: scale(1.15);
-      }
-
-      56% {
-        transform: scale(1);
-      }
-    }
-
-    .cta-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 1.5rem;
-      margin-top: 0.5rem;
-      margin-bottom: 1.5rem;
-      width: 100%;
-    }
-
-    @media (max-width: 640px) {
-      .cta-container {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-
-    .cta-telegram {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: linear-gradient(135deg, #24A1DE 0%, #1D78B2 100%);
-      color: white;
-      text-decoration: none;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      padding: 1rem 2.5rem;
-      border-radius: 60px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 0;
-      animation: cta-pulse-blue 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite;
-      animation-delay: 0.5s;
-    }
-
-    .cta-telegram::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 40%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-      animation: shimmer 2.2s ease-in-out infinite;
-      animation-delay: 0.5s;
-    }
-
-    .cta-telegram::after {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 60px;
-      background: linear-gradient(135deg, #24A1DE, var(--gold), #24A1DE);
-      background-size: 200% 200%;
-      z-index: -1;
-      animation: border-spin 3s linear infinite;
-      opacity: 0.7;
-    }
-
-    .cta-telegram:hover {
-      transform: translateY(-3px) scale(1.03);
-      box-shadow: 0 16px 48px rgba(36, 161, 222, 0.6);
-      animation: none;
-    }
-
-    .cta-telegram svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0;
-      animation: paper-plane-float 1.8s ease infinite;
-    }
-
-    @keyframes cta-pulse-blue {
-
-      0%,
-      100% {
-        box-shadow: 0 0 0 0 rgba(36, 161, 222, 0.7), 0 0 0 0 rgba(36, 161, 222, 0.4);
-      }
-
-      50% {
-        box-shadow: 0 0 0 10px rgba(36, 161, 222, 0), 0 0 0 20px rgba(36, 161, 222, 0);
-      }
-    }
-
-    @keyframes paper-plane-float {
-
-      0%,
-      100% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      50% {
-        transform: translate(2px, -2px) scale(1.05);
-      }
-    }
-
-    .cta-note {
-      font-size: 0.78rem;
-      color: rgba(245, 238, 240, 0.35);
-      letter-spacing: 0.5px;
-    }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      opacity: 0.3;
-      animation: bounce 2s ease infinite;
-      z-index: 2;
-    }
-
-    .scroll-hint span {
-      font-size: 10px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    @keyframes bounce {
-
-      0%,
-      100% {
-        transform: translateX(-50%) translateY(0);
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(6px);
-      }
-    }
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      background: rgba(255, 255, 255, 0.03);
-      border-top: 1px solid rgba(200, 100, 122, 0.15);
-      border-bottom: 1px solid rgba(200, 100, 122, 0.15);
-      padding: 1.5rem 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 3rem;
-      flex-wrap: wrap;
-      animation: fadeUp 1s ease 0.3s both;
-    }
-
-    .stat {
-      text-align: center;
-    }
-
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      color: var(--gold);
-      display: block;
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.72rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(245, 238, 240, 0.35);
-      margin-top: 4px;
-    }
-
-    /* ── DIVIDER ── */
-    .divider {
-      width: 60px;
-      height: 2px;
-      margin: 0 auto 1.5rem;
-      background: linear-gradient(90deg, var(--rose), var(--gold));
-      border-radius: 2px;
-    }
-
-    /* ── SECTIONS ── */
-    .section {
-      padding: 5rem 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--rose);
-      margin-bottom: 0.75rem;
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      line-height: 1.2;
-      margin-bottom: 1.5rem;
-    }
-
-    .section-title em {
-      font-style: italic;
-      color: var(--rose-light);
-    }
-
-    /* ── ABOUT ── */
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    @media (max-width: 640px) {
-      .about-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .stats-bar {
-        gap: 1.5rem;
-      }
-    }
-
-    .about-text {
-      font-size: 1rem;
-      line-height: 1.85;
-      color: rgba(245, 238, 240, 0.7);
-    }
-
-    .about-text strong {
-      color: var(--rose-light);
-      font-weight: 500;
-    }
-
-    .feature-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .feature-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 0.95rem;
-      color: rgba(245, 238, 240, 0.75);
-    }
-
-    .feature-list li::before {
-      content: '';
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      background: rgba(200, 100, 122, 0.2);
-      border: 1px solid var(--rose);
-      flex-shrink: 0;
-      margin-top: 2px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23C8647A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    /* ── OFFER CARDS ── */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.25rem;
-      margin-top: 2.5rem;
-    }
-
-    .offer-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(200, 100, 122, 0.2);
-      border-radius: 16px;
-      padding: 1.75rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .offer-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--rose), var(--gold));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .offer-card:hover {
-      border-color: rgba(200, 100, 122, 0.5);
-      transform: translateY(-4px);
-    }
-
-    .offer-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-icon {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      display: block;
-    }
-
-    .card-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      color: #F5EEF0;
-    }
-
-    .card-desc {
-      font-size: 0.85rem;
-      color: rgba(245, 238, 240, 0.5);
-      line-height: 1.6;
-    }
-
-    .card-featured {
-      border-color: rgba(201, 169, 110, 0.4);
-      background: rgba(201, 169, 110, 0.05);
-    }
-
-    .card-featured .card-title {
-      color: var(--gold);
-    }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials {
-      background: rgba(255, 255, 255, 0.02);
-      border-top: 1px solid rgba(200, 100, 122, 0.1);
-      border-bottom: 1px solid rgba(200, 100, 122, 0.1);
-    }
-
-    .testimonials .section {
-      padding: 4rem 2rem;
-    }
-
-    .quotes-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.25rem;
-      margin-top: 2rem;
-    }
-
-    .quote-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 14px;
-      padding: 1.5rem;
-    }
-
-    .quote-stars {
-      color: var(--gold);
-      font-size: 0.8rem;
-      letter-spacing: 2px;
-      margin-bottom: 0.75rem;
-    }
-
-    .quote-text {
-      font-size: 0.88rem;
-      line-height: 1.7;
-      color: rgba(245, 238, 240, 0.65);
-      font-style: italic;
-      margin-bottom: 0.75rem;
-    }
-
-    .quote-author {
-      font-size: 0.78rem;
-      color: var(--rose);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    /* ── FINAL CTA ── */
-    .final-cta {
-      text-align: center;
-      padding: 6rem 2rem;
-      background: radial-gradient(ellipse at center, #3D1E2A 0%, #1A1218 70%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .final-cta::before {
-      content: 'SG';
-      position: absolute;
-      font-family: 'Playfair Display', serif;
-      font-size: 30vw;
-      color: rgba(200, 100, 122, 0.04);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      line-height: 1;
-    }
-
-    .final-cta .section-title {
-      margin-bottom: 1rem;
-    }
-
-    .final-cta p {
-      font-size: 1rem;
-      color: rgba(245, 238, 240, 0.5);
-      margin-bottom: 2.5rem;
-      max-width: 380px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .cta-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      text-align: center;
-      padding: 2rem;
-      font-size: 0.75rem;
-      color: rgba(245, 238, 240, 0.2);
-      letter-spacing: 1px;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    footer a {
-      color: var(--rose);
-      text-decoration: none;
-    }
-
-    /* ── FLOATING CTA (mobile) ── */
-    .floating-cta {
-      display: none;
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      width: calc(100% - 3rem);
-      max-width: 380px;
-    }
-
-    .floating-cta a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
-      color: white;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      padding: 1rem;
-      border-radius: 60px;
-      box-shadow: 0 8px 32px rgba(200, 100, 122, 0.5);
-    }
-
-    @media (max-width: 640px) {
-      .floating-cta {
-        display: block;
-      }
-    }
-
-    /* ── LANGUAGE SELECTOR ── */
-    .lang-selector-wrap {
-      position: fixed;
-      top: 1.5rem;
-      right: 1.5rem;
-      z-index: 1000;
-      font-family: 'Jost', sans-serif;
-    }
-
-    .lang-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(200, 100, 122, 0.25);
-      color: #F5EEF0;
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .lang-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: var(--rose);
-      box-shadow: 0 4px 25px rgba(200, 100, 122, 0.4);
-      transform: translateY(-2px);
-    }
-
-    .lang-btn svg {
-      width: 14px;
-      height: 14px;
-      transition: transform 0.3s ease;
-    }
-
-    .lang-dropdown {
-      position: absolute;
-      top: calc(100% + 8px);
-      right: 0;
-      background: rgba(26, 18, 24, 0.95);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(200, 100, 122, 0.2);
-      border-radius: 12px;
-      padding: 0.5rem;
-      min-width: 120px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-      opacity: 0;
-      transform: translateY(-10px);
-      pointer-events: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .lang-dropdown.active {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    .lang-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      width: 100%;
-      padding: 0.4rem 0.8rem;
-      border: none;
-      background: transparent;
-      color: rgba(245, 238, 240, 0.7);
-      font-size: 0.82rem;
-      text-align: left;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: all 0.2s ease;
-    }
-
-    .lang-option:hover {
-      background: rgba(200, 100, 122, 0.15);
-      color: #F5EEF0;
-    }
-
-    .lang-option.active {
-      color: var(--gold);
-      font-weight: 500;
-      background: rgba(201, 169, 110, 0.1);
-    }
-
-    /* ── AGE GATE OVERLAY STYLE ── */
-    .age-overlay-backdrop {
-      --mouse-x: 0;
-      --mouse-y: 0;
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(14, 9, 11, 0.85);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      z-index: 99999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-      perspective: 1200px;
-      overflow: hidden;
-    }
-
-    .age-overlay-backdrop.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    /* ── BACKGROUND ORBS FOR OVERLAY ── */
-    .age-overlay-glows {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .age-glow-orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(80px);
-      opacity: 0.35;
-      mix-blend-mode: screen;
-      will-change: transform;
-    }
-
-    .age-glow-1 {
-      width: 40vw;
-      height: 40vw;
-      background: radial-gradient(circle, rgba(201, 96, 64, 0.22) 0%, rgba(201, 96, 64, 0) 70%);
-      top: -10vw;
-      left: -10vw;
-      animation: age-floatGlow1 22s ease-in-out infinite alternate;
-    }
-
-    .age-glow-2 {
-      width: 45vw;
-      height: 45vw;
-      background: radial-gradient(circle, rgba(212, 80, 122, 0.18) 0%, rgba(212, 80, 122, 0) 70%);
-      bottom: -15vw;
-      right: -10vw;
-      animation: age-floatGlow2 28s ease-in-out infinite alternate;
-    }
-
-    .age-glow-3 {
-      width: 30vw;
-      height: 30vw;
-      background: radial-gradient(circle, rgba(201, 169, 110, 0.12) 0%, rgba(201, 169, 110, 0) 70%);
-      top: 55%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      animation: age-floatGlow3 18s ease-in-out infinite alternate;
-    }
-
-    @keyframes age-floatGlow1 {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      100% {
-        transform: translate(4vw, 3vw) scale(1.1);
-      }
-    }
-
-    @keyframes age-floatGlow2 {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-
-      100% {
-        transform: translate(-5vw, -4vw) scale(1.15);
-      }
-    }
-
-    @keyframes age-floatGlow3 {
-      0% {
-        transform: translate(-50%, -50%) scale(0.9);
-      }
-
-      100% {
-        transform: translate(-47%, -53%) scale(1.1);
-      }
-    }
-
-    /* ── SCENE & CARD WRAPPERS ── */
-    .age-scene-container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transform-style: preserve-3d;
-    }
-
-    .age-card-float-wrapper {
-      animation: age-card-auto-float 7s ease-in-out infinite;
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    /* Make floating wrappers non-interactive so inner card/buttons receive pointer events reliably */
-    .age-card-float-wrapper,
-    .age-card-tilt-wrapper,
-    .age-overlay-glows {
-      pointer-events: none;
-    }
-
-    /* The card itself and buttons must remain interactive */
-    .age-overlay-card {
-      pointer-events: auto;
-    }
-
-    @keyframes age-card-auto-float {
-
-      0%,
-      100% {
-        transform: translateY(0px);
-      }
-
-      50% {
-        transform: translateY(-12px);
-      }
-    }
-
-    .age-card-tilt-wrapper {
-      transform-style: preserve-3d;
-      transition: transform 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
-      will-change: transform;
-    }
-
-    /* ── THE CARD ── */
-    .age-overlay-card {
-      width: 100%;
-      max-width: 480px;
-      background: rgba(24, 15, 18, 0.7);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(201, 169, 110, 0.15);
-      border-radius: 24px;
-      padding: 3rem 2.2rem;
-      box-shadow:
-        0 25px 55px rgba(0, 0, 0, 0.65),
-        inset 0 1px 2px rgba(255, 255, 255, 0.08);
-      position: relative;
-      transform-style: preserve-3d;
-      overflow: visible;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    }
-
-    .age-overlay-card::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(255, 255, 255, 0.007) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.007) 1px, transparent 1px);
-      background-size: 20px 20px;
-      pointer-events: none;
-      z-index: -1;
-      opacity: 0.7;
-    }
-
-    /* ── FLOATING ELEMENTS (ANTIGRAVITY) ── */
-    .age-parallax-element {
-      --px: calc(var(--depth) * var(--mouse-x) * -0.7px);
-      --py: calc(var(--depth) * var(--mouse-y) * -0.7px);
-      --pz: calc(var(--depth) * 1.3px);
-
-      transform: translate3d(var(--px), var(--py), var(--pz));
-      transform-style: preserve-3d;
-      will-change: transform;
-    }
-
-    .age-layer-lock {
-      --depth: 42;
-      animation: age-float-lock 5.5s ease-in-out infinite;
-    }
-
-    .age-logo-label {
-      --depth: 14;
-      animation: age-float-logo 8s ease-in-out infinite;
-
-      /* Typography styling for logo-label inside overlay */
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: #c9a96e;
-      opacity: 0.85;
-      margin-bottom: 0.5rem;
-    }
-
-    .age-layer-title {
-      --depth: 30;
-      animation: age-float-title 6.5s ease-in-out infinite;
-    }
-
-    .age-layer-subtitle {
-      --depth: 20;
-      animation: age-float-subtitle 7.5s ease-in-out infinite;
-    }
-
-    .age-layer-question {
-      --depth: 24;
-      animation: age-float-question 6s ease-in-out infinite;
-    }
-
-    .age-layer-buttons {
-      --depth: 35;
-      animation: age-float-buttons 5s ease-in-out infinite;
-    }
-
-    .age-layer-legal {
-      --depth: 10;
-      animation: age-float-legal 9s ease-in-out infinite;
-    }
-
-    /* Animations for individual suspension */
-    @keyframes age-float-lock {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-12px) rotate(3deg);
-      }
-    }
-
-    @keyframes age-float-logo {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-3px);
-      }
-    }
-
-    @keyframes age-float-title {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-7px) rotate(-1deg);
-      }
-    }
-
-    @keyframes age-float-subtitle {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-5px);
-      }
-    }
-
-    @keyframes age-float-question {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-4px);
-      }
-    }
-
-    @keyframes age-float-buttons {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px) rotate(0deg);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-9px) rotate(0.6deg);
-      }
-    }
-
-    @keyframes age-float-legal {
-
-      0%,
-      100% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(0px);
-      }
-
-      50% {
-        transform: translate3d(var(--px), var(--py), var(--pz)) translateY(-3px);
-      }
-    }
-
-    /* ── TYPOGRAPHY ── */
-    .age-overlay-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 2.6rem);
-      font-weight: 400;
-      line-height: 1.15;
-      margin: 1rem 0;
-      color: #f5eef0;
-    }
-
-    .age-coral-italic {
-      font-style: italic;
-      font-weight: 500;
-      background: linear-gradient(135deg, #c96040 0%, #d4507a 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .age-overlay-subtitle {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 300;
-      line-height: 1.6;
-      color: #a38a95;
-      margin-bottom: 1.5rem;
-      max-width: 380px;
-    }
-
-    .age-overlay-question {
-      font-family: 'Jost', sans-serif;
-      font-size: 1rem;
-      font-weight: 500;
-      color: #f5eef0;
-      margin-bottom: 1.6rem;
-      letter-spacing: 0.3px;
-    }
-
-    .age-overlay-legal {
-      font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
-      line-height: 1.5;
-      color: rgba(245, 238, 240, 0.3);
-      margin-top: 2rem;
-      max-width: 380px;
-    }
-
-    /* ── LOCK ICON OVERLAY ── */
-    .age-icon-container {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 64px;
-      height: 64px;
-      margin-bottom: 0.5rem;
-    }
-
-    .age-icon-glow-ring {
-      position: absolute;
-      inset: -8px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(212, 80, 122, 0.12) 0%, rgba(212, 80, 122, 0) 70%);
-      animation: age-pulse-ring 3.5s ease-in-out infinite;
-    }
-
-    @keyframes age-pulse-ring {
-
-      0%,
-      100% {
-        transform: scale(0.9);
-        opacity: 0.8;
-      }
-
-      50% {
-        transform: scale(1.15);
-        opacity: 1;
-      }
-    }
-
-    .age-lock-icon {
-      width: 100%;
-      height: 100%;
-      filter: drop-shadow(0 4px 12px rgba(201, 96, 64, 0.2));
-    }
-
-    /* ── BUTTONS OVERLAY ── */
-    .age-btn-group {
-      display: flex;
-      gap: 1rem;
-      width: 100%;
-      justify-content: center;
-    }
-
-    @media (max-width: 480px) {
-      .age-btn-group {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-
-      .age-overlay-card {
-        padding: 2.5rem 1.5rem;
-      }
-    }
-
-    .age-overlay-btn {
-      pointer-events: auto !important;
-      z-index: 10;
-      font-family: 'Jost', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      letter-spacing: 0.5px;
-      padding: 0.95rem 2rem;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      min-width: 160px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-    }
-
-    .age-btn-yes {
-      background: linear-gradient(135deg, #c96040 0%, #d4507a 100%);
-      color: white;
-      box-shadow: 0 4px 18px rgba(201, 96, 64, 0.35);
-    }
-
-    .age-btn-yes::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 40%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
-      transform: translateX(-100%) skewX(-15deg);
-      transition: none;
-    }
-
-    .age-btn-yes:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 10px 25px rgba(212, 80, 122, 0.5);
-    }
-
-    .age-btn-yes:hover::before {
-      animation: age-button-shimmer 1.5s infinite;
-    }
-
-    @keyframes age-button-shimmer {
-      0% {
-        transform: translateX(-100%) skewX(-15deg);
-      }
-
-      100% {
-        transform: translateX(250%) skewX(-15deg);
-      }
-    }
-
-    .age-btn-no {
-      background: rgba(255, 255, 255, 0.04);
-      color: rgba(245, 238, 240, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .age-btn-no:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.3);
-      color: white;
-      transform: translateY(-2px) scale(1.02);
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --rose:#C8647A; --rose-light:#F5DDE3; --rose-dark:#8B3A4F; --gold:#C9A96E; --gold-light:#F0E6D3; --cream:#FAF7F4; --dark:#1A1218; --mid:#3D2E35; --text-muted:#7A6570; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Jost',sans-serif; background:var(--dark); color:#F5EEF0; overflow-x:hidden; cursor:default; opacity:0; transition:opacity .4s ease; }
+    body.loaded { opacity:1; }
+    .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; background-color:#2A1820; }
+    .hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:65% center; z-index:0; pointer-events:none; display:block; }
+    .hero::before { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(15,8,12,.55) 0%, rgba(15,8,12,.70) 60%, rgba(15,8,12,.92) 100%); pointer-events:none; z-index:1; }
+    .glow-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; animation:pulse 6s ease-in-out infinite; }
+    .glow-1 { width:400px; height:400px; background:rgba(200,100,122,.18); top:-100px; right:-80px; }
+    .glow-2 { width:300px; height:300px; background:rgba(201,169,110,.12); bottom:0; left:-60px; animation-delay:3s; }
+    @keyframes pulse { 0%,100%{transform:scale(1);opacity:.8;} 50%{transform:scale(1.1);opacity:1;} }
+    .hero-inner { position:relative; z-index:2; text-align:center; padding:2rem; max-width:680px; animation:fadeUp 1s ease both; }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+    .avatar-wrap { position:relative; display:inline-block; margin-bottom:2rem; }
+    .avatar-ring { width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg,var(--rose),var(--gold)); padding:3px; display:flex; align-items:center; justify-content:center; animation:spin-ring 8s linear infinite; }
+    @keyframes spin-ring { from{background:linear-gradient(0deg,var(--rose),var(--gold));} to{background:linear-gradient(360deg,var(--rose),var(--gold));} }
+    .avatar-inner { width:100%; height:100%; border-radius:50%; overflow:hidden; background:#2A1820; display:flex; align-items:center; justify-content:center; }
+    .avatar-inner img { width:100%; height:100%; object-fit:cover; object-position:center top; border-radius:50%; display:block; }
+    .avatar-fallback { font-family:'Playfair Display',serif; font-size:3rem; color:var(--rose); letter-spacing:-2px; }
+    .live-badge { position:absolute; bottom:6px; right:6px; background:#E8395A; color:white; font-size:10px; font-weight:500; letter-spacing:1.5px; padding:3px 9px; border-radius:20px; text-transform:uppercase; display:flex; align-items:center; gap:5px; }
+    .live-dot { width:6px; height:6px; background:white; border-radius:50%; animation:blink 1.2s ease infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+    .tagline { font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
+    h1 { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,8vw,4.5rem); line-height:1.05; font-weight:600; margin-bottom:1rem; background:linear-gradient(135deg,#F5EEF0 30%,var(--gold) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    h1 em { font-style:italic; background:linear-gradient(135deg,var(--rose-light) 0%,var(--rose) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-sub { font-size:1.05rem; font-weight:300; color:rgba(245,238,240,.65); max-width:420px; margin:0 auto 2.5rem; line-height:1.7; }
+    @keyframes cta-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,100,122,.7),0 0 0 0 rgba(200,100,122,.4);} 50%{box-shadow:0 0 0 10px rgba(200,100,122,0),0 0 0 20px rgba(200,100,122,0);} }
+    @keyframes shimmer { 0%{transform:translateX(-100%) skewX(-15deg);} 100%{transform:translateX(250%) skewX(-15deg);} }
+    @keyframes cta-float { 0%,100%{transform:translateY(0px);} 50%{transform:translateY(-5px);} }
+    .cta-primary { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); color:white; text-decoration:none; font-size:.95rem; font-weight:500; letter-spacing:1px; padding:1rem 2.5rem; border-radius:60px; transition:all .3s ease; position:relative; overflow:hidden; margin-bottom:0; animation:cta-pulse 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite; }
+    .cta-primary::before { content:''; position:absolute; top:0; left:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent); animation:shimmer 2.2s ease-in-out infinite; }
+    .cta-primary::after { content:''; position:absolute; inset:-3px; border-radius:60px; background:linear-gradient(135deg,var(--rose),var(--gold),var(--rose)); background-size:200% 200%; z-index:-1; animation:border-spin 3s linear infinite; opacity:.7; }
+    @keyframes border-spin { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+    .cta-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 16px 48px rgba(200,100,122,.6); animation:none; }
+    .cta-primary svg { width:18px; height:18px; flex-shrink:0; animation:heartbeat 1.8s ease infinite; }
+    @keyframes heartbeat { 0%,100%{transform:scale(1);} 14%{transform:scale(1.25);} 28%{transform:scale(1);} 42%{transform:scale(1.15);} 56%{transform:scale(1);} }
+    .cta-container { display:flex; flex-direction:row; justify-content:center; align-items:center; gap:1.5rem; margin-top:.5rem; margin-bottom:1.5rem; width:100%; }
+    @media (max-width:640px){ .cta-container{flex-direction:column;gap:1rem;} }
+    .cta-note { font-size:.78rem; color:rgba(245,238,240,.35); letter-spacing:.5px; }
+    .urgency-pill { display:inline-block; background:rgba(201,169,110,.12); border:1px solid rgba(201,169,110,.4); color:var(--gold); font-size:.8rem; font-weight:500; letter-spacing:1px; padding:.4rem 1.1rem; border-radius:40px; margin-bottom:1.25rem; text-transform:uppercase; }
+    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; opacity:.3; animation:bounce 2s ease infinite; z-index:2; }
+    .scroll-hint span { font-size:10px; letter-spacing:2px; text-transform:uppercase; }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(6px);} }
+    .stats-bar { background:rgba(255,255,255,.03); border-top:1px solid rgba(200,100,122,.15); border-bottom:1px solid rgba(200,100,122,.15); padding:1.5rem 2rem; display:flex; justify-content:center; gap:3rem; flex-wrap:wrap; animation:fadeUp 1s ease .3s both; }
+    .stat { text-align:center; }
+    .stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--gold); display:block; line-height:1; }
+    .stat-label { font-size:.72rem; letter-spacing:2px; text-transform:uppercase; color:rgba(245,238,240,.35); margin-top:4px; }
+    .divider { width:60px; height:2px; margin:0 auto 1.5rem; background:linear-gradient(90deg,var(--rose),var(--gold)); border-radius:2px; }
+    .section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
+    .section-label { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--rose); margin-bottom:.75rem; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.2; margin-bottom:1.5rem; }
+    .section-title em { font-style:italic; color:var(--rose-light); }
+    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+    @media (max-width:640px){ .about-grid{grid-template-columns:1fr;} .stats-bar{gap:1.5rem;} }
+    .about-text { font-size:1rem; line-height:1.85; color:rgba(245,238,240,.7); }
+    .about-text strong { color:var(--rose-light); font-weight:500; }
+    .feature-list { list-style:none; display:flex; flex-direction:column; gap:1rem; }
+    .feature-list li { display:flex; align-items:flex-start; gap:12px; font-size:.95rem; color:rgba(245,238,240,.75); }
+    .feature-list li::before { content:''; width:20px; height:20px; border-radius:50%; background:rgba(200,100,122,.2); border:1px solid var(--rose); flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23C8647A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:center; }
+    .cards-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; margin-top:2.5rem; }
+    .offer-card { background:rgba(255,255,255,.03); border:1px solid rgba(200,100,122,.2); border-radius:16px; padding:1.75rem; transition:all .3s ease; position:relative; overflow:hidden; }
+    .offer-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--rose),var(--gold)); opacity:0; transition:opacity .3s; }
+    .offer-card:hover { border-color:rgba(200,100,122,.5); transform:translateY(-4px); }
+    .offer-card:hover::before { opacity:1; }
+    .card-icon { font-size:1.5rem; margin-bottom:1rem; display:block; }
+    .card-title { font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:.5rem; color:#F5EEF0; }
+    .card-desc { font-size:.85rem; color:rgba(245,238,240,.5); line-height:1.6; }
+    .card-featured { border-color:rgba(201,169,110,.4); background:rgba(201,169,110,.05); }
+    .card-featured .card-title { color:var(--gold); }
+    .testimonials { background:rgba(255,255,255,.02); border-top:1px solid rgba(200,100,122,.1); border-bottom:1px solid rgba(200,100,122,.1); }
+    .testimonials .section { padding:4rem 2rem; }
+    .quotes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.25rem; margin-top:2rem; }
+    .quote-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:1.5rem; }
+    .quote-stars { color:var(--gold); font-size:.8rem; letter-spacing:2px; margin-bottom:.75rem; }
+    .quote-text { font-size:.88rem; line-height:1.7; color:rgba(245,238,240,.65); font-style:italic; margin-bottom:.75rem; }
+    .quote-author { font-size:.78rem; color:var(--rose); letter-spacing:1px; text-transform:uppercase; }
+    .final-cta { text-align:center; padding:6rem 2rem; background:radial-gradient(ellipse at center,#3D1E2A 0%,#1A1218 70%); position:relative; overflow:hidden; }
+    .final-cta::before { content:'SG'; position:absolute; font-family:'Playfair Display',serif; font-size:30vw; color:rgba(200,100,122,.04); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; line-height:1; }
+    .final-cta .section-title { margin-bottom:1rem; }
+    .final-cta p { font-size:1rem; color:rgba(245,238,240,.5); margin-bottom:2.5rem; max-width:380px; margin-left:auto; margin-right:auto; }
+    .cta-group { display:flex; flex-direction:column; align-items:center; gap:1rem; }
+    footer { text-align:center; padding:2rem; font-size:.75rem; color:rgba(245,238,240,.2); letter-spacing:1px; border-top:1px solid rgba(255,255,255,.05); }
+    footer a { color:var(--rose); text-decoration:none; }
+    .floating-cta { display:none; position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); z-index:100; width:calc(100% - 3rem); max-width:380px; }
+    .floating-cta a { display:flex; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); color:white; text-decoration:none; font-size:.9rem; font-weight:500; letter-spacing:1px; padding:1rem; border-radius:60px; box-shadow:0 8px 32px rgba(200,100,122,.5); }
+    @media (max-width:640px){ .floating-cta{display:block;} }
+    .lang-selector-wrap { position:fixed; top:1.5rem; right:1.5rem; z-index:1000; font-family:'Jost',sans-serif; }
+    .lang-btn { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(200,100,122,.25); color:#F5EEF0; padding:.5rem 1rem; border-radius:30px; cursor:pointer; font-size:.85rem; font-weight:500; letter-spacing:.5px; transition:all .3s ease; box-shadow:0 4px 20px rgba(0,0,0,.3); }
+    .lang-btn:hover { background:rgba(255,255,255,.1); border-color:var(--rose); box-shadow:0 4px 25px rgba(200,100,122,.4); transform:translateY(-2px); }
+    .lang-btn svg { width:14px; height:14px; transition:transform .3s ease; }
+    .lang-dropdown { position:absolute; top:calc(100% + 8px); right:0; background:rgba(26,18,24,.95); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(200,100,122,.2); border-radius:12px; padding:.5rem; min-width:120px; box-shadow:0 10px 30px rgba(0,0,0,.5); opacity:0; transform:translateY(-10px); pointer-events:none; transition:all .3s cubic-bezier(.4,0,.2,1); }
+    .lang-dropdown.active { opacity:1; transform:translateY(0); pointer-events:auto; }
+    .lang-option { display:flex; align-items:center; gap:8px; width:100%; padding:.4rem .8rem; border:none; background:transparent; color:rgba(245,238,240,.7); font-size:.82rem; text-align:left; cursor:pointer; border-radius:6px; transition:all .2s ease; }
+    .lang-option:hover { background:rgba(200,100,122,.15); color:#F5EEF0; }
+    .lang-option.active { color:var(--gold); font-weight:500; background:rgba(201,169,110,.1); }
+    .age-overlay-backdrop { --mouse-x:0; --mouse-y:0; position:fixed; inset:0; width:100%; height:100%; background:rgba(14,9,11,.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:99999; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .5s ease, visibility .5s ease; perspective:1200px; overflow:hidden; }
+    .age-overlay-backdrop.active { opacity:1; visibility:visible; }
+    .age-overlay-glows { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+    .age-glow-orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:.35; mix-blend-mode:screen; will-change:transform; }
+    .age-glow-1 { width:40vw; height:40vw; background:radial-gradient(circle,rgba(201,96,64,.22) 0%,rgba(201,96,64,0) 70%); top:-10vw; left:-10vw; animation:age-floatGlow1 22s ease-in-out infinite alternate; }
+    .age-glow-2 { width:45vw; height:45vw; background:radial-gradient(circle,rgba(212,80,122,.18) 0%,rgba(212,80,122,0) 70%); bottom:-15vw; right:-10vw; animation:age-floatGlow2 28s ease-in-out infinite alternate; }
+    .age-glow-3 { width:30vw; height:30vw; background:radial-gradient(circle,rgba(201,169,110,.12) 0%,rgba(201,169,110,0) 70%); top:55%; left:50%; transform:translate(-50%,-50%); animation:age-floatGlow3 18s ease-in-out infinite alternate; }
+    @keyframes age-floatGlow1 { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(4vw,3vw) scale(1.1);} }
+    @keyframes age-floatGlow2 { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(-5vw,-4vw) scale(1.15);} }
+    @keyframes age-floatGlow3 { 0%{transform:translate(-50%,-50%) scale(.9);} 100%{transform:translate(-47%,-53%) scale(1.1);} }
+    .age-scene-container { position:relative; z-index:1; width:100%; padding:1.5rem; display:flex; align-items:center; justify-content:center; transform-style:preserve-3d; }
+    .age-card-float-wrapper { animation:age-card-auto-float 7s ease-in-out infinite; transform-style:preserve-3d; will-change:transform; }
+    .age-card-float-wrapper, .age-card-tilt-wrapper, .age-overlay-glows { pointer-events:none; }
+    .age-overlay-card { pointer-events:auto; }
+    @keyframes age-card-auto-float { 0%,100%{transform:translateY(0px);} 50%{transform:translateY(-12px);} }
+    .age-card-tilt-wrapper { transform-style:preserve-3d; transition:transform .15s cubic-bezier(.25,.8,.25,1); will-change:transform; }
+    .age-overlay-card { width:100%; max-width:480px; background:rgba(24,15,18,.7); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(201,169,110,.15); border-radius:24px; padding:3rem 2.2rem; box-shadow:0 25px 55px rgba(0,0,0,.65), inset 0 1px 2px rgba(255,255,255,.08); position:relative; transform-style:preserve-3d; overflow:visible; display:flex; flex-direction:column; align-items:center; text-align:center; }
+    .age-overlay-card::after { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.007) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.007) 1px,transparent 1px); background-size:20px 20px; pointer-events:none; z-index:-1; opacity:.7; }
+    .age-parallax-element { --px:calc(var(--depth)*var(--mouse-x)*-.7px); --py:calc(var(--depth)*var(--mouse-y)*-.7px); --pz:calc(var(--depth)*1.3px); transform:translate3d(var(--px),var(--py),var(--pz)); transform-style:preserve-3d; will-change:transform; }
+    .age-layer-lock { --depth:42; animation:age-float-lock 5.5s ease-in-out infinite; }
+    .age-logo-label { --depth:14; animation:age-float-logo 8s ease-in-out infinite; font-size:.72rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#c9a96e; opacity:.85; margin-bottom:.5rem; }
+    .age-layer-title { --depth:30; animation:age-float-title 6.5s ease-in-out infinite; }
+    .age-layer-subtitle { --depth:20; animation:age-float-subtitle 7.5s ease-in-out infinite; }
+    .age-layer-question { --depth:24; animation:age-float-question 6s ease-in-out infinite; }
+    .age-layer-buttons { --depth:35; animation:age-float-buttons 5s ease-in-out infinite; }
+    .age-layer-legal { --depth:10; animation:age-float-legal 9s ease-in-out infinite; }
+    @keyframes age-float-lock { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px) rotate(0deg);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-12px) rotate(3deg);} }
+    @keyframes age-float-logo { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-3px);} }
+    @keyframes age-float-title { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px) rotate(0deg);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-7px) rotate(-1deg);} }
+    @keyframes age-float-subtitle { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-5px);} }
+    @keyframes age-float-question { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-4px);} }
+    @keyframes age-float-buttons { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px) rotate(0deg);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-9px) rotate(.6deg);} }
+    @keyframes age-float-legal { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-3px);} }
+    .age-overlay-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,2.6rem); font-weight:400; line-height:1.15; margin:1rem 0; color:#f5eef0; }
+    .age-coral-italic { font-style:italic; font-weight:500; background:linear-gradient(135deg,#c96040 0%,#d4507a 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .age-overlay-subtitle { font-family:'Jost',sans-serif; font-size:.9rem; font-weight:300; line-height:1.6; color:#a38a95; margin-bottom:1.5rem; max-width:380px; }
+    .age-overlay-question { font-family:'Jost',sans-serif; font-size:1rem; font-weight:500; color:#f5eef0; margin-bottom:1.6rem; letter-spacing:.3px; }
+    .age-overlay-legal { font-family:'Jost',sans-serif; font-size:.7rem; line-height:1.5; color:rgba(245,238,240,.3); margin-top:2rem; max-width:380px; }
+    .age-icon-container { position:relative; display:flex; align-items:center; justify-content:center; width:64px; height:64px; margin-bottom:.5rem; }
+    .age-icon-glow-ring { position:absolute; inset:-8px; border-radius:50%; background:radial-gradient(circle,rgba(212,80,122,.12) 0%,rgba(212,80,122,0) 70%); animation:age-pulse-ring 3.5s ease-in-out infinite; }
+    @keyframes age-pulse-ring { 0%,100%{transform:scale(.9);opacity:.8;} 50%{transform:scale(1.15);opacity:1;} }
+    .age-lock-icon { width:100%; height:100%; filter:drop-shadow(0 4px 12px rgba(201,96,64,.2)); }
+    .age-btn-group { display:flex; gap:1rem; width:100%; justify-content:center; }
+    @media (max-width:480px){ .age-btn-group{flex-direction:column;gap:.8rem;} .age-overlay-card{padding:2.5rem 1.5rem;} }
+    .age-overlay-btn { pointer-events:auto !important; z-index:10; font-family:'Jost',sans-serif; font-size:.95rem; font-weight:500; letter-spacing:.5px; padding:.95rem 2rem; border-radius:50px; cursor:pointer; transition:all .35s cubic-bezier(.25,.8,.25,1); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; border:none; min-width:160px; position:relative; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,.3); }
+    .age-btn-yes { background:linear-gradient(135deg,#c96040 0%,#d4507a 100%); color:white; box-shadow:0 4px 18px rgba(201,96,64,.35); }
+    .age-btn-yes::before { content:''; position:absolute; top:0; left:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent); transform:translateX(-100%) skewX(-15deg); transition:none; }
+    .age-btn-yes:hover { transform:translateY(-2px) scale(1.02); box-shadow:0 10px 25px rgba(212,80,122,.5); }
+    .age-btn-yes:hover::before { animation:age-button-shimmer 1.5s infinite; }
+    @keyframes age-button-shimmer { 0%{transform:translateX(-100%) skewX(-15deg);} 100%{transform:translateX(250%) skewX(-15deg);} }
+    .age-btn-no { background:rgba(255,255,255,.04); color:rgba(245,238,240,.85); border:1px solid rgba(255,255,255,.12); }
+    .age-btn-no:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.3); color:white; transform:translateY(-2px) scale(1.02); }
   </style>
-  <noscript>
-    <style>
-      body {
-        opacity: 1 !important;
-      }
-    </style>
-  </noscript>
+  <noscript><style>body{opacity:1 !important;}</style></noscript>
 </head>
 
 <body>
-
-  <!-- SELECTOR DE IDIOMA -->
   <div class="lang-selector-wrap">
     <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-        stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="2" y1="12" x2="22" y2="12"></line>
-        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
       <span id="activeLangText">EN</span>
     </button>
     <div class="lang-dropdown" id="langDropdown" role="menu">
@@ -1504,107 +175,48 @@
     </div>
   </div>
 
-  <!-- HERO -->
   <section class="hero">
-
-    <!-- Imagen de fondo: usa <img> en lugar de background-image para control total del encuadre -->
-    <img class="hero-bg" src="src/img1.png" alt="">
-
+    <img class="hero-bg" src="src/img1.jpg" alt="">
     <div class="glow-orb glow-1"></div>
     <div class="glow-orb glow-2"></div>
-
     <div class="hero-inner">
-
       <div class="avatar-wrap">
         <div class="avatar-ring">
           <div class="avatar-inner">
-            <img src="src/img2.png" alt="Sofia Gonzalez"
-              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <span class="avatar-fallback"
-              style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
+            <img src="src/img2.jpg" alt="Sofia Gonzalez" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <span class="avatar-fallback" style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
           </div>
         </div>
-        <div class="live-badge">
-          <div class="live-dot"></div>
-          Online
-        </div>
+        <div class="live-badge"><div class="live-dot"></div>Online</div>
       </div>
-
       <p class="tagline" data-i18n="tagline">Exclusive Content &middot; Colombia</p>
-
-      <h1>
-        <span data-i18n="hero_title_1">Sofia</span><br>
-        <em data-i18n="hero_title_2">Gonzalez</em>
-      </h1>
-
-      <p class="hero-sub" data-i18n="hero_sub">
-        Exclusive, authentic and deeply personal content.<br>
-        Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.
-      </p>
-
+      <h1><span data-i18n="hero_title_1">Sofia</span><br><em data-i18n="hero_title_2">Gonzalez</em></h1>
+      <p class="hero-sub" data-i18n="hero_sub">Exclusive, authentic and deeply personal content.<br>Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.</p>
+      <div class="urgency-pill" data-i18n="urgency_pill">&#10024; 7 days free &middot; Only 50 spots</div>
       <div class="cta-container">
-        <a href="javascript:void(0)" data-url="https://www.fanvue.com/sofiagonzalezofficial" class="cta-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
+        <a href="javascript:void(0)" data-url="https://www.fanvue.com/sofiagonzalezofficial?free_trial=deb9ebde-46e9-4052-8dea-1ea8a34f63c0" class="cta-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
           <span data-i18n="join_premium">Join Now &mdash; Premium Content</span>
         </a>
-        <!-- <a href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" class="cta-telegram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round">
-            <path d="m22 2-7 20-4-9-9-4Z" />
-            <path d="M22 2 11 13" />
-          </svg>
-          <span data-i18n="join_telegram">Join Free &mdash; Telegram</span>
-        </a> -->
       </div>
-
       <p class="cta-note" data-i18n="secure_access">&#128274; Secure access &middot; Cancel anytime</p>
     </div>
-
-    <div class="scroll-hint">
-      <span data-i18n="scroll">Scroll</span>
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M6 9l6 6 6-6" />
-      </svg>
-    </div>
+    <div class="scroll-hint"><span data-i18n="scroll">Scroll</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" /></svg></div>
   </section>
 
-  <!-- STATS BAR -->
   <div class="stats-bar">
-    <div class="stat">
-      <span class="stat-num" data-i18n="stat_age_val">23</span>
-      <span class="stat-label" data-i18n="stat_age_lbl">Years old</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-i18n="stat_location_val">&#127464;&#127476;</span>
-      <span class="stat-label" data-i18n="stat_location_lbl">Colombia</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-i18n="stat_subscribers_val">5K+</span>
-      <span class="stat-label" data-i18n="stat_subscribers_lbl">Subscribers</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num" data-i18n="stat_content_val">100%</span>
-      <span class="stat-label" data-i18n="stat_content_lbl">Original content</span>
-    </div>
+    <div class="stat"><span class="stat-num" data-i18n="stat_age_val">23</span><span class="stat-label" data-i18n="stat_age_lbl">Years old</span></div>
+    <div class="stat"><span class="stat-num" data-i18n="stat_location_val">&#127464;&#127476;</span><span class="stat-label" data-i18n="stat_location_lbl">Colombia</span></div>
+    <div class="stat"><span class="stat-num" data-i18n="stat_subscribers_val">5K+</span><span class="stat-label" data-i18n="stat_subscribers_lbl">Subscribers</span></div>
+    <div class="stat"><span class="stat-num" data-i18n="stat_content_val">100%</span><span class="stat-label" data-i18n="stat_content_lbl">Original content</span></div>
   </div>
 
-  <!-- ABOUT -->
   <section class="section">
     <div class="about-grid">
       <div>
         <p class="section-label" data-i18n="about_label">About me</p>
         <h2 class="section-title" data-i18n="about_title">The woman behind<br>the <em>screen</em></h2>
-        <p class="about-text" data-i18n="about_desc">
-          Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you.
-          I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.
-          <br><br>
-          My private profile is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll
-          never find on any social media. Every piece of content is created with love, just for you.
-        </p>
+        <p class="about-text" data-i18n="about_desc">Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you. I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.<br><br>My private profile is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll never find on any social media. Every piece of content is created with love, just for you.</p>
       </div>
       <ul class="feature-list">
         <li data-i18n="feature_1">Exclusive photos &amp; videos I don&rsquo;t post anywhere else</li>
@@ -1617,74 +229,31 @@
     </div>
   </section>
 
-  <!-- OFFER CARDS -->
   <section style="padding: 0 2rem 5rem; max-width: 900px; margin: 0 auto;">
     <div class="divider"></div>
-    <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;" data-i18n="offer_label">What awaits you
-    </p>
+    <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;" data-i18n="offer_label">What awaits you</p>
     <h2 class="section-title" style="text-align:center;" data-i18n="offer_title">A truly <em>unique</em> experience</h2>
-
     <div class="cards-grid">
-      <div class="offer-card">
-        <span class="card-icon">&#128248;</span>
-        <h3 class="card-title" data-i18n="card_photos_title">Exclusive Photos</h3>
-        <p class="card-desc" data-i18n="card_photos_desc">Professional and candid photo sets I share only with my
-          subscribers.</p>
-      </div>
-      <div class="offer-card card-featured">
-        <span class="card-icon">&#127916;</span>
-        <h3 class="card-title" data-i18n="card_videos_title">Private Videos</h3>
-        <p class="card-desc" data-i18n="card_videos_desc">High-quality, intimate and authentic video content. The
-          community favorite.</p>
-      </div>
-      <div class="offer-card">
-        <span class="card-icon">&#128172;</span>
-        <h3 class="card-title" data-i18n="card_chat_title">Direct Chat</h3>
-        <p class="card-desc" data-i18n="card_chat_desc">Message me directly. I&rsquo;m the one who replies &mdash; no
-          assistants. A real fan experience.</p>
-      </div>
-      <div class="offer-card">
-        <span class="card-icon">&#11088;</span>
-        <h3 class="card-title" data-i18n="card_vip_title">VIP Content</h3>
-        <p class="card-desc" data-i18n="card_vip_desc">Personalized custom content for those who want something truly
-          special.</p>
-      </div>
+      <div class="offer-card"><span class="card-icon">&#128248;</span><h3 class="card-title" data-i18n="card_photos_title">Exclusive Photos</h3><p class="card-desc" data-i18n="card_photos_desc">Professional and candid photo sets I share only with my subscribers.</p></div>
+      <div class="offer-card card-featured"><span class="card-icon">&#127916;</span><h3 class="card-title" data-i18n="card_videos_title">Private Videos</h3><p class="card-desc" data-i18n="card_videos_desc">High-quality, intimate and authentic video content. The community favorite.</p></div>
+      <div class="offer-card"><span class="card-icon">&#128172;</span><h3 class="card-title" data-i18n="card_chat_title">Direct Chat</h3><p class="card-desc" data-i18n="card_chat_desc">Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.</p></div>
+      <div class="offer-card"><span class="card-icon">&#11088;</span><h3 class="card-title" data-i18n="card_vip_title">VIP Content</h3><p class="card-desc" data-i18n="card_vip_desc">Personalized custom content for those who want something truly special.</p></div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
   <div class="testimonials">
     <div class="section">
       <div class="divider"></div>
-      <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;" data-i18n="testimonials_label">What
-        they say</p>
-      <h2 class="section-title" style="text-align:center;" data-i18n="testimonials_title">My <em>community</em> speaks
-      </h2>
-
+      <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;" data-i18n="testimonials_label">What they say</p>
+      <h2 class="section-title" style="text-align:center;" data-i18n="testimonials_title">My <em>community</em> speaks</h2>
       <div class="quotes-grid">
-        <div class="quote-card">
-          <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="quote-text" data-i18n="quote_1_text">&ldquo;Sofia is incredible. She really replies, the content is
-            next level. Worth every penny.&rdquo;</p>
-          <span class="quote-author" data-i18n="quote_1_author">&mdash; J. M., VIP subscriber</span>
-        </div>
-        <div class="quote-card">
-          <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="quote-text" data-i18n="quote_2_text">&ldquo;I had been looking for something authentic for a while
-            and Sofia has it all. Natural, beautiful and very attentive.&rdquo;</p>
-          <span class="quote-author" data-i18n="quote_2_author">&mdash; R. T., Premium subscriber</span>
-        </div>
-        <div class="quote-card">
-          <div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <p class="quote-text" data-i18n="quote_3_text">&ldquo;Subscribed for 6 months and no regrets. She posts
-            constantly and always surprises.&rdquo;</p>
-          <span class="quote-author" data-i18n="quote_3_author">&mdash; A. K., active member</span>
-        </div>
+        <div class="quote-card"><div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote-text" data-i18n="quote_1_text">&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;</p><span class="quote-author" data-i18n="quote_1_author">&mdash; J. M., VIP subscriber</span></div>
+        <div class="quote-card"><div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote-text" data-i18n="quote_2_text">&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;</p><span class="quote-author" data-i18n="quote_2_author">&mdash; R. T., Premium subscriber</span></div>
+        <div class="quote-card"><div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote-text" data-i18n="quote_3_text">&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;</p><span class="quote-author" data-i18n="quote_3_author">&mdash; A. K., active member</span></div>
       </div>
     </div>
   </div>
 
-  <!-- FINAL CTA -->
   <section class="final-cta">
     <div class="divider"></div>
     <p class="section-label" data-i18n="final_label">Start today</p>
@@ -1692,560 +261,129 @@
     <p data-i18n="final_desc">Subscribe now and access the exclusive content only my fans get to see.</p>
     <div class="cta-group">
       <div class="cta-container">
-        <a href="javascript:void(0)" data-url="https://www.fanvue.com/sofiagonzalezofficial" class="cta-primary"
-          style="font-size:1rem; padding: 1.1rem 3rem;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" width="18" height="18">
-            <path
-              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
+        <a href="javascript:void(0)" data-url="https://www.fanvue.com/sofiagonzalezofficial?free_trial=deb9ebde-46e9-4052-8dea-1ea8a34f63c0" class="cta-primary" style="font-size:1rem; padding: 1.1rem 3rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
           <span data-i18n="final_btn_premium">View my Premium Profile &mdash; @sofiagonzalezofficial</span>
         </a>
-        <!-- <a href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" class="cta-telegram"
-          style="font-size:1rem; padding: 1.1rem 3rem;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" width="18" height="18">
-            <path d="m22 2-7 20-4-9-9-4Z" />
-            <path d="M22 2 11 13" />
-          </svg>
-          <span data-i18n="final_btn_telegram">Join Free &mdash; Telegram</span>
-        </a> -->
       </div>
-      <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;"
-        data-i18n="final_disclaimer">&#128274; Secure platform
-        &middot; Protected payment &middot; Privacy guaranteed</span>
+      <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;" data-i18n="final_disclaimer">&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed</span>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p data-i18n="footer_copyright">&copy; 2026 Sofia Gonzalez &middot; All rights reserved</p>
-    <p style="margin-top: 6px;">
-      <a href="https://goo.su/WAas1zF" target="_blank" rel="noopener">@sofiagonzalezofficial</a>
-    </p>
-    <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;" data-i18n="footer_disclaimer">Exclusive content for
-      adults 18+ only</p>
+    <p style="margin-top: 6px;"><a href="https://www.fanvue.com/sofiagonzalezofficial?free_trial=deb9ebde-46e9-4052-8dea-1ea8a34f63c0" target="_blank" rel="noopener">@sofiagonzalezofficial</a></p>
+    <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;" data-i18n="footer_disclaimer">Exclusive content for adults 18+ only</p>
   </footer>
 
-  <!-- SCRIPT DE INTERNACIONALIZACIÓN (i18n) -->
   <script>
     const resources = {
       en: {
         title: "Sofia Gonzalez — Exclusive Content",
         meta_description: "Exclusive, authentic and deeply personal content of Sofia Gonzalez. Step into my private world.",
         tagline: "Exclusive Content &middot; Colombia",
-        hero_title_1: "Sofia",
-        hero_title_2: "Gonzalez",
+        hero_title_1: "Sofia", hero_title_2: "Gonzalez",
         hero_sub: "Exclusive, authentic and deeply personal content.<br>Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.",
-        join_premium: "Join Now &mdash; Premium Content",
-        join_telegram: "Join Free &mdash; Telegram",
+        urgency_pill: "&#10024; 7 days free &middot; Only 50 spots",
+        join_premium: "Start FREE &mdash; 7-Day Trial",
         secure_access: "&#128274; Secure access &middot; Cancel anytime",
         scroll: "Scroll",
-        stat_age_val: "23",
-        stat_age_lbl: "Years old",
-        stat_location_val: "&#127464;&#127476;",
-        stat_location_lbl: "Colombia",
-        stat_subscribers_val: "5K+",
-        stat_subscribers_lbl: "Subscribers",
-        stat_content_val: "100%",
-        stat_content_lbl: "Original content",
-        about_label: "About me",
-        about_title: "The woman behind<br>the <em>screen</em>",
+        stat_age_val: "23", stat_age_lbl: "Years old", stat_location_val: "&#127464;&#127476;", stat_location_lbl: "Colombia", stat_subscribers_val: "5K+", stat_subscribers_lbl: "Subscribers", stat_content_val: "100%", stat_content_lbl: "Original content",
+        about_label: "About me", about_title: "The woman behind<br>the <em>screen</em>",
         about_desc: "Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you. I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.<br><br>My private profile is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll never find on any social media. Every piece of content is created with love, just for you.",
-        feature_1: "Exclusive photos &amp; videos I don&rsquo;t post anywhere else",
-        feature_2: "Daily updates for my subscribers",
-        feature_3: "Private chat directly with me &mdash; I reply personally",
-        feature_4: "Custom content on request for special subscribers",
-        feature_5: "Early access to all my new content",
-        feature_6: "Private, discreet community &mdash; 100% safe",
-        offer_label: "What awaits you",
-        offer_title: "A truly <em>unique</em> experience",
-        card_photos_title: "Exclusive Photos",
-        card_photos_desc: "Professional and candid photo sets I share only with my subscribers.",
-        card_videos_title: "Private Videos",
-        card_videos_desc: "High-quality, intimate and authentic video content. The community favorite.",
-        card_chat_title: "Direct Chat",
-        card_chat_desc: "Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.",
-        card_vip_title: "VIP Content",
-        card_vip_desc: "Personalized custom content for those who want something truly special.",
-        testimonials_label: "What they say",
-        testimonials_title: "My <em>community</em> speaks",
-        quote_1_text: "&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;",
-        quote_1_author: "&mdash; J. M., VIP subscriber",
-        quote_2_text: "&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;",
-        quote_2_author: "&mdash; R. T., Premium subscriber",
-        quote_3_text: "&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;",
-        quote_3_author: "&mdash; A. K., active member",
-        final_label: "Start today",
-        final_title: "Ready to<br><em>join?</em>",
+        feature_1: "Exclusive photos &amp; videos I don&rsquo;t post anywhere else", feature_2: "Daily updates for my subscribers", feature_3: "Private chat directly with me &mdash; I reply personally", feature_4: "Custom content on request for special subscribers", feature_5: "Early access to all my new content", feature_6: "Private, discreet community &mdash; 100% safe",
+        offer_label: "What awaits you", offer_title: "A truly <em>unique</em> experience",
+        card_photos_title: "Exclusive Photos", card_photos_desc: "Professional and candid photo sets I share only with my subscribers.", card_videos_title: "Private Videos", card_videos_desc: "High-quality, intimate and authentic video content. The community favorite.", card_chat_title: "Direct Chat", card_chat_desc: "Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.", card_vip_title: "VIP Content", card_vip_desc: "Personalized custom content for those who want something truly special.",
+        testimonials_label: "What they say", testimonials_title: "My <em>community</em> speaks",
+        quote_1_text: "&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;", quote_1_author: "&mdash; J. M., VIP subscriber", quote_2_text: "&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;", quote_2_author: "&mdash; R. T., Premium subscriber", quote_3_text: "&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;", quote_3_author: "&mdash; A. K., active member",
+        final_label: "Start today", final_title: "Ready to<br><em>join?</em>",
         final_desc: "Subscribe now and access the exclusive content only my fans get to see.",
-        final_btn_premium: "View my Premium Profile &mdash; @sofiagonzalezofficial",
-        final_btn_telegram: "Join Free &mdash; Telegram",
+        final_btn_premium: "Claim my FREE 7-day trial &mdash; 50 spots only",
         final_disclaimer: "&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed",
-        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; All rights reserved",
-        footer_disclaimer: "Exclusive content for adults 18+ only",
+        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; All rights reserved", footer_disclaimer: "Exclusive content for adults 18+ only",
         age_logo: "Sofia Gonzalez &bull; Exclusive Content",
         age_title: "Before you enter,<br><em class='age-coral-italic'>verify your age</em>",
         age_subtitle: "This site contains content intended for adults only. You must be 18 years or older to continue.",
         age_question: "Are you 18 years of age or older?",
-        age_btn_yes: "Yes, I'm 18+",
-        age_btn_no: "No, exit",
+        age_btn_yes: "Yes, I'm 18+", age_btn_no: "No, exit",
         age_legal: "By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy Policy. This site uses cookies to remember your age verification."
       },
       es: {
         title: "Sofia Gonzalez — Contenido Exclusivo",
         meta_description: "Contenido exclusivo, auténtico y profundamente personal de Sofía González. Entra en mi mundo privado.",
         tagline: "Contenido Exclusivo &middot; Colombia",
-        hero_title_1: "Sofia",
-        hero_title_2: "Gonzalez",
+        hero_title_1: "Sofia", hero_title_2: "Gonzalez",
         hero_sub: "Contenido exclusivo, auténtico y profundamente personal.<br>Entra a mi mundo privado &mdash; una experiencia que no encontrarás en ningún otro lugar.",
-        join_premium: "Únete Ahora &mdash; Contenido Premium",
-        join_telegram: "Únete Gratis &mdash; Telegram",
+        urgency_pill: "&#10024; 7 días gratis &middot; Solo 50 cupos",
+        join_premium: "Prueba GRATIS &mdash; 7 días",
         secure_access: "&#128274; Acceso seguro &middot; Cancela en cualquier momento",
         scroll: "Bajar",
-        stat_age_val: "23",
-        stat_age_lbl: "Años de edad",
-        stat_location_val: "&#127464;&#127476;",
-        stat_location_lbl: "Colombia",
-        stat_subscribers_val: "5K+",
-        stat_subscribers_lbl: "Suscriptores",
-        stat_content_val: "100%",
-        stat_content_lbl: "Contenido original",
-        about_label: "Sobre mí",
-        about_title: "La mujer detrás de<br>la <em>pantalla</em>",
+        stat_age_val: "23", stat_age_lbl: "Años de edad", stat_location_val: "&#127464;&#127476;", stat_location_lbl: "Colombia", stat_subscribers_val: "5K+", stat_subscribers_lbl: "Suscriptores", stat_content_val: "100%", stat_content_lbl: "Contenido original",
+        about_label: "Sobre mí", about_title: "La mujer detrás de<br>la <em>pantalla</em>",
         about_desc: "Hola, soy <strong>Sofía González</strong> &mdash; una colombiana de 23 años con mucho que mostrarte. Soy espontánea, apasionada y auténtica. Lo que ves aquí es la verdadera yo, sin filtros ni poses falsas.<br><br>Mi perfil privado es mi espacio más <strong>íntimo y personal</strong>, donde comparto lo que nunca encontrarás en ninguna otra red social. Cada pieza de contenido está creada con amor, especialmente para ti.",
-        feature_1: "Fotos y videos exclusivos que no publico en ningún otro lugar",
-        feature_2: "Actualizaciones diarias para mis suscriptores",
-        feature_3: "Chat privado directo conmigo &mdash; respondo personalmente",
-        feature_4: "Contenido personalizado a pedido para suscriptores especiales",
-        feature_5: "Acceso anticipado a todo mi contenido nuevo",
-        feature_6: "Comunidad privada y discreta &mdash; 100% segura",
-        offer_label: "Lo que te espera",
-        offer_title: "Una experiencia realmente <em>única</em>",
-        card_photos_title: "Fotos Exclusivas",
-        card_photos_desc: "Sesiones de fotos profesionales y espontáneas que comparto solo con mis suscriptores.",
-        card_videos_title: "Videos Privados",
-        card_videos_desc: "Contenido de video de alta calidad, íntimo y auténtico. El favorito de la comunidad.",
-        card_chat_title: "Chat Directo",
-        card_chat_desc: "Escríbeme directamente. Yo soy la que responde, sin asistentes. Una verdadera experiencia para fans.",
-        card_vip_title: "Contenido VIP",
-        card_vip_desc: "Contenido personalizado para aquellos que desean algo verdaderamente especial.",
-        testimonials_label: "Lo que dicen",
-        testimonials_title: "Mi <em>comunidad</em> habla",
-        quote_1_text: "&ldquo;Sofía es increíble. Realmente responde, el contenido es de otro nivel. Vale cada centavo.&rdquo;",
-        quote_1_author: "&mdash; J. M., suscriptor VIP",
-        quote_2_text: "&ldquo;Llevaba tiempo buscando algo auténtico y Sofía lo tiene todo. Natural, hermosa y muy atenta.&rdquo;",
-        quote_2_author: "&mdash; R. T., suscriptor Premium",
-        quote_3_text: "&ldquo;Suscrito por 6 meses y sin arrepentimientos. Publica constantemente y siempre sorprende.&rdquo;",
-        quote_3_author: "&mdash; A. K., miembro activo",
-        final_label: "Comienza hoy",
-        final_title: "¿Listo para<br><em>unirte?</em>",
+        feature_1: "Fotos y videos exclusivos que no publico en ningún otro lugar", feature_2: "Actualizaciones diarias para mis suscriptores", feature_3: "Chat privado directo conmigo &mdash; respondo personalmente", feature_4: "Contenido personalizado a pedido para suscriptores especiales", feature_5: "Acceso anticipado a todo mi contenido nuevo", feature_6: "Comunidad privada y discreta &mdash; 100% segura",
+        offer_label: "Lo que te espera", offer_title: "Una experiencia realmente <em>única</em>",
+        card_photos_title: "Fotos Exclusivas", card_photos_desc: "Sesiones de fotos profesionales y espontáneas que comparto solo con mis suscriptores.", card_videos_title: "Videos Privados", card_videos_desc: "Contenido de video de alta calidad, íntimo y auténtico. El favorito de la comunidad.", card_chat_title: "Chat Directo", card_chat_desc: "Escríbeme directamente. Yo soy la que responde, sin asistentes. Una verdadera experiencia para fans.", card_vip_title: "Contenido VIP", card_vip_desc: "Contenido personalizado para aquellos que desean algo verdaderamente especial.",
+        testimonials_label: "Lo que dicen", testimonials_title: "Mi <em>comunidad</em> habla",
+        quote_1_text: "&ldquo;Sofía es increíble. Realmente responde, el contenido es de otro nivel. Vale cada centavo.&rdquo;", quote_1_author: "&mdash; J. M., suscriptor VIP", quote_2_text: "&ldquo;Llevaba tiempo buscando algo auténtico y Sofía lo tiene todo. Natural, hermosa y muy atenta.&rdquo;", quote_2_author: "&mdash; R. T., suscriptor Premium", quote_3_text: "&ldquo;Suscrito por 6 meses y sin arrepentimientos. Publica constantemente y siempre sorprende.&rdquo;", quote_3_author: "&mdash; A. K., miembro activo",
+        final_label: "Comienza hoy", final_title: "¿Listo para<br><em>unirte?</em>",
         final_desc: "Suscríbete ahora y accede al contenido exclusivo que solo mis fans pueden ver.",
-        final_btn_premium: "Ver mi Perfil Premium &mdash; @sofiagonzalezofficial",
-        final_btn_telegram: "Únete Gratis &mdash; Telegram",
+        final_btn_premium: "Quiero mi prueba GRATIS de 7 días &mdash; Solo 50 cupos",
         final_disclaimer: "&#128274; Plataforma segura &middot; Pago protegido &middot; Privacidad garantizada",
-        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; Todos los derechos reservados",
-        footer_disclaimer: "Contenido exclusivo solo para adultos mayores de 18 años",
+        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; Todos los derechos reservados", footer_disclaimer: "Contenido exclusivo solo para adultos mayores de 18 años",
         age_logo: "Sofía González &bull; Contenido Exclusivo",
         age_title: "Antes de entrar,<br><em class='age-coral-italic'>verifica tu edad</em>",
         age_subtitle: "Este sitio contiene contenido destinado únicamente a adultos. Debes tener 18 años o más para continuar.",
         age_question: "¿Tienes 18 años de edad o más?",
-        age_btn_yes: "Sí, soy mayor de 18",
-        age_btn_no: "No, salir",
+        age_btn_yes: "Sí, soy mayor de 18", age_btn_no: "No, salir",
         age_legal: "Al entrar, confirmas que tienes al menos 18 años y aceptas nuestros Términos de Servicio y Política de Privacidad. Este sitio utiliza cookies para recordar tu verificación de edad."
       }
     };
-
-    // Idioma por defecto
     const DEFAULT_LANG = 'en';
     const SUPPORTED_LANGS = ['en', 'es'];
-
-    const PREMIUM_URL = 'https://goo.su/WAas1zF';
-
-    // Acceso seguro a localStorage (puede estar bloqueado: modo privado, cookies deshabilitadas, webviews)
-    function safeGetItem(key) {
-      try { return localStorage.getItem(key); } catch (e) { return null; }
-    }
-    function safeSetItem(key, value) {
-      try { localStorage.setItem(key, value); } catch (e) { /* ignorar */ }
-    }
-
-    function openAgeGateOverlay(url) {
-      pendingRedirectUrl = url || PREMIUM_URL;
-      const overlay = document.getElementById('age-gate-overlay');
-      // Asegurar listeners antes de mostrar
-      attachOverlayListeners();
-      if (overlay) {
-        overlay.style.display = 'flex';
-        overlay.offsetHeight; // Force layout for transition
-        overlay.classList.add('active');
-      }
-    }
-
-    function setAgeVerifiedCookie() {
-      const date = new Date();
-      date.setTime(date.getTime() + (30 * 24 * 60 * 60 * 1000));
-      document.cookie = `age-verified=true; expires=${date.toUTCString()}; path=/; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
-    }
-
-    function getTargetUrl() {
-      return pendingRedirectUrl || PREMIUM_URL;
-    }
-
-    function closeActiveOverlay() {
-      const overlayEl = document.getElementById('age-gate-overlay');
-      if (overlayEl) {
-        overlayEl.classList.remove('active');
-        setTimeout(() => { overlayEl.style.display = 'none'; }, 500);
-      }
-    }
-
-    function verifyAgeAndRedirect() {
-      setAgeVerifiedCookie();
-      const targetUrl = getTargetUrl();
-      closeActiveOverlay();
-      window.location.href = targetUrl;
-    }
-
-    // Detección automática del idioma
-    function detectLanguage() {
-      // 1. Verificar localStorage
-      const savedLang = safeGetItem('user-language');
-      if (savedLang && SUPPORTED_LANGS.includes(savedLang)) {
-        return savedLang;
-      }
-
-      // 2. Verificar preferencias del navegador
-      const browserLangs = navigator.languages || [navigator.language];
-      for (const lang of browserLangs) {
-        const cleanLang = lang.split('-')[0].toLowerCase();
-        if (SUPPORTED_LANGS.includes(cleanLang)) {
-          return cleanLang;
-        }
-      }
-
-      // 3. Fallback
-      return DEFAULT_LANG;
-    }
-
-    // Actualizar contenido traducido
-    function translatePage(lang) {
-      const translation = resources[lang] || resources[DEFAULT_LANG];
-
-      // Traducir elementos con data-i18n
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        if (translation[key] !== undefined) {
-          if (el.tagName === 'TITLE') {
-            document.title = translation[key];
-          } else {
-            el.innerHTML = translation[key];
-          }
-        }
-      });
-
-      // Traducir Meta Description
-      const metaDesc = document.getElementById('seo-meta-description');
-      if (metaDesc && translation.meta_description) {
-        metaDesc.setAttribute('content', translation.meta_description);
-      }
-
-      // Actualizar el atributo lang del documento (SEO y accesibilidad)
-      document.documentElement.lang = lang;
-
-      // Sincronizar el selector visual de idioma
-      document.getElementById('activeLangText').textContent = lang.toUpperCase();
-      document.querySelectorAll('.lang-option').forEach(opt => {
-        if (opt.getAttribute('data-lang') === lang) {
-          opt.classList.add('active');
-        } else {
-          opt.classList.remove('active');
-        }
-      });
-
-      // Guardar preferencia
-      safeSetItem('user-language', lang);
-    }
-
-    // --- Overlay listeners helper ---
-    let overlayListenersAttached = false;
-    function attachOverlayListeners() {
-      if (overlayListenersAttached) return;
-      const overlayYesBtn = document.getElementById('age-overlay-yes-btn');
-      const overlayNoBtn = document.getElementById('age-overlay-no-btn');
-      const overlayElement = document.getElementById('age-gate-overlay');
-
-      if (!overlayYesBtn || !overlayNoBtn) {
-        // Buttons not present yet
-        return;
-      }
-
-      overlayYesBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        verifyAgeAndRedirect();
-      });
-      // Delegated click handler on overlay as a fallback if buttons don't receive events
-      if (overlayElement) {
-        overlayElement.addEventListener('click', function delegatedOverlayClick(e) {
-          // First try composedPath (preferred) to find the real clicked button
-          let btn = null;
-          const path = (e.composedPath && e.composedPath()) || e.path || null;
-          if (path && path.length) {
-            for (const node of path) {
-              if (!node) continue;
-              try {
-                if (node.classList && node.classList.contains && node.classList.contains('age-overlay-btn')) {
-                  btn = node;
-                  break;
-                }
-              } catch (_) { /* ignore */ }
-            }
-          }
-
-          // Fallback to elementFromPoint if composedPath didn't find the button
-          if (!btn) {
-            const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX);
-            const y = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY);
-            try { const realEl = document.elementFromPoint(x, y); btn = realEl && realEl.closest ? realEl.closest('.age-overlay-btn') : null; } catch (err) { /* ignore */ }
-          }
-
-          if (!btn) return;
-          e.preventDefault();
-          e.stopPropagation();
-          if (btn.id === 'age-overlay-yes-btn') {
-            verifyAgeAndRedirect();
-          } else if (btn.id === 'age-overlay-no-btn') {
-            closeActiveOverlay();
-          }
-        });
-      }
-
-      overlayNoBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        closeActiveOverlay();
-      });
-
-      // Geometry-based fallback: check click coordinates against button bounding boxes
-      if (!window.__ageOverlayGeometryFallbackAttached) {
-        window.__ageOverlayGeometryFallbackAttached = true;
-        document.addEventListener('click', function geometryFallback(e) {
-          try {
-            const overlay = document.getElementById('age-gate-overlay');
-            if (!overlay || overlay.style.display === 'none' || !overlay.classList.contains('active')) return;
-            const yesBtn = document.getElementById('age-overlay-yes-btn');
-            const noBtn = document.getElementById('age-overlay-no-btn');
-            if (!yesBtn || !noBtn) return;
-            const x = e.clientX || (e.touches && e.touches[0] && e.touches[0].clientX);
-            const y = e.clientY || (e.touches && e.touches[0] && e.touches[0].clientY);
-            const yesRect = yesBtn.getBoundingClientRect();
-            const noRect = noBtn.getBoundingClientRect();
-            if (x >= yesRect.left && x <= yesRect.right && y >= yesRect.top && y <= yesRect.bottom) {
-              e.preventDefault(); e.stopPropagation();
-              verifyAgeAndRedirect();
-            } else if (x >= noRect.left && x <= noRect.right && y >= noRect.top && y <= noRect.bottom) {
-              e.preventDefault(); e.stopPropagation();
-              closeActiveOverlay();
-            }
-          } catch (err) {
-            // ignore
-          }
-        }, true);
-      }
-
-      overlayListenersAttached = true;
-    }
-
-    // Inicialización al cargar la página
-    function initializeWebsite() {
-      const initialLang = detectLanguage();
-      translatePage(initialLang);
-
-      // Desvanecer el loader y mostrar la página fluidamente
-      document.body.classList.add('loaded');
-
-      // Funcionalidad del Selector de Idioma
-      const langBtn = document.getElementById('langBtn');
-      const langDropdown = document.getElementById('langDropdown');
-
-      // Toggle dropdown al hacer clic en el botón
-      langBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isActive = langDropdown.classList.toggle('active');
-        langBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
-      });
-
-      // Selección de idioma
-      document.querySelectorAll('.lang-option').forEach(option => {
-        option.addEventListener('click', () => {
-          const selectedLang = option.getAttribute('data-lang');
-          translatePage(selectedLang);
-          langDropdown.classList.remove('active');
-          langBtn.setAttribute('aria-expanded', 'false');
-        });
-      });
-
-      // Cerrar dropdown al hacer clic fuera
-      document.addEventListener('click', () => {
-        langDropdown.classList.remove('active');
-        langBtn.setAttribute('aria-expanded', 'false');
-      });
-
-      // Ensure overlay listeners are attached (helper will noop if already attached)
-      const overlayElement = document.getElementById('age-gate-overlay');
-      attachOverlayListeners();
-      const overlayTiltWrapper = document.querySelector('.age-card-tilt-wrapper');
-
-      // Parallax effect for overlay card
-      const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if (!isMobileDevice && overlayElement) {
-        document.addEventListener('mousemove', (e) => {
-          // Only perform parallax if overlay is visible
-          if (overlayElement.classList.contains('active')) {
-            const x = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
-            const y = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
-
-            document.documentElement.style.setProperty('--mouse-x', x);
-            document.documentElement.style.setProperty('--mouse-y', y);
-
-            if (overlayTiltWrapper) {
-              const rotateX = y * -9;
-              const rotateY = x * 9;
-              overlayTiltWrapper.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            }
-          }
-        });
-
-        // Reset on mouse leave
-        overlayElement.addEventListener('mouseleave', () => {
-          document.documentElement.style.setProperty('--mouse-x', 0);
-          document.documentElement.style.setProperty('--mouse-y', 0);
-          if (overlayTiltWrapper) {
-            overlayTiltWrapper.style.transform = 'rotateX(0deg) rotateY(0deg)';
-          }
-        });
-      }
-
-      // Dynamic click binding fallback for ALL cta-primary buttons
-      document.querySelectorAll('.cta-primary').forEach(button => {
-        button.addEventListener('click', (event) => {
-          event.preventDefault();
-          const url = button.dataset.url || button.href;
-          const value = `; ${document.cookie}`;
-          const parts = value.split(`; age-verified=`);
-          const verified = (parts.length === 2 && parts.pop().split(';').shift() === 'true');
-
-          if (verified) {
-            if (url) {
-              window.location.href = url;
-            }
-          } else {
-            openAgeGateOverlay(url);
-          }
-        });
-      });
-    }
-
-    // Failsafe: si algo falla, mostrar la página igualmente tras 1.5s
-    setTimeout(() => document.body.classList.add('loaded'), 1500);
-
-    // Safe initialization triggering
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeWebsite);
-    } else {
-      initializeWebsite();
-    }
-
-    // Age verification overlay logic
-    let pendingRedirectUrl = '';
-    // Fallback public functions for inline onclick (defensive)
-    function confirmAgeAndRedirect(e) {
-      if (e && e.preventDefault) e.preventDefault();
-      verifyAgeAndRedirect();
-    }
-
-    function closeAgeOverlay(e) {
-      if (e && e.preventDefault) e.preventDefault();
-      closeActiveOverlay();
-    }
+    const PREMIUM_URL = 'https://www.fanvue.com/sofiagonzalezofficial?free_trial=deb9ebde-46e9-4052-8dea-1ea8a34f63c0';
+    function safeGetItem(key){ try{return localStorage.getItem(key);}catch(e){return null;} }
+    function safeSetItem(key,value){ try{localStorage.setItem(key,value);}catch(e){} }
+    function openAgeGateOverlay(url){ pendingRedirectUrl=url||PREMIUM_URL; const overlay=document.getElementById('age-gate-overlay'); attachOverlayListeners(); if(overlay){ overlay.style.display='flex'; overlay.offsetHeight; overlay.classList.add('active'); } }
+    function setAgeVerifiedCookie(){ const date=new Date(); date.setTime(date.getTime()+(30*24*60*60*1000)); document.cookie=`age-verified=true; expires=${date.toUTCString()}; path=/; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`; }
+    function getTargetUrl(){ return pendingRedirectUrl||PREMIUM_URL; }
+    function closeActiveOverlay(){ const overlayEl=document.getElementById('age-gate-overlay'); if(overlayEl){ overlayEl.classList.remove('active'); setTimeout(()=>{overlayEl.style.display='none';},500); } }
+    function verifyAgeAndRedirect(){ setAgeVerifiedCookie(); const targetUrl=getTargetUrl(); closeActiveOverlay(); window.location.href=targetUrl; }
+    function detectLanguage(){ const savedLang=safeGetItem('user-language'); if(savedLang&&SUPPORTED_LANGS.includes(savedLang)){return savedLang;} const browserLangs=navigator.languages||[navigator.language]; for(const lang of browserLangs){ const cleanLang=lang.split('-')[0].toLowerCase(); if(SUPPORTED_LANGS.includes(cleanLang)){return cleanLang;} } return DEFAULT_LANG; }
+    function translatePage(lang){ const translation=resources[lang]||resources[DEFAULT_LANG]; document.querySelectorAll('[data-i18n]').forEach(el=>{ const key=el.getAttribute('data-i18n'); if(translation[key]!==undefined){ if(el.tagName==='TITLE'){document.title=translation[key];}else{el.innerHTML=translation[key];} } }); const metaDesc=document.getElementById('seo-meta-description'); if(metaDesc&&translation.meta_description){metaDesc.setAttribute('content',translation.meta_description);} document.documentElement.lang=lang; document.getElementById('activeLangText').textContent=lang.toUpperCase(); document.querySelectorAll('.lang-option').forEach(opt=>{ if(opt.getAttribute('data-lang')===lang){opt.classList.add('active');}else{opt.classList.remove('active');} }); safeSetItem('user-language',lang); }
+    let overlayListenersAttached=false;
+    function attachOverlayListeners(){ if(overlayListenersAttached)return; const overlayYesBtn=document.getElementById('age-overlay-yes-btn'); const overlayNoBtn=document.getElementById('age-overlay-no-btn'); const overlayElement=document.getElementById('age-gate-overlay'); if(!overlayYesBtn||!overlayNoBtn){return;} overlayYesBtn.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();verifyAgeAndRedirect();}); if(overlayElement){ overlayElement.addEventListener('click',function delegatedOverlayClick(e){ let btn=null; const path=(e.composedPath&&e.composedPath())||e.path||null; if(path&&path.length){ for(const node of path){ if(!node)continue; try{ if(node.classList&&node.classList.contains&&node.classList.contains('age-overlay-btn')){btn=node;break;} }catch(_){} } } if(!btn){ const x=e.clientX||(e.touches&&e.touches[0]&&e.touches[0].clientX); const y=e.clientY||(e.touches&&e.touches[0]&&e.touches[0].clientY); try{const realEl=document.elementFromPoint(x,y);btn=realEl&&realEl.closest?realEl.closest('.age-overlay-btn'):null;}catch(err){} } if(!btn)return; e.preventDefault(); e.stopPropagation(); if(btn.id==='age-overlay-yes-btn'){verifyAgeAndRedirect();}else if(btn.id==='age-overlay-no-btn'){closeActiveOverlay();} }); } overlayNoBtn.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();closeActiveOverlay();}); if(!window.__ageOverlayGeometryFallbackAttached){ window.__ageOverlayGeometryFallbackAttached=true; document.addEventListener('click',function geometryFallback(e){ try{ const overlay=document.getElementById('age-gate-overlay'); if(!overlay||overlay.style.display==='none'||!overlay.classList.contains('active'))return; const yesBtn=document.getElementById('age-overlay-yes-btn'); const noBtn=document.getElementById('age-overlay-no-btn'); if(!yesBtn||!noBtn)return; const x=e.clientX||(e.touches&&e.touches[0]&&e.touches[0].clientX); const y=e.clientY||(e.touches&&e.touches[0]&&e.touches[0].clientY); const yesRect=yesBtn.getBoundingClientRect(); const noRect=noBtn.getBoundingClientRect(); if(x>=yesRect.left&&x<=yesRect.right&&y>=yesRect.top&&y<=yesRect.bottom){e.preventDefault();e.stopPropagation();verifyAgeAndRedirect();}else if(x>=noRect.left&&x<=noRect.right&&y>=noRect.top&&y<=noRect.bottom){e.preventDefault();e.stopPropagation();closeActiveOverlay();} }catch(err){} },true); } overlayListenersAttached=true; }
+    function initializeWebsite(){ const initialLang=detectLanguage(); translatePage(initialLang); document.body.classList.add('loaded'); const langBtn=document.getElementById('langBtn'); const langDropdown=document.getElementById('langDropdown'); langBtn.addEventListener('click',(e)=>{e.stopPropagation();const isActive=langDropdown.classList.toggle('active');langBtn.setAttribute('aria-expanded',isActive?'true':'false');}); document.querySelectorAll('.lang-option').forEach(option=>{ option.addEventListener('click',()=>{ const selectedLang=option.getAttribute('data-lang'); translatePage(selectedLang); langDropdown.classList.remove('active'); langBtn.setAttribute('aria-expanded','false'); }); }); document.addEventListener('click',()=>{langDropdown.classList.remove('active');langBtn.setAttribute('aria-expanded','false');}); const overlayElement=document.getElementById('age-gate-overlay'); attachOverlayListeners(); const overlayTiltWrapper=document.querySelector('.age-card-tilt-wrapper'); const isMobileDevice=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent); if(!isMobileDevice&&overlayElement){ document.addEventListener('mousemove',(e)=>{ if(overlayElement.classList.contains('active')){ const x=(e.clientX-window.innerWidth/2)/(window.innerWidth/2); const y=(e.clientY-window.innerHeight/2)/(window.innerHeight/2); document.documentElement.style.setProperty('--mouse-x',x); document.documentElement.style.setProperty('--mouse-y',y); if(overlayTiltWrapper){ const rotateX=y*-9; const rotateY=x*9; overlayTiltWrapper.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; } } }); overlayElement.addEventListener('mouseleave',()=>{ document.documentElement.style.setProperty('--mouse-x',0); document.documentElement.style.setProperty('--mouse-y',0); if(overlayTiltWrapper){overlayTiltWrapper.style.transform='rotateX(0deg) rotateY(0deg)';} }); } document.querySelectorAll('.cta-primary').forEach(button=>{ button.addEventListener('click',(event)=>{ event.preventDefault(); const url=button.dataset.url||button.href; const value=`; ${document.cookie}`; const parts=value.split(`; age-verified=`); const verified=(parts.length===2&&parts.pop().split(';').shift()==='true'); if(verified){ if(url){window.location.href=url;} }else{ openAgeGateOverlay(url); } }); }); }
+    setTimeout(()=>document.body.classList.add('loaded'),1500);
+    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',initializeWebsite); }else{ initializeWebsite(); }
+    let pendingRedirectUrl='';
+    function confirmAgeAndRedirect(e){ if(e&&e.preventDefault)e.preventDefault(); verifyAgeAndRedirect(); }
+    function closeAgeOverlay(e){ if(e&&e.preventDefault)e.preventDefault(); closeActiveOverlay(); }
   </script>
 
-  <!-- AGE VERIFICATION OVERLAY HTML -->
   <div id="age-gate-overlay" class="age-overlay-backdrop" style="display: none;">
-    <!-- BACKGROUND RADIAL GLOWS -->
-    <div class="age-overlay-glows">
-      <div class="age-glow-orb age-glow-1"></div>
-      <div class="age-glow-orb age-glow-2"></div>
-      <div class="age-glow-orb age-glow-3"></div>
-    </div>
-
+    <div class="age-overlay-glows"><div class="age-glow-orb age-glow-1"></div><div class="age-glow-orb age-glow-2"></div><div class="age-glow-orb age-glow-3"></div></div>
     <div class="age-scene-container">
       <div class="age-card-float-wrapper">
         <div class="age-card-tilt-wrapper">
           <div class="age-overlay-card">
-            <!-- Lock Icon -->
             <div class="age-icon-container age-parallax-element age-layer-lock">
               <div class="age-icon-glow-ring"></div>
-              <svg class="age-lock-icon" viewBox="0 0 24 24" width="72" height="72">
-                <rect x="5" y="11" width="14" height="11" rx="2.5" stroke="url(#overlay-accent-gradient)"
-                  stroke-width="1.5" fill="rgba(201, 169, 110, 0.05)" />
-                <path d="M12 2a5 5 0 0 0-5 5v4h10V7a5 5 0 0 0-5-5z" stroke="url(#overlay-accent-gradient)"
-                  stroke-width="1.5" fill="none" stroke-linejoin="round" />
-                <circle cx="12" cy="16" r="1.5" fill="url(#overlay-accent-gradient)" />
-                <line x1="12" y1="17.5" x2="12" y2="19.5" stroke="url(#overlay-accent-gradient)" stroke-width="1.5"
-                  stroke-linecap="round" />
-                <defs>
-                  <linearGradient id="overlay-accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#c96040" />
-                    <stop offset="100%" stop-color="#d4507a" />
-                  </linearGradient>
-                </defs>
-              </svg>
+              <svg class="age-lock-icon" viewBox="0 0 24 24" width="72" height="72"><rect x="5" y="11" width="14" height="11" rx="2.5" stroke="url(#overlay-accent-gradient)" stroke-width="1.5" fill="rgba(201, 169, 110, 0.05)" /><path d="M12 2a5 5 0 0 0-5 5v4h10V7a5 5 0 0 0-5-5z" stroke="url(#overlay-accent-gradient)" stroke-width="1.5" fill="none" stroke-linejoin="round" /><circle cx="12" cy="16" r="1.5" fill="url(#overlay-accent-gradient)" /><line x1="12" y1="17.5" x2="12" y2="19.5" stroke="url(#overlay-accent-gradient)" stroke-width="1.5" stroke-linecap="round" /><defs><linearGradient id="overlay-accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c96040" /><stop offset="100%" stop-color="#d4507a" /></linearGradient></defs></svg>
             </div>
-
-            <!-- Logo label -->
-            <div class="age-logo-label age-parallax-element age-layer-logo" data-i18n="age_logo">
-              Sofia Gonzalez &bull; Exclusive Content
-            </div>
-
-            <!-- Title -->
-            <h2 class="age-overlay-title age-parallax-element age-layer-title" data-i18n="age_title">
-              Before you enter,<br>
-              <em class="age-coral-italic">verify your age</em>
-            </h2>
-
-            <!-- Subtitle -->
-            <p class="age-overlay-subtitle age-parallax-element age-layer-subtitle" data-i18n="age_subtitle">
-              This site contains content intended for adults only. You must be 18 years or older to continue.
-            </p>
-
-            <!-- Question -->
-            <div class="age-overlay-question age-parallax-element age-layer-question" data-i18n="age_question">
-              Are you 18 years of age or older?
-            </div>
-
-            <!-- Buttons -->
+            <div class="age-logo-label age-parallax-element age-layer-logo" data-i18n="age_logo">Sofia Gonzalez &bull; Exclusive Content</div>
+            <h2 class="age-overlay-title age-parallax-element age-layer-title" data-i18n="age_title">Before you enter,<br><em class="age-coral-italic">verify your age</em></h2>
+            <p class="age-overlay-subtitle age-parallax-element age-layer-subtitle" data-i18n="age_subtitle">This site contains content intended for adults only. You must be 18 years or older to continue.</p>
+            <div class="age-overlay-question age-parallax-element age-layer-question" data-i18n="age_question">Are you 18 years of age or older?</div>
             <div class="age-btn-group age-parallax-element age-layer-buttons">
-              <button type="button" class="age-overlay-btn age-btn-yes" id="age-overlay-yes-btn" data-i18n="age_btn_yes" onclick="confirmAgeAndRedirect(event)">
-                Yes, I'm 18+
-              </button>
-              <button type="button" class="age-overlay-btn age-btn-no" id="age-overlay-no-btn" data-i18n="age_btn_no" onclick="closeAgeOverlay(event)">
-                No, exit
-              </button>
+              <button type="button" class="age-overlay-btn age-btn-yes" id="age-overlay-yes-btn" data-i18n="age_btn_yes" onclick="confirmAgeAndRedirect(event)">Yes, I'm 18+</button>
+              <button type="button" class="age-overlay-btn age-btn-no" id="age-overlay-no-btn" data-i18n="age_btn_no" onclick="closeAgeOverlay(event)">No, exit</button>
             </div>
-
-            <!-- Legal text -->
-            <p class="age-overlay-legal age-parallax-element age-layer-legal" data-i18n="age_legal">
-              By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy
-              Policy. This site uses cookies to remember your age verification.
-            </p>
+            <p class="age-overlay-legal age-parallax-element age-layer-legal" data-i18n="age_legal">By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy Policy. This site uses cookies to remember your age verification.</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </body>
-
 </html>
-
