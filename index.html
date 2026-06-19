@@ -161,6 +161,23 @@
     .age-btn-no:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.3); color:white; transform:translateY(-2px) scale(1.02); }
   </style>
   <noscript><style>body{opacity:1 !important;}</style></noscript>
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1335328724680596');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1335328724680596&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Meta Pixel Code -->
 </head>
 
 <body>
@@ -348,12 +365,80 @@
     function setAgeVerifiedCookie(){ const date=new Date(); date.setTime(date.getTime()+(30*24*60*60*1000)); document.cookie=`age-verified=true; expires=${date.toUTCString()}; path=/; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`; }
     function getTargetUrl(){ return pendingRedirectUrl||PREMIUM_URL; }
     function closeActiveOverlay(){ const overlayEl=document.getElementById('age-gate-overlay'); if(overlayEl){ overlayEl.classList.remove('active'); setTimeout(()=>{overlayEl.style.display='none';},500); } }
-    function verifyAgeAndRedirect(){ setAgeVerifiedCookie(); const targetUrl=getTargetUrl(); closeActiveOverlay(); window.location.href=targetUrl; }
+    function verifyAgeAndRedirect(){
+      setAgeVerifiedCookie();
+      const targetUrl=getTargetUrl();
+      closeActiveOverlay();
+      if(typeof fbq === 'function'){
+        fbq('trackCustom', 'VerifyAge');
+        fbq('track', 'Lead');
+      }
+      setTimeout(()=>{ window.location.href=targetUrl; }, 250);
+    }
     function detectLanguage(){ const savedLang=safeGetItem('user-language'); if(savedLang&&SUPPORTED_LANGS.includes(savedLang)){return savedLang;} const browserLangs=navigator.languages||[navigator.language]; for(const lang of browserLangs){ const cleanLang=lang.split('-')[0].toLowerCase(); if(SUPPORTED_LANGS.includes(cleanLang)){return cleanLang;} } return DEFAULT_LANG; }
     function translatePage(lang){ const translation=resources[lang]||resources[DEFAULT_LANG]; document.querySelectorAll('[data-i18n]').forEach(el=>{ const key=el.getAttribute('data-i18n'); if(translation[key]!==undefined){ if(el.tagName==='TITLE'){document.title=translation[key];}else{el.innerHTML=translation[key];} } }); const metaDesc=document.getElementById('seo-meta-description'); if(metaDesc&&translation.meta_description){metaDesc.setAttribute('content',translation.meta_description);} document.documentElement.lang=lang; document.getElementById('activeLangText').textContent=lang.toUpperCase(); document.querySelectorAll('.lang-option').forEach(opt=>{ if(opt.getAttribute('data-lang')===lang){opt.classList.add('active');}else{opt.classList.remove('active');} }); safeSetItem('user-language',lang); }
     let overlayListenersAttached=false;
     function attachOverlayListeners(){ if(overlayListenersAttached)return; const overlayYesBtn=document.getElementById('age-overlay-yes-btn'); const overlayNoBtn=document.getElementById('age-overlay-no-btn'); const overlayElement=document.getElementById('age-gate-overlay'); if(!overlayYesBtn||!overlayNoBtn){return;} overlayYesBtn.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();verifyAgeAndRedirect();}); if(overlayElement){ overlayElement.addEventListener('click',function delegatedOverlayClick(e){ let btn=null; const path=(e.composedPath&&e.composedPath())||e.path||null; if(path&&path.length){ for(const node of path){ if(!node)continue; try{ if(node.classList&&node.classList.contains&&node.classList.contains('age-overlay-btn')){btn=node;break;} }catch(_){} } } if(!btn){ const x=e.clientX||(e.touches&&e.touches[0]&&e.touches[0].clientX); const y=e.clientY||(e.touches&&e.touches[0]&&e.touches[0].clientY); try{const realEl=document.elementFromPoint(x,y);btn=realEl&&realEl.closest?realEl.closest('.age-overlay-btn'):null;}catch(err){} } if(!btn)return; e.preventDefault(); e.stopPropagation(); if(btn.id==='age-overlay-yes-btn'){verifyAgeAndRedirect();}else if(btn.id==='age-overlay-no-btn'){closeActiveOverlay();} }); } overlayNoBtn.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();closeActiveOverlay();}); if(!window.__ageOverlayGeometryFallbackAttached){ window.__ageOverlayGeometryFallbackAttached=true; document.addEventListener('click',function geometryFallback(e){ try{ const overlay=document.getElementById('age-gate-overlay'); if(!overlay||overlay.style.display==='none'||!overlay.classList.contains('active'))return; const yesBtn=document.getElementById('age-overlay-yes-btn'); const noBtn=document.getElementById('age-overlay-no-btn'); if(!yesBtn||!noBtn)return; const x=e.clientX||(e.touches&&e.touches[0]&&e.touches[0].clientX); const y=e.clientY||(e.touches&&e.touches[0]&&e.touches[0].clientY); const yesRect=yesBtn.getBoundingClientRect(); const noRect=noBtn.getBoundingClientRect(); if(x>=yesRect.left&&x<=yesRect.right&&y>=yesRect.top&&y<=yesRect.bottom){e.preventDefault();e.stopPropagation();verifyAgeAndRedirect();}else if(x>=noRect.left&&x<=noRect.right&&y>=noRect.top&&y<=noRect.bottom){e.preventDefault();e.stopPropagation();closeActiveOverlay();} }catch(err){} },true); } overlayListenersAttached=true; }
-    function initializeWebsite(){ const initialLang=detectLanguage(); translatePage(initialLang); document.body.classList.add('loaded'); const langBtn=document.getElementById('langBtn'); const langDropdown=document.getElementById('langDropdown'); langBtn.addEventListener('click',(e)=>{e.stopPropagation();const isActive=langDropdown.classList.toggle('active');langBtn.setAttribute('aria-expanded',isActive?'true':'false');}); document.querySelectorAll('.lang-option').forEach(option=>{ option.addEventListener('click',()=>{ const selectedLang=option.getAttribute('data-lang'); translatePage(selectedLang); langDropdown.classList.remove('active'); langBtn.setAttribute('aria-expanded','false'); }); }); document.addEventListener('click',()=>{langDropdown.classList.remove('active');langBtn.setAttribute('aria-expanded','false');}); const overlayElement=document.getElementById('age-gate-overlay'); attachOverlayListeners(); const overlayTiltWrapper=document.querySelector('.age-card-tilt-wrapper'); const isMobileDevice=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent); if(!isMobileDevice&&overlayElement){ document.addEventListener('mousemove',(e)=>{ if(overlayElement.classList.contains('active')){ const x=(e.clientX-window.innerWidth/2)/(window.innerWidth/2); const y=(e.clientY-window.innerHeight/2)/(window.innerHeight/2); document.documentElement.style.setProperty('--mouse-x',x); document.documentElement.style.setProperty('--mouse-y',y); if(overlayTiltWrapper){ const rotateX=y*-9; const rotateY=x*9; overlayTiltWrapper.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`; } } }); overlayElement.addEventListener('mouseleave',()=>{ document.documentElement.style.setProperty('--mouse-x',0); document.documentElement.style.setProperty('--mouse-y',0); if(overlayTiltWrapper){overlayTiltWrapper.style.transform='rotateX(0deg) rotateY(0deg)';} }); } document.querySelectorAll('.cta-primary').forEach(button=>{ button.addEventListener('click',(event)=>{ event.preventDefault(); const url=button.dataset.url||button.href; const value=`; ${document.cookie}`; const parts=value.split(`; age-verified=`); const verified=(parts.length===2&&parts.pop().split(';').shift()==='true'); if(verified){ if(url){window.location.href=url;} }else{ openAgeGateOverlay(url); } }); }); }
+    function initializeWebsite(){
+      const initialLang=detectLanguage();
+      translatePage(initialLang);
+      document.body.classList.add('loaded');
+      const langBtn=document.getElementById('langBtn');
+      const langDropdown=document.getElementById('langDropdown');
+      langBtn.addEventListener('click',(e)=>{e.stopPropagation();const isActive=langDropdown.classList.toggle('active');langBtn.setAttribute('aria-expanded',isActive?'true':'false');});
+      document.querySelectorAll('.lang-option').forEach(option=>{ option.addEventListener('click',()=>{ const selectedLang=option.getAttribute('data-lang'); translatePage(selectedLang); langDropdown.classList.remove('active'); langBtn.setAttribute('aria-expanded','false'); }); });
+      document.addEventListener('click',()=>{langDropdown.classList.remove('active');langBtn.setAttribute('aria-expanded','false');});
+      const overlayElement=document.getElementById('age-gate-overlay');
+      attachOverlayListeners();
+      const overlayTiltWrapper=document.querySelector('.age-card-tilt-wrapper');
+      const isMobileDevice=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      if(!isMobileDevice&&overlayElement){
+        document.addEventListener('mousemove',(e)=>{
+          if(overlayElement.classList.contains('active')){
+            const x=(e.clientX-window.innerWidth/2)/(window.innerWidth/2);
+            const y=(e.clientY-window.innerHeight/2)/(window.innerHeight/2);
+            document.documentElement.style.setProperty('--mouse-x',x);
+            document.documentElement.style.setProperty('--mouse-y',y);
+            if(overlayTiltWrapper){
+              const rotateX=y*-9;
+              const rotateY=x*9;
+              overlayTiltWrapper.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+            }
+          }
+        });
+        overlayElement.addEventListener('mouseleave',()=>{
+          document.documentElement.style.setProperty('--mouse-x',0);
+          document.documentElement.style.setProperty('--mouse-y',0);
+          if(overlayTiltWrapper){overlayTiltWrapper.style.transform='rotateX(0deg) rotateY(0deg)';}
+        });
+      }
+      document.querySelectorAll('.cta-primary').forEach(button=>{
+        button.addEventListener('click',(event)=>{
+          event.preventDefault();
+          const url=button.dataset.url||button.href;
+          const value=`; ${document.cookie}`;
+          const parts=value.split(`; age-verified=`);
+          const verified=(parts.length===2&&parts.pop().split(';').shift()==='true');
+          if(verified){
+            if(url){
+              if(typeof fbq === 'function'){
+                fbq('track', 'Lead');
+              }
+              setTimeout(()=>{ window.location.href=url; }, 250);
+            }
+          }else{
+            openAgeGateOverlay(url);
+          }
+        });
+      });
+      document.querySelectorAll('footer a[href*="fanvue.com"]').forEach(link=>{
+        link.addEventListener('click',()=>{
+          if(typeof fbq === 'function'){
+            fbq('track', 'Lead');
+          }
+        });
+      });
+    }
     setTimeout(()=>document.body.classList.add('loaded'),1500);
     if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',initializeWebsite); }else{ initializeWebsite(); }
     let pendingRedirectUrl='';
