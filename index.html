@@ -1,474 +1,1137 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n="title">Sofia Gonzalez — Exclusive Content</title>
-  <meta name="description" id="seo-meta-description"
-    content="Exclusive, authentic and deeply personal content of Sofia Gonzalez. Step into my private world.">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap"
-    rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --rose:#C8647A; --rose-light:#F5DDE3; --rose-dark:#8B3A4F; --gold:#C9A96E; --gold-light:#F0E6D3; --cream:#FAF7F4; --dark:#1A1218; --mid:#3D2E35; --text-muted:#7A6570; }
-    html { scroll-behavior: smooth; }
-    body { font-family:'Jost',sans-serif; background:var(--dark); color:#F5EEF0; overflow-x:hidden; cursor:default; opacity:0; transition:opacity .4s ease; }
-    body.loaded { opacity:1; }
-    .hero { min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; position:relative; overflow:hidden; background-color:#2A1820; }
-    .hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:65% center; z-index:0; pointer-events:none; display:block; }
-    .hero::before { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(15,8,12,.55) 0%, rgba(15,8,12,.70) 60%, rgba(15,8,12,.92) 100%); pointer-events:none; z-index:1; }
-    .glow-orb { position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none; animation:pulse 6s ease-in-out infinite; }
-    .glow-1 { width:400px; height:400px; background:rgba(200,100,122,.18); top:-100px; right:-80px; }
-    .glow-2 { width:300px; height:300px; background:rgba(201,169,110,.12); bottom:0; left:-60px; animation-delay:3s; }
-    @keyframes pulse { 0%,100%{transform:scale(1);opacity:.8;} 50%{transform:scale(1.1);opacity:1;} }
-    .hero-inner { position:relative; z-index:2; text-align:center; padding:2rem; max-width:680px; animation:fadeUp 1s ease both; }
-    @keyframes fadeUp { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
-    .avatar-wrap { position:relative; display:inline-block; margin-bottom:2rem; }
-    .avatar-ring { width:140px; height:140px; border-radius:50%; background:linear-gradient(135deg,var(--rose),var(--gold)); padding:3px; display:flex; align-items:center; justify-content:center; animation:spin-ring 8s linear infinite; }
-    @keyframes spin-ring { from{background:linear-gradient(0deg,var(--rose),var(--gold));} to{background:linear-gradient(360deg,var(--rose),var(--gold));} }
-    .avatar-inner { width:100%; height:100%; border-radius:50%; overflow:hidden; background:#2A1820; display:flex; align-items:center; justify-content:center; }
-    .avatar-inner img { width:100%; height:100%; object-fit:cover; object-position:center top; border-radius:50%; display:block; }
-    .avatar-fallback { font-family:'Playfair Display',serif; font-size:3rem; color:var(--rose); letter-spacing:-2px; }
-    .live-badge { position:absolute; bottom:6px; right:6px; background:#E8395A; color:white; font-size:10px; font-weight:500; letter-spacing:1.5px; padding:3px 9px; border-radius:20px; text-transform:uppercase; display:flex; align-items:center; gap:5px; }
-    .live-dot { width:6px; height:6px; background:white; border-radius:50%; animation:blink 1.2s ease infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
-    .tagline { font-size:11px; font-weight:500; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:1rem; }
-    h1 { font-family:'Playfair Display',serif; font-size:clamp(2.8rem,8vw,4.5rem); line-height:1.05; font-weight:600; margin-bottom:1rem; background:linear-gradient(135deg,#F5EEF0 30%,var(--gold) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    h1 em { font-style:italic; background:linear-gradient(135deg,var(--rose-light) 0%,var(--rose) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .hero-sub { font-size:1.05rem; font-weight:300; color:rgba(245,238,240,.65); max-width:420px; margin:0 auto 2.5rem; line-height:1.7; }
-    @keyframes cta-pulse { 0%,100%{box-shadow:0 0 0 0 rgba(200,100,122,.7),0 0 0 0 rgba(200,100,122,.4);} 50%{box-shadow:0 0 0 10px rgba(200,100,122,0),0 0 0 20px rgba(200,100,122,0);} }
-    @keyframes shimmer { 0%{transform:translateX(-100%) skewX(-15deg);} 100%{transform:translateX(250%) skewX(-15deg);} }
-    @keyframes cta-float { 0%,100%{transform:translateY(0px);} 50%{transform:translateY(-5px);} }
-    .cta-primary { display:inline-flex; align-items:center; gap:10px; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); color:white; text-decoration:none; font-size:.95rem; font-weight:500; letter-spacing:1px; padding:1rem 2.5rem; border-radius:60px; transition:all .3s ease; position:relative; overflow:hidden; margin-bottom:0; animation:cta-pulse 2.5s ease-in-out infinite, cta-float 3.5s ease-in-out infinite; }
-    .cta-primary::before { content:''; position:absolute; top:0; left:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent); animation:shimmer 2.2s ease-in-out infinite; }
-    .cta-primary::after { content:''; position:absolute; inset:-3px; border-radius:60px; background:linear-gradient(135deg,var(--rose),var(--gold),var(--rose)); background-size:200% 200%; z-index:-1; animation:border-spin 3s linear infinite; opacity:.7; }
-    @keyframes border-spin { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
-    .cta-primary:hover { transform:translateY(-3px) scale(1.03); box-shadow:0 16px 48px rgba(200,100,122,.6); animation:none; }
-    .cta-primary svg { width:18px; height:18px; flex-shrink:0; animation:heartbeat 1.8s ease infinite; }
-    @keyframes heartbeat { 0%,100%{transform:scale(1);} 14%{transform:scale(1.25);} 28%{transform:scale(1);} 42%{transform:scale(1.15);} 56%{transform:scale(1);} }
-    .cta-container { display:flex; flex-direction:row; justify-content:center; align-items:center; gap:1.5rem; margin-top:.5rem; margin-bottom:1.5rem; width:100%; }
-    @media (max-width:640px){ .cta-container{flex-direction:column;gap:1rem;} }
-    .cta-note { font-size:.78rem; color:rgba(245,238,240,.35); letter-spacing:.5px; }
-    .urgency-pill { display:inline-block; background:rgba(201,169,110,.12); border:1px solid rgba(201,169,110,.4); color:var(--gold); font-size:.8rem; font-weight:500; letter-spacing:1px; padding:.4rem 1.1rem; border-radius:40px; margin-bottom:1.25rem; text-transform:uppercase; }
-    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:6px; opacity:.3; animation:bounce 2s ease infinite; z-index:2; }
-    .scroll-hint span { font-size:10px; letter-spacing:2px; text-transform:uppercase; }
-    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0);} 50%{transform:translateX(-50%) translateY(6px);} }
-    .stats-bar { background:rgba(255,255,255,.03); border-top:1px solid rgba(200,100,122,.15); border-bottom:1px solid rgba(200,100,122,.15); padding:1.5rem 2rem; display:flex; justify-content:center; gap:3rem; flex-wrap:wrap; animation:fadeUp 1s ease .3s both; }
-    .stat { text-align:center; }
-    .stat-num { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--gold); display:block; line-height:1; }
-    .stat-label { font-size:.72rem; letter-spacing:2px; text-transform:uppercase; color:rgba(245,238,240,.35); margin-top:4px; }
-    .divider { width:60px; height:2px; margin:0 auto 1.5rem; background:linear-gradient(90deg,var(--rose),var(--gold)); border-radius:2px; }
-    .section { padding:5rem 2rem; max-width:900px; margin:0 auto; }
-    .section-label { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:var(--rose); margin-bottom:.75rem; }
-    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.8rem,4vw,2.6rem); line-height:1.2; margin-bottom:1.5rem; }
-    .section-title em { font-style:italic; color:var(--rose-light); }
-    .about-grid { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
-    @media (max-width:640px){ .about-grid{grid-template-columns:1fr;} .stats-bar{gap:1.5rem;} }
-    .about-text { font-size:1rem; line-height:1.85; color:rgba(245,238,240,.7); }
-    .about-text strong { color:var(--rose-light); font-weight:500; }
-    .feature-list { list-style:none; display:flex; flex-direction:column; gap:1rem; }
-    .feature-list li { display:flex; align-items:flex-start; gap:12px; font-size:.95rem; color:rgba(245,238,240,.75); }
-    .feature-list li::before { content:''; width:20px; height:20px; border-radius:50%; background:rgba(200,100,122,.2); border:1px solid var(--rose); flex-shrink:0; margin-top:2px; display:flex; align-items:center; justify-content:center; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='8' viewBox='0 0 10 8'%3E%3Cpath d='M1 4l3 3 5-6' stroke='%23C8647A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:center; }
-    .cards-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1.25rem; margin-top:2.5rem; }
-    .offer-card { background:rgba(255,255,255,.03); border:1px solid rgba(200,100,122,.2); border-radius:16px; padding:1.75rem; transition:all .3s ease; position:relative; overflow:hidden; }
-    .offer-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--rose),var(--gold)); opacity:0; transition:opacity .3s; }
-    .offer-card:hover { border-color:rgba(200,100,122,.5); transform:translateY(-4px); }
-    .offer-card:hover::before { opacity:1; }
-    .card-icon { font-size:1.5rem; margin-bottom:1rem; display:block; }
-    .card-title { font-family:'Playfair Display',serif; font-size:1.15rem; margin-bottom:.5rem; color:#F5EEF0; }
-    .card-desc { font-size:.85rem; color:rgba(245,238,240,.5); line-height:1.6; }
-    .card-featured { border-color:rgba(201,169,110,.4); background:rgba(201,169,110,.05); }
-    .card-featured .card-title { color:var(--gold); }
-    .testimonials { background:rgba(255,255,255,.02); border-top:1px solid rgba(200,100,122,.1); border-bottom:1px solid rgba(200,100,122,.1); }
-    .testimonials .section { padding:4rem 2rem; }
-    .quotes-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.25rem; margin-top:2rem; }
-    .quote-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); border-radius:14px; padding:1.5rem; }
-    .quote-stars { color:var(--gold); font-size:.8rem; letter-spacing:2px; margin-bottom:.75rem; }
-    .quote-text { font-size:.88rem; line-height:1.7; color:rgba(245,238,240,.65); font-style:italic; margin-bottom:.75rem; }
-    .quote-author { font-size:.78rem; color:var(--rose); letter-spacing:1px; text-transform:uppercase; }
-    .final-cta { text-align:center; padding:6rem 2rem; background:radial-gradient(ellipse at center,#3D1E2A 0%,#1A1218 70%); position:relative; overflow:hidden; }
-    .final-cta::before { content:'SG'; position:absolute; font-family:'Playfair Display',serif; font-size:30vw; color:rgba(200,100,122,.04); top:50%; left:50%; transform:translate(-50%,-50%); pointer-events:none; line-height:1; }
-    .final-cta .section-title { margin-bottom:1rem; }
-    .final-cta p { font-size:1rem; color:rgba(245,238,240,.5); margin-bottom:2.5rem; max-width:380px; margin-left:auto; margin-right:auto; }
-    .cta-group { display:flex; flex-direction:column; align-items:center; gap:1rem; }
-    footer { text-align:center; padding:2rem; font-size:.75rem; color:rgba(245,238,240,.2); letter-spacing:1px; border-top:1px solid rgba(255,255,255,.05); }
-    footer a { color:var(--rose); text-decoration:none; }
-    .floating-cta { display:none; position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); z-index:100; width:calc(100% - 3rem); max-width:380px; }
-    .floating-cta a { display:flex; align-items:center; justify-content:center; gap:10px; background:linear-gradient(135deg,var(--rose) 0%,var(--rose-dark) 100%); color:white; text-decoration:none; font-size:.9rem; font-weight:500; letter-spacing:1px; padding:1rem; border-radius:60px; box-shadow:0 8px 32px rgba(200,100,122,.5); }
-    @media (max-width:640px){ .floating-cta{display:block;} }
-    .lang-selector-wrap { position:fixed; top:1.5rem; right:1.5rem; z-index:1000; font-family:'Jost',sans-serif; }
-    .lang-btn { display:flex; align-items:center; gap:8px; background:rgba(255,255,255,.05); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid rgba(200,100,122,.25); color:#F5EEF0; padding:.5rem 1rem; border-radius:30px; cursor:pointer; font-size:.85rem; font-weight:500; letter-spacing:.5px; transition:all .3s ease; box-shadow:0 4px 20px rgba(0,0,0,.3); }
-    .lang-btn:hover { background:rgba(255,255,255,.1); border-color:var(--rose); box-shadow:0 4px 25px rgba(200,100,122,.4); transform:translateY(-2px); }
-    .lang-btn svg { width:14px; height:14px; transition:transform .3s ease; }
-    .lang-dropdown { position:absolute; top:calc(100% + 8px); right:0; background:rgba(26,18,24,.95); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(200,100,122,.2); border-radius:12px; padding:.5rem; min-width:120px; box-shadow:0 10px 30px rgba(0,0,0,.5); opacity:0; transform:translateY(-10px); pointer-events:none; transition:all .3s cubic-bezier(.4,0,.2,1); }
-    .lang-dropdown.active { opacity:1; transform:translateY(0); pointer-events:auto; }
-    .lang-option { display:flex; align-items:center; gap:8px; width:100%; padding:.4rem .8rem; border:none; background:transparent; color:rgba(245,238,240,.7); font-size:.82rem; text-align:left; cursor:pointer; border-radius:6px; transition:all .2s ease; }
-    .lang-option:hover { background:rgba(200,100,122,.15); color:#F5EEF0; }
-    .lang-option.active { color:var(--gold); font-weight:500; background:rgba(201,169,110,.1); }
-    .age-overlay-backdrop { --mouse-x:0; --mouse-y:0; position:fixed; inset:0; width:100%; height:100%; background:rgba(14,9,11,.85); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:99999; display:flex; align-items:center; justify-content:center; opacity:0; visibility:hidden; transition:opacity .5s ease, visibility .5s ease; perspective:1200px; overflow:hidden; }
-    .age-overlay-backdrop.active { opacity:1; visibility:visible; }
-    .age-overlay-glows { position:absolute; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
-    .age-glow-orb { position:absolute; border-radius:50%; filter:blur(80px); opacity:.35; mix-blend-mode:screen; will-change:transform; }
-    .age-glow-1 { width:40vw; height:40vw; background:radial-gradient(circle,rgba(201,96,64,.22) 0%,rgba(201,96,64,0) 70%); top:-10vw; left:-10vw; animation:age-floatGlow1 22s ease-in-out infinite alternate; }
-    .age-glow-2 { width:45vw; height:45vw; background:radial-gradient(circle,rgba(212,80,122,.18) 0%,rgba(212,80,122,0) 70%); bottom:-15vw; right:-10vw; animation:age-floatGlow2 28s ease-in-out infinite alternate; }
-    .age-glow-3 { width:30vw; height:30vw; background:radial-gradient(circle,rgba(201,169,110,.12) 0%,rgba(201,169,110,0) 70%); top:55%; left:50%; transform:translate(-50%,-50%); animation:age-floatGlow3 18s ease-in-out infinite alternate; }
-    @keyframes age-floatGlow1 { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(4vw,3vw) scale(1.1);} }
-    @keyframes age-floatGlow2 { 0%{transform:translate(0,0) scale(1);} 100%{transform:translate(-5vw,-4vw) scale(1.15);} }
-    @keyframes age-floatGlow3 { 0%{transform:translate(-50%,-50%) scale(.9);} 100%{transform:translate(-47%,-53%) scale(1.1);} }
-    .age-scene-container { position:relative; z-index:1; width:100%; padding:1.5rem; display:flex; align-items:center; justify-content:center; transform-style:preserve-3d; }
-    .age-card-float-wrapper { animation:age-card-auto-float 7s ease-in-out infinite; transform-style:preserve-3d; will-change:transform; }
-    .age-card-float-wrapper, .age-card-tilt-wrapper, .age-overlay-glows { pointer-events:none; }
-    .age-overlay-card { pointer-events:auto; }
-    @keyframes age-card-auto-float { 0%,100%{transform:translateY(0px);} 50%{transform:translateY(-12px);} }
-    .age-card-tilt-wrapper { transform-style:preserve-3d; transition:transform .15s cubic-bezier(.25,.8,.25,1); will-change:transform; }
-    .age-overlay-card { width:100%; max-width:480px; background:rgba(24,15,18,.7); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); border:1px solid rgba(201,169,110,.15); border-radius:24px; padding:3rem 2.2rem; box-shadow:0 25px 55px rgba(0,0,0,.65), inset 0 1px 2px rgba(255,255,255,.08); position:relative; transform-style:preserve-3d; overflow:visible; display:flex; flex-direction:column; align-items:center; text-align:center; }
-    .age-overlay-card::after { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.007) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.007) 1px,transparent 1px); background-size:20px 20px; pointer-events:none; z-index:-1; opacity:.7; }
-    .age-parallax-element { --px:calc(var(--depth)*var(--mouse-x)*-.7px); --py:calc(var(--depth)*var(--mouse-y)*-.7px); --pz:calc(var(--depth)*1.3px); transform:translate3d(var(--px),var(--py),var(--pz)); transform-style:preserve-3d; will-change:transform; }
-    .age-layer-lock { --depth:42; animation:age-float-lock 5.5s ease-in-out infinite; }
-    .age-logo-label { --depth:14; animation:age-float-logo 8s ease-in-out infinite; font-size:.72rem; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:#c9a96e; opacity:.85; margin-bottom:.5rem; }
-    .age-layer-title { --depth:30; animation:age-float-title 6.5s ease-in-out infinite; }
-    .age-layer-subtitle { --depth:20; animation:age-float-subtitle 7.5s ease-in-out infinite; }
-    .age-layer-question { --depth:24; animation:age-float-question 6s ease-in-out infinite; }
-    .age-layer-buttons { --depth:35; animation:age-float-buttons 5s ease-in-out infinite; }
-    .age-layer-legal { --depth:10; animation:age-float-legal 9s ease-in-out infinite; }
-    @keyframes age-float-lock { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px) rotate(0deg);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-12px) rotate(3deg);} }
-    @keyframes age-float-logo { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-3px);} }
-    @keyframes age-float-title { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px) rotate(0deg);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-7px) rotate(-1deg);} }
-    @keyframes age-float-subtitle { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-5px);} }
-    @keyframes age-float-question { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-4px);} }
-    @keyframes age-float-buttons { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px) rotate(0deg);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-9px) rotate(.6deg);} }
-    @keyframes age-float-legal { 0%,100%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(0px);} 50%{transform:translate3d(var(--px),var(--py),var(--pz)) translateY(-3px);} }
-    .age-overlay-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2rem,5vw,2.6rem); font-weight:400; line-height:1.15; margin:1rem 0; color:#f5eef0; }
-    .age-coral-italic { font-style:italic; font-weight:500; background:linear-gradient(135deg,#c96040 0%,#d4507a 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-    .age-overlay-subtitle { font-family:'Jost',sans-serif; font-size:.9rem; font-weight:300; line-height:1.6; color:#a38a95; margin-bottom:1.5rem; max-width:380px; }
-    .age-overlay-question { font-family:'Jost',sans-serif; font-size:1rem; font-weight:500; color:#f5eef0; margin-bottom:1.6rem; letter-spacing:.3px; }
-    .age-overlay-legal { font-family:'Jost',sans-serif; font-size:.7rem; line-height:1.5; color:rgba(245,238,240,.3); margin-top:2rem; max-width:380px; }
-    .age-icon-container { position:relative; display:flex; align-items:center; justify-content:center; width:64px; height:64px; margin-bottom:.5rem; }
-    .age-icon-glow-ring { position:absolute; inset:-8px; border-radius:50%; background:radial-gradient(circle,rgba(212,80,122,.12) 0%,rgba(212,80,122,0) 70%); animation:age-pulse-ring 3.5s ease-in-out infinite; }
-    @keyframes age-pulse-ring { 0%,100%{transform:scale(.9);opacity:.8;} 50%{transform:scale(1.15);opacity:1;} }
-    .age-lock-icon { width:100%; height:100%; filter:drop-shadow(0 4px 12px rgba(201,96,64,.2)); }
-    .age-btn-group { display:flex; gap:1rem; width:100%; justify-content:center; }
-    @media (max-width:480px){ .age-btn-group{flex-direction:column;gap:.8rem;} .age-overlay-card{padding:2.5rem 1.5rem;} }
-    .age-overlay-btn { pointer-events:auto !important; z-index:10; font-family:'Jost',sans-serif; font-size:.95rem; font-weight:500; letter-spacing:.5px; padding:.95rem 2rem; border-radius:50px; cursor:pointer; transition:all .35s cubic-bezier(.25,.8,.25,1); text-decoration:none; display:inline-flex; align-items:center; justify-content:center; border:none; min-width:160px; position:relative; overflow:hidden; box-shadow:0 10px 25px rgba(0,0,0,.3); }
-    .age-btn-yes { background:linear-gradient(135deg,#c96040 0%,#d4507a 100%); color:white; box-shadow:0 4px 18px rgba(201,96,64,.35); }
-    .age-btn-yes::before { content:''; position:absolute; top:0; left:0; width:40%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent); transform:translateX(-100%) skewX(-15deg); transition:none; }
-    .age-btn-yes:hover { transform:translateY(-2px) scale(1.02); box-shadow:0 10px 25px rgba(212,80,122,.5); }
-    .age-btn-yes:hover::before { animation:age-button-shimmer 1.5s infinite; }
-    @keyframes age-button-shimmer { 0%{transform:translateX(-100%) skewX(-15deg);} 100%{transform:translateX(250%) skewX(-15deg);} }
-    .age-btn-no { background:rgba(255,255,255,.04); color:rgba(245,238,240,.85); border:1px solid rgba(255,255,255,.12); }
-    .age-btn-no:hover { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.3); color:white; transform:translateY(-2px) scale(1.02); }
-  </style>
-  <noscript><style>body{opacity:1 !important;}</style></noscript>
-  <!-- Meta Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1335328724680596');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1335328724680596&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sofía González — Enlaces</title>
+<!--
+  ════════════════════════════════════════════════════════════
+  PÁGINA LINK-IN-BIO  ·  Personalizable
+  Para cambiar tu información busca la sección "CONFIG" en el
+  <script> al final del archivo. Para tus fotos, reemplaza los
+  bloques .placeholder por <img src="tu-foto.jpg">.
+  ════════════════════════════════════════════════════════════
+-->
+<style>
+  :root{
+    --bg:#000;
+    --card:#111114;
+    --text:#fff;
+    --muted:#9b9ba3;
+    --pink1:#ff9ecb;
+    --pink2:#ff6fb5;
+    --pink3:#f74f9e;
+    --pink4:#e91e8c;
+    --pink5:#c2185b;
+    --pink6:#8e0e44;
+    --radius:18px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:#1a1a1c;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--text);
+    display:flex;justify-content:center;
+    min-height:100vh;
+  }
+  /* fondo difuminado tipo app */
+  .backdrop{
+    position:fixed;inset:0;z-index:-1;
+    background:linear-gradient(120deg,#3a2d22,#1c1c20 40%,#2b2126 70%,#3a2d22);
+    filter:saturate(.8);
+  }
+  .phone{
+    position:relative;
+    width:100%;max-width:640px;
+    background:var(--bg);
+    min-height:100vh;
+    box-shadow:0 0 80px rgba(0,0,0,.8);
+  }
+
+  /* ───── HERO ───── */
+  .hero{position:relative;}
+  .hero .photo{
+    width:100%;aspect-ratio:4/4.4;display:block;object-fit:cover;
+    object-position:50% 18%;
+  }
+  .hero .placeholder{
+    width:100%;aspect-ratio:4/4.4;
+    display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 30% 25%,#5c4a52,#26222b 70%);
+    color:#777;font-size:15px;letter-spacing:1px;
+  }
+  .hero .fade{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,.65) 80%,#000 100%);
+    pointer-events:none;
+  }
+  .hero .id{
+    position:absolute;left:0;right:0;bottom:14px;text-align:center;
+  }
+  .hero h1{
+    font-size:34px;font-weight:800;letter-spacing:.5px;
+    display:inline-flex;align-items:center;gap:8px;
+    text-shadow:0 2px 12px rgba(0,0,0,.7);
+  }
+  .badge{
+    width:24px;height:24px;border-radius:50%;
+    background:#7b6cf6;display:inline-flex;align-items:center;justify-content:center;
+    font-size:13px;color:#fff;
+  }
+  .handle{color:var(--muted);font-size:15px;margin-top:2px;}
+
+  /* ───── ICONOS SOCIALES ───── */
+  .socials{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+    padding:18px 16px 6px;
+  }
+  .socials a{
+    width:42px;height:42px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    text-decoration:none;
+    transition:transform .15s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .socials a:hover{transform:scale(1.12);}
+  .socials svg{width:21px;height:21px;}
+  .ic-of{background:linear-gradient(135deg,#4aa8ff,#1d7fe8);}
+  .ic-threads{background:#000;border:1.5px solid #333;}
+  .ic-patreon{background:#f1465a;}
+  .ic-ig{background:radial-gradient(circle at 30% 110%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%);}
+  .ic-fb{background:#1877f2;}
+  .ic-x{background:#000;border:1.5px solid #333;}
+  .ic-tt{background:#000;border:1.5px solid #333;}
+  .ic-twitch{background:#9146ff;}
+  .ic-dl{background:#e6202f;}
+  .ic-me{background:linear-gradient(135deg,#ffb347,#ff5e9c);}
+  .ic-snap{background:#fffc00;color:#000!important;}
+
+  /* ───── SEGUIDORES ───── */
+  .followers{
+    text-align:center;padding:14px 0 4px;cursor:pointer;user-select:none;
+  }
+  .followers .total{font-size:17px;}
+  .followers b{font-weight:800;}
+  .followers .chev{display:inline-block;transition:transform .25s;font-size:12px;color:var(--muted);margin-left:6px;}
+  .followers.open .chev{transform:rotate(180deg);}
+  .breakdown{
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+    font-size:14px;color:var(--muted);
+  }
+  .followers.open .breakdown{max-height:200px;}
+  .breakdown div{padding:3px 0;}
+  .bio{
+    text-align:center;font-family:Georgia,'Times New Roman',serif;
+    font-weight:700;font-size:17px;padding:16px 20px 6px;
+  }
+
+  /* ───── TARJETAS DE ENLACE ───── */
+  .links{padding:18px 14px 8px;display:flex;flex-direction:column;gap:14px;}
+  .card{
+    position:relative;display:block;border-radius:var(--radius);
+    overflow:hidden;text-decoration:none;color:#fff;
+    transition:transform .15s;
+  }
+  .card:hover{transform:scale(1.015);}
+  .card .ph{
+    width:100%;aspect-ratio:16/10;
+    display:flex;align-items:center;justify-content:center;
+    color:#888;font-size:14px;letter-spacing:1px;
+  }
+  .card img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block;}
+  .card .label{
+    position:absolute;left:0;right:0;bottom:12px;text-align:center;
+    font-size:19px;font-weight:800;letter-spacing:.5px;
+    text-shadow:0 2px 10px rgba(0,0,0,.85);
+    transition: opacity 0.3s ease;
+  }
+  .card .corner{
+    position:absolute;top:12px;left:12px;width:36px;height:36px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.4);
+    z-index: 3;
+  }
+  .card .corner svg{width:18px;height:18px;fill:currentColor;}
+  .card .shade{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,.55));}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .row2 .card .ph,.row2 .card img{aspect-ratio:1/1;}
+  .row2 .label{font-size:15px!important;}
+  /* placeholders de tarjetas */
+  .g1{background:radial-gradient(circle at 60% 30%,#4e5d49,#222a20 75%);}
+  .g2{background:radial-gradient(circle at 50% 35%,#a8542d,#3d1d10 75%);}
+  .g3{background:radial-gradient(circle at 40% 30%,#6d4a7e,#2a1d33 75%);}
+  .g4{background:radial-gradient(circle at 55% 35%,#42566e,#1b2330 75%);}
+  .g5{background:radial-gradient(circle at 50% 30%,#6e4444,#2d1b1b 75%);}
+
+  /* ───── GRILLA SOCIAL ───── */
+  .social-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 8px 14px 14px;
+  }
+  .social-grid .card {
+    position: relative;
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: #fff;
+    aspect-ratio: 1.15 / 1;
+    transition: transform .15s;
+  }
+  .social-grid .card:hover {
+    transform: scale(1.02);
+  }
+  .social-grid .card img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    object-fit: cover;
+    display: block;
+  }
+  .social-grid .card .shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.7));
+    pointer-events: none;
+  }
+  .social-grid .card .corner {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 3;
+  }
+  .social-grid .card .corner svg {
+    width: 16px;
+    height: 16px;
+  }
+  .social-grid .card .label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 12px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+  }
+
+  /* Colores de los logos en el círculo blanco */
+  .social-grid .card.full-width {
+    grid-column: span 2;
+    aspect-ratio: 16 / 9 !important;
+  }
+  .social-grid .card.full-width img {
+    object-fit: cover;
+    object-position: 50% 35%;
+  }
+  .social-grid .card.full-width .corner {
+    width: 36px;
+    height: 36px;
+  }
+  .social-grid .card.full-width .corner svg {
+    width: 18px;
+    height: 18px;
+  }
+  .social-grid .card.full-width .label {
+    font-size: 19px !important;
+    letter-spacing: 0.5px;
+  }
+  .social-badge-of {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .social-badge-ig {
+    background: radial-gradient(circle at 30% 110%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%) !important;
+    border: none !important;
+  }
+  .social-badge-ig svg {
+    fill: #fff !important;
+  }
+  .social-badge-tiktok {
+    background: #000 !important;
+    border: 1.5px solid #333 !important;
+  }
+  .social-badge-tiktok svg {
+    fill: #fff !important;
+  }
+  .social-badge-x {
+    background: #000 !important;
+    border: 1.5px solid #333 !important;
+  }
+  .social-badge-x svg {
+    fill: #fff !important;
+  }
+  .social-badge-threads {
+    background: #000 !important;
+    border: 1.5px solid #333 !important;
+  }
+  .social-badge-threads svg {
+    fill: #fff !important;
+  }
+
+  /* ───── DESCARGO DE RESPONSABILIDAD (BLUR) ───── */
+  .disclaimer-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    padding: 20px;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .disclaimer-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .disclaimer-overlay.active ~ .label {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .disclaimer-content {
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+  }
+  .disclaimer-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+    stroke: #fff;
+    opacity: 0.95;
+  }
+  .disclaimer-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: 0.2px;
+  }
+  .disclaimer-text {
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 18px;
+    line-height: 1.4;
+  }
+  .disclaimer-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 28px;
+    font-size: 13.5px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s, background-color 0.15s;
+  }
+  .disclaimer-btn:hover {
+    transform: scale(1.04);
+    background: #f0f0f0;
+  }
+  .disclaimer-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* ───── GALERÍA ───── */
+  .gallery-wrapper {
+    position:relative;
+    width:100%;
+  }
+  .gallery{
+    display:flex;gap:12px;overflow-x:auto;padding:18px 14px;
+    scrollbar-width:none;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    cursor:grab;
+  }
+  .gallery::-webkit-scrollbar{display:none;}
+  .gallery:active{
+    cursor:grabbing;
+  }
+  .shot{
+    flex:0 0 150px;height:190px;border-radius:14px;overflow:hidden;
+    scroll-snap-align:start;
+    display:flex;align-items:center;justify-content:center;
+    user-select:none;
+  }
+  .shot img{
+    width:100%;height:100%;object-fit:cover;
+    pointer-events:none;
+  }
+  .gallery-nav{
+    position:absolute;top:50%;transform:translateY(-50%);
+    width:36px;height:36px;border-radius:50%;
+    background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.15);
+    color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;z-index:10;transition:background .2s,opacity .2s;
+    user-select:none;backdrop-filter:blur(4px);line-height:1;
+  }
+  .gallery-nav:hover{background:rgba(0,0,0,0.85);}
+  .gallery-nav.prev{left:8px;}
+  .gallery-nav.next{right:8px;}
+  @media (hover:none){
+    .gallery-nav{display:none;}
+  }
+  .s1{background:radial-gradient(circle at 40% 30%,#7e4a3a,#2e1c16 80%);}
+  .s2{background:radial-gradient(circle at 60% 40%,#8a7444,#332b17 80%);}
+  .s3{background:radial-gradient(circle at 50% 30%,#3f5e46,#16241a 80%);}
+  .s4{background:radial-gradient(circle at 45% 35%,#7e3a6a,#2e1626 80%);}
+  .s5{background:radial-gradient(circle at 55% 30%,#3a5a7e,#16222e 80%);}
+
+  /* ───── EMAIL ───── */
+  .connect{padding:4px 14px 10px;}
+  .connect form{
+    display:flex;align-items:center;background:#fff;border-radius:999px;
+    padding:5px;gap:6px;
+  }
+  .connect input{
+    flex:1;border:0;outline:0;background:transparent;
+    padding:10px 14px;font-size:15px;color:#333;
+  }
+  .connect button{
+    border:0;border-radius:999px;background:#16161a;color:#fff;
+    font-weight:700;font-size:14px;padding:11px 18px;cursor:pointer;
+    display:flex;align-items:center;gap:8px;white-space:nowrap;
+  }
+  .connect button:hover{background:#2a2a30;}
+  .mailbar{
+    margin:8px 14px 0;background:var(--card);border-radius:16px;
+    padding:16px 18px;display:flex;align-items:center;gap:10px;
+    color:#fff;text-decoration:none;font-weight:600;font-size:15px;
+  }
+  .mailbar:hover{background:#1a1a1f;}
+  .mailbar svg{width:18px;height:18px;fill:none;stroke:#fff;stroke-width:1.6;}
+
+  footer{
+    text-align:center;color:#6b6b73;font-size:12.5px;padding:26px 0 34px;
+  }
+  footer a{color:#9b9ba3;text-decoration:underline;}
+
+  /* ───── POPUP DE EDAD ULTRA-PREMIUM ───── */
+  .modal-overlay {
+    position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9999; padding: 24px;
+  }
+  .modal-overlay.open {
+    opacity: 1; pointer-events: auto;
+  }
+  .modal-box {
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    width: 100%; max-width: 380px;
+    padding: 40px 28px; text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
+    transform: scale(0.92) translateY(15px); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+  .modal-overlay.open .modal-box {
+    transform: scale(1) translateY(0);
+  }
+  .modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+  }
+  .modal-close-btn:hover {
+    color: #fff;
+  }
+  .modal-close-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  .modal-warning-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+  .modal-warning-icon svg {
+    width: 44px;
+    height: 44px;
+    stroke-width: 1.8;
+  }
+  .modal-title {
+    font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 16px; letter-spacing: 0.5px;
+  }
+  .modal-text {
+    font-size: 14.5px; color: #a1a1aa; line-height: 1.6; margin-bottom: 30px; font-weight: 400;
+  }
+  .modal-btn-continue {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  .modal-btn-continue:hover {
+    background: #e6e6e6;
+    transform: scale(1.02);
+  }
+  .modal-btn-continue:active {
+    transform: scale(0.98);
+  }
+  .modal-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 22px;
+  }
+  .modal-buttons {
+    display: flex;
+    gap: 10px;
+  }
+  .modal-btn {
+    background: #fff;
+    color: #000;
+    border: none;
+    border-radius: 999px;
+    padding: 13px 18px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s, background-color 0.15s;
+  }
+  .modal-btn:hover {
+    background: #e6e6e6;
+    transform: scale(1.02);
+  }
+  .modal-btn:active {
+    transform: scale(0.98);
+  }
+
+  /* ───── LANGUAGE SELECTOR ───── */
+  .lang-selector {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 1000;
+    display: flex;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    padding: 3px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  }
+  .lang-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    letter-spacing: 0.5px;
+  }
+  .lang-btn.active {
+    background: linear-gradient(135deg, #ff6fb5, #e91e8c);
+    color: #fff;
+    box-shadow: 0 2px 8px rgba(233, 30, 140, 0.4);
+  }
+  .lang-btn:hover:not(.active) {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+  }
+</style>
 </head>
-
 <body>
-  <div class="lang-selector-wrap">
-    <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-      <span id="activeLangText">EN</span>
-    </button>
-    <div class="lang-dropdown" id="langDropdown" role="menu">
-      <button class="lang-option active" data-lang="en" role="menuitem">English</button>
-      <button class="lang-option" data-lang="es" role="menuitem">Español</button>
-    </div>
+<div class="backdrop"></div>
+<main class="phone">
+  <div class="lang-selector">
+    <button id="lang-es" class="lang-btn" type="button" onclick="changeLanguage('es')" aria-label="Cambiar a español">ES</button>
+    <button id="lang-en" class="lang-btn" type="button" onclick="changeLanguage('en')" aria-label="Switch to English">EN</button>
   </div>
 
-  <section class="hero">
-    <img class="hero-bg" src="src/img1.jpg" alt="">
-    <div class="glow-orb glow-1"></div>
-    <div class="glow-orb glow-2"></div>
-    <div class="hero-inner">
-      <div class="avatar-wrap">
-        <div class="avatar-ring">
-          <div class="avatar-inner">
-            <img src="src/img2.jpg" alt="Sofia Gonzalez" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-            <span class="avatar-fallback" style="display:none; align-items:center; justify-content:center; width:100%; height:100%;">SG</span>
-          </div>
+  <!-- HERO : reemplaza .placeholder por <img class="photo" src="tu-foto.jpg" alt=""> -->
+  <header class="hero">
+    <img class="photo" src="img/principal.png" alt="Sofía González" data-i18n-alt="heroAlt"
+         onerror="this.outerHTML='&lt;div class=&quot;placeholder&quot;&gt;Agrega tu foto principal aquí / Add your main photo here&lt;/div&gt;'">
+    <div class="fade"></div>
+    <div class="id">
+      <h1 id="name">Sofía González <span class="badge">✔</span></h1>
+      <div class="handle" id="handle">@sofiagonzalezofficial</div>
+    </div>
+  </header>
+
+  <!-- ICONOS SOCIALES -->
+  <nav class="socials" id="socialIcons">
+    <!-- Instagram -->
+    <a class="ic-ig" href="https://www.instagram.com/sofiagonzalez230s/" target="_blank" rel="noopener" title="Instagram">
+      <svg viewBox="0 0 24 24">
+        <path fill="#fff" d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.3.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.3-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.3-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.5.2-1.8.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.7-.3 1.8-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.5.3 1.8.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.7.3 1.8.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.5-.2 1.8-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.7.3-1.8.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.5-.3-1.8-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.3-.1-.7-.3-1.8-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.1a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.4-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/>
+      </svg>
+    </a>
+    <!-- <a class="ic-of" href="#" onclick="abrirVerificacionEdad(event)" title="Exclusive content">
+      <svg viewBox="0 0 54 54" style="width: 25px; height: 25px;">
+        <rect x="19" y="25" width="16" height="12" rx="2" fill="#fff"/>
+        <path d="M22 25V20.5a5 5 0 0 1 10 0V25" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="27" cy="30" r="1.5" fill="#1d7fe8"/>
+        <path d="M27 31.5V34" stroke="#1d7fe8" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </a> -->
+    <!-- TikTok -->
+    <a class="ic-tt" href="https://www.tiktok.com/@sofiagonzalezco" target="_blank" rel="noopener" title="TikTok">
+      <svg viewBox="0 0 24 24">
+        <g fill="none" stroke-width="0">
+          <path fill="#fe2c55" d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z" transform="translate(0.6, 0.6)" />
+          <path fill="#25f4ee" d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z" transform="translate(-0.6, -0.6)" />
+          <path fill="#fff" d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z" />
+        </g>
+      </svg>
+    </a>
+    <!-- X -->
+    <a class="ic-x" href="https://x.com/sofiagonzalezlp" target="_blank" rel="noopener" title="X / Twitter">
+      <svg viewBox="0 0 24 24">
+        <path fill="#fff" d="M17.5 3h3l-6.6 7.6L21.7 21h-6.1l-4.8-6.3L5.3 21h-3l7-8.1L2.5 3h6.2l4.3 5.7L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/>
+      </svg>
+    </a>
+    <!-- Snapchat -->
+    <!-- <a class="ic-snap" href="https://www.snapchat.com/add/danitatuflakita" target="_blank" rel="noopener" title="Snapchat">
+      <svg viewBox="0 0 16 16" style="width: 22px; height: 22px;">
+        <path fill="#fff" stroke="#000" stroke-width="0.8" d="M15.943 11.526c-.111-.303-.323-.465-.564-.599a1 1 0 0 0-.123-.064l-.219-.111c-.752-.399-1.339-.902-1.746-1.498a3.4 3.4 0 0 1-.3-.531c-.034-.1-.032-.156-.008-.207a.3.3 0 0 1 .097-.1c.129-.086.262-.173.352-.231.162-.104.289-.187.371-.245.309-.216.525-.446.66-.702a1.4 1.4 0 0 0 .069-1.16c-.205-.538-.713-.872-1.329-.872a1.8 1.8 0 0 0-.487-.065c.006-.368-.002-.757-.035-1.139-.116-1.344-.587-2.048-1.077-2.61a4.3 4.3 0 0 0-1.095-.881C9.764.216 8.92 0 7.999 0s-1.76.216-2.505.641c-.412.232-.782.53-1.097.883-.49.562-.96 1.267-1.077 2.61-.033.382-.04.772-.036 1.138a1.8 1.8 0 0 0-.487-.065c-.615 0-1.124.335-1.328.873a1.4 1.4 0 0 0 .067 1.161c.136.256.352.486.66.701.082.058.21.14.371.246l.339.221a.4.4 0 0 1 .109.11c.026.053.027.11-.012.217a3.4 3.4 0 0 1-.295.52c-.398.583-.968 1.077-1.696 1.472-.385.204-.786.34-.955.8-.128.348-.044.743.28 1.075q.18.189.409.31a4.4 4.4 0 0 0 1 .4.7.7 0 0 1 .202.09c.118.104.102.26.259.488q.12.178.296.3c.33.229.701.243 1.095.258.355.014.758.03 1.217.18.19.064.389.186.618.328.55.338 1.305.802 2.566.802 1.262 0 2.02-.466 2.576-.806.227-.14.424-.26.609-.321.46-.152.863-.168 1.218-.181.393-.015.764-.03 1.095-.258a1.14 1.14 0 0 0 .336-.368c.114-.192.11-.327.217-.42a.6.6 0 0 1 .19-.087 4.5 4.5 0 0 0 1.014-.404c.16-.087.306-.2.429-.336l.004-.005c.304-.325.38-.709.256-1.047z"/>
+      </svg>
+    </a> -->
+    <!-- Telegram -->
+    <a style="background:#229ed9;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .15s;box-shadow:0 2px 8px rgba(0,0,0,0.12);" href="https://t.me/SofiaGonza2" target="_blank" rel="noopener" title="Telegram">
+      <svg viewBox="0 0 24 24"><path fill="#fff" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.820 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+    </a>
+    <!-- Threads -->
+    <a class="ic-threads" href="https://www.threads.com/@sofiagonzalez230s" target="_blank" rel="noopener" title="Threads">
+      <svg viewBox="0 0 24 24">
+        <path fill="#fff" d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/>
+      </svg>
+    </a>
+  </nav>
+
+
+  <p class="bio" id="bio" data-i18n="bio">Escríbeme por DM en mi página ❤</p>
+
+  <!-- GRILLA SOCIAL -->
+  <section class="social-grid">
+    <a class="card full-width" href="#" onclick="mostrarDisclaimer(event)">
+      <img src="img/imagen1.png" alt="Contenido exclusivo" data-i18n-alt="exclusiveAlt">
+      <div class="shade"></div>
+      
+      <!-- Aviso de Contenido Adulto (In-Card Blur) -->
+      <div class="disclaimer-overlay" id="ofDisclaimer">
+        <div class="disclaimer-content">
+          <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          <div class="disclaimer-title" data-i18n="disclaimerTitle">Aviso de contenido adulto</div>
+          <div class="disclaimer-text" data-i18n="disclaimerText">Este enlace puede contener contenido gráfico o para adultos.</div>
+          <button class="disclaimer-btn" type="button" onclick="abrirExclusive(event)" data-i18n="disclaimerBtn">Continuar (18+)</button>
         </div>
-        <div class="live-badge"><div class="live-dot"></div>Online</div>
       </div>
-      <p class="tagline" data-i18n="tagline">Exclusive Content &middot; Colombia</p>
-      <h1><span data-i18n="hero_title_1">Sofia</span><br><em data-i18n="hero_title_2">Gonzalez</em></h1>
-      <p class="hero-sub" data-i18n="hero_sub">Exclusive, authentic and deeply personal content.<br>Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.</p>
-      <div class="urgency-pill" data-i18n="urgency_pill">&#10024; Exclusive content &middot; Daily updates</div>
-      <div class="cta-container">
-        <a href="javascript:void(0)" data-url="https://www.fanvue.com/sofiagonzalezofficial" class="cta-primary">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-          <span data-i18n="join_premium">Join Now &mdash; Premium Content</span>
-        </a>
-      </div>
-      <p class="cta-note" data-i18n="secure_access">&#128274; Secure access &middot; Cancel anytime</p>
-    </div>
-    <div class="scroll-hint"><span data-i18n="scroll">Scroll</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6" /></svg></div>
+      
+      <span class="corner social-badge-of"><img src="img/icono.png" style="width:100%;height:100%;object-fit:cover;display:block;"></span>
+      <span class="label" data-i18n="exclusiveCard">Contenido exclusivo</span>
+    </a>
+
+    <!-- Instagram -->
+    <a class="card" href="https://www.instagram.com/sofiagonzalez230s/" target="_blank" rel="noopener">
+      <img src="img/img4.jpeg" alt="Instagram">
+      <div class="shade"></div>
+      <span class="corner social-badge-ig"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.3.1 1.2.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.3.4-1.2.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.3-.1-1.2-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.9.4-2.3.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.3-.4 1.2-.1 1.6-.1 4.8-.1zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.5.2-1.8.3-.5.2-.8.4-1.1.7-.3.3-.5.6-.7 1.1-.1.3-.3.7-.3 1.8-.1 1.2-.1 1.6-.1 4.7s0 3.5.1 4.7c.1 1.1.2 1.5.3 1.8.2.5.4.8.7 1.1.3.3.6.5 1.1.7.3.1.7.3 1.8.3 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.5-.2 1.8-.3.5-.2.8-.4 1.1-.7.3-.3.5-.6.7-1.1.1-.3.3-.7.3-1.8.1-1.2.1-1.6.1-4.7s0-3.5-.1-4.7c-.1-1.1-.2-1.5-.3-1.8-.2-.5-.4-.8-.7-1.1-.3-.3-.6-.5-1.1-.7-.3-.1-.7-.3-1.8-.3-1.2-.1-1.6-.1-4.7-.1zm0 3.1a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.4-8.4a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg></span>
+      <span class="label" data-i18n="socialInstagram">Instagram</span>
+    </a>
+
+    <!-- TikTok -->
+    <a class="card" href="https://www.tiktok.com/@sofiagonzalezco" target="_blank" rel="noopener">
+      <img src="img/img7.png" alt="TikTok">
+      <div class="shade"></div>
+      <span class="corner social-badge-tiktok"><svg viewBox="0 0 24 24"><path d="M16.6 3c.4 2 1.7 3.4 3.8 3.6v2.8c-1.3.1-2.6-.3-3.8-1v6.2c0 4-2.7 6.4-6 6.4-3 0-5.6-2.2-5.6-5.4 0-3.4 3-5.7 6.4-5.2v2.9c-1.7-.4-3.5.6-3.5 2.3 0 1.5 1.2 2.5 2.7 2.5 1.7 0 3-1.2 3-3.3V3h3z"/></svg></span>
+      <span class="label" data-i18n="socialTikTok">TikTok</span>
+    </a>
+
+    <!-- Twitter/X -->
+    <a class="card" href="https://x.com/sofiagonzalezlp" target="_blank" rel="noopener">
+      <img src="img/img5.jpeg" alt="X">
+      <div class="shade"></div>
+      <span class="corner social-badge-x"><svg viewBox="0 0 24 24"><path d="M17.5 3h3l-6.6 7.6L21.7 21h-6.1l-4.8-6.3L5.3 21h-3l7-8.1L2.5 3h6.2l4.3 5.7L17.5 3zm-1.1 16.2h1.7L7.7 4.7H5.9l10.5 14.5z"/></svg></span>
+      <span class="label" data-i18n="socialX">X</span>
+    </a>
+
+    <!-- Threads -->
+    <a class="card" href="https://www.threads.net/@sofiagonzalez230s" target="_blank" rel="noopener">
+      <img src="img/img8.jpeg" alt="Threads">
+      <div class="shade"></div>
+      <span class="corner social-badge-threads"><svg viewBox="0 0 24 24"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164 1.43 1.783 3.631 2.698 6.54 2.717 2.623-.02 4.358-.631 5.8-2.045 1.647-1.613 1.618-3.593 1.09-4.798-.31-.71-.873-1.3-1.634-1.75-.192 1.352-.622 2.446-1.284 3.272-.886 1.102-2.14 1.704-3.73 1.79-1.202.065-2.361-.218-3.259-.801-1.063-.689-1.685-1.74-1.752-2.964-.065-1.19.408-2.285 1.33-3.082.88-.76 2.119-1.207 3.583-1.291a13.853 13.853 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32L7.734 7.847c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388.108.046.216.094.321.142 1.49.7 2.58 1.761 3.154 3.07.797 1.82.871 4.79-1.548 7.158-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69c-.242 0-.487.007-.739.021-1.836.103-2.98.946-2.916 2.143.067 1.256 1.452 1.839 2.784 1.767 1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221z"/></svg></span>
+      <span class="label" data-i18n="socialThreads">Threads</span>
+    </a>
   </section>
 
-  <div class="stats-bar">
-    <div class="stat"><span class="stat-num" data-i18n="stat_age_val">23</span><span class="stat-label" data-i18n="stat_age_lbl">Years old</span></div>
-    <div class="stat"><span class="stat-num" data-i18n="stat_location_val">&#127464;&#127476;</span><span class="stat-label" data-i18n="stat_location_lbl">Colombia</span></div>
-    <div class="stat"><span class="stat-num" data-i18n="stat_subscribers_val">5K+</span><span class="stat-label" data-i18n="stat_subscribers_lbl">Subscribers</span></div>
-    <div class="stat"><span class="stat-num" data-i18n="stat_content_val">100%</span><span class="stat-label" data-i18n="stat_content_lbl">Original content</span></div>
+  <!-- OTRAS TARJETAS -->
+  <section class="links" style="padding: 0 14px 8px;">
+    <div class="row2">
+      <a class="card" href="https://t.me/SofiaGonza2" target="_blank" rel="noopener">
+        <img src="img/img9.jpeg" alt="Telegram">
+        <div class="shade"></div>
+        <span class="corner" style="background:#229ed9;"><svg viewBox="0 0 24 24" style="width:18px;height:18px;"><path fill="#fff" d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.820 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span>
+        <span class="label">Telegram</span>
+      </a>
+      <a class="card" href="#" onclick="abrirProximamente(event)">
+        <img src="img/img10.jpeg" alt="Packs digitales" data-i18n-alt="digitalPacksCard">
+        <div class="shade"></div>
+        <span class="label" data-i18n="digitalPacksCard">Packs digitales</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <div class="gallery-wrapper">
+    <button class="gallery-nav prev" id="galleryPrev" type="button" aria-label="Anterior" data-i18n-aria-label="galleryPrev">‹</button>
+    <section class="gallery" id="gallery">
+      <div class="shot"><img src="img/img1.png" alt="Foto 1"></div>
+      <div class="shot"><img src="img/img2.jpeg" alt="Foto 2"></div>
+      <div class="shot"><img src="img/img3.jpeg" alt="Foto 3"></div>
+      <div class="shot"><img src="img/img4.jpeg" alt="Foto 4"></div>
+      <div class="shot"><img src="img/img5.jpeg" alt="Foto 5"></div>
+    </section>
+    <button class="gallery-nav next" id="galleryNext" type="button" aria-label="Siguiente" data-i18n-aria-label="galleryNext">›</button>
   </div>
 
-  <section class="section">
-    <div class="about-grid">
-      <div>
-        <p class="section-label" data-i18n="about_label">About me</p>
-        <h2 class="section-title" data-i18n="about_title">The woman behind<br>the <em>screen</em></h2>
-        <p class="about-text" data-i18n="about_desc">Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you. I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.<br><br>My private profile is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll never find on any social media. Every piece of content is created with love, just for you.</p>
-      </div>
-      <ul class="feature-list">
-        <li data-i18n="feature_1">Exclusive photos &amp; videos I don&rsquo;t post anywhere else</li>
-        <li data-i18n="feature_2">Daily updates for my subscribers</li>
-        <li data-i18n="feature_3">Private chat directly with me &mdash; I reply personally</li>
-        <li data-i18n="feature_4">Custom content on request for special subscribers</li>
-        <li data-i18n="feature_5">Early access to all my new content</li>
-        <li data-i18n="feature_6">Private, discreet community &mdash; 100% safe</li>
-      </ul>
-    </div>
-  </section>
 
-  <section style="padding: 0 2rem 5rem; max-width: 900px; margin: 0 auto;">
-    <div class="divider"></div>
-    <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;" data-i18n="offer_label">What awaits you</p>
-    <h2 class="section-title" style="text-align:center;" data-i18n="offer_title">A truly <em>unique</em> experience</h2>
-    <div class="cards-grid">
-      <div class="offer-card"><span class="card-icon">&#128248;</span><h3 class="card-title" data-i18n="card_photos_title">Exclusive Photos</h3><p class="card-desc" data-i18n="card_photos_desc">Professional and candid photo sets I share only with my subscribers.</p></div>
-      <div class="offer-card card-featured"><span class="card-icon">&#127916;</span><h3 class="card-title" data-i18n="card_videos_title">Private Videos</h3><p class="card-desc" data-i18n="card_videos_desc">High-quality, intimate and authentic video content. The community favorite.</p></div>
-      <div class="offer-card"><span class="card-icon">&#128172;</span><h3 class="card-title" data-i18n="card_chat_title">Direct Chat</h3><p class="card-desc" data-i18n="card_chat_desc">Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.</p></div>
-      <div class="offer-card"><span class="card-icon">&#11088;</span><h3 class="card-title" data-i18n="card_vip_title">VIP Content</h3><p class="card-desc" data-i18n="card_vip_desc">Personalized custom content for those who want something truly special.</p></div>
-    </div>
-  </section>
-
-  <div class="testimonials">
-    <div class="section">
-      <div class="divider"></div>
-      <p class="section-label" style="text-align:center; margin-bottom: 0.5rem;" data-i18n="testimonials_label">What they say</p>
-      <h2 class="section-title" style="text-align:center;" data-i18n="testimonials_title">My <em>community</em> speaks</h2>
-      <div class="quotes-grid">
-        <div class="quote-card"><div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote-text" data-i18n="quote_1_text">&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;</p><span class="quote-author" data-i18n="quote_1_author">&mdash; J. M., VIP subscriber</span></div>
-        <div class="quote-card"><div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote-text" data-i18n="quote_2_text">&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;</p><span class="quote-author" data-i18n="quote_2_author">&mdash; R. T., Premium subscriber</span></div>
-        <div class="quote-card"><div class="quote-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="quote-text" data-i18n="quote_3_text">&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;</p><span class="quote-author" data-i18n="quote_3_author">&mdash; A. K., active member</span></div>
-      </div>
-    </div>
-  </div>
-
-  <section class="final-cta">
-    <div class="divider"></div>
-    <p class="section-label" data-i18n="final_label">Start today</p>
-    <h2 class="section-title" data-i18n="final_title">Ready to<br><em>join?</em></h2>
-    <p data-i18n="final_desc">Subscribe now and access the exclusive content only my fans get to see.</p>
-    <div class="cta-group">
-      <div class="cta-container">
-        <a href="javascript:void(0)" data-url="https://www.fanvue.com/sofiagonzalezofficial" class="cta-primary" style="font-size:1rem; padding: 1.1rem 3rem;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg>
-          <span data-i18n="final_btn_premium">View my Premium Profile &mdash; @sofiagonzalezofficial</span>
-        </a>
-      </div>
-      <span style="font-size:0.78rem; color:rgba(245,238,240,0.25); letter-spacing:0.5px;" data-i18n="final_disclaimer">&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed</span>
-    </div>
-  </section>
 
   <footer>
-    <p data-i18n="footer_copyright">&copy; 2026 Sofia Gonzalez &middot; All rights reserved</p>
-    <p style="margin-top: 6px;"><a href="https://www.fanvue.com/sofiagonzalezofficial" target="_blank" rel="noopener">@sofiagonzalezofficial</a></p>
-    <p style="margin-top: 12px; font-size: 0.7rem; opacity: 0.5;" data-i18n="footer_disclaimer">Exclusive content for adults 18+ only</p>
+    <a href="#" data-i18n="privacyPolicy">Política de privacidad</a> | <a href="#" data-i18n="terms">Términos</a> | <a href="#" data-i18n="report">Reportar</a>
   </footer>
+</main>
 
-  <script>
-    const resources = {
-      en: {
-        title: "Sofia Gonzalez — Exclusive Content",
-        meta_description: "Exclusive, authentic and deeply personal content of Sofia Gonzalez. Step into my private world.",
-        tagline: "Exclusive Content &middot; Colombia",
-        hero_title_1: "Sofia", hero_title_2: "Gonzalez",
-        hero_sub: "Exclusive, authentic and deeply personal content.<br>Step into my private world &mdash; an experience you won&rsquo;t find anywhere else.",
-        urgency_pill: "&#10024; Exclusive content &middot; Daily updates",
-        join_premium: "Join Now &mdash; Premium Content",
-        secure_access: "&#128274; Secure access &middot; Cancel anytime",
-        scroll: "Scroll",
-        stat_age_val: "23", stat_age_lbl: "Years old", stat_location_val: "&#127464;&#127476;", stat_location_lbl: "Colombia", stat_subscribers_val: "5K+", stat_subscribers_lbl: "Subscribers", stat_content_val: "100%", stat_content_lbl: "Original content",
-        about_label: "About me", about_title: "The woman behind<br>the <em>screen</em>",
-        about_desc: "Hey, I&rsquo;m <strong>Sofia Gonzalez</strong> &mdash; a 23-year-old Colombian with a lot to show you. I&rsquo;m spontaneous, passionate and genuine. What you see here is the real me, no filters, no fake poses.<br><br>My private profile is my most <strong>intimate and personal</strong> space, where I share what you&rsquo;ll never find on any social media. Every piece of content is created with love, just for you.",
-        feature_1: "Exclusive photos &amp; videos I don&rsquo;t post anywhere else", feature_2: "Daily updates for my subscribers", feature_3: "Private chat directly with me &mdash; I reply personally", feature_4: "Custom content on request for special subscribers", feature_5: "Early access to all my new content", feature_6: "Private, discreet community &mdash; 100% safe",
-        offer_label: "What awaits you", offer_title: "A truly <em>unique</em> experience",
-        card_photos_title: "Exclusive Photos", card_photos_desc: "Professional and candid photo sets I share only with my subscribers.", card_videos_title: "Private Videos", card_videos_desc: "High-quality, intimate and authentic video content. The community favorite.", card_chat_title: "Direct Chat", card_chat_desc: "Message me directly. I&rsquo;m the one who replies &mdash; no assistants. A real fan experience.", card_vip_title: "VIP Content", card_vip_desc: "Personalized custom content for those who want something truly special.",
-        testimonials_label: "What they say", testimonials_title: "My <em>community</em> speaks",
-        quote_1_text: "&ldquo;Sofia is incredible. She really replies, the content is next level. Worth every penny.&rdquo;", quote_1_author: "&mdash; J. M., VIP subscriber", quote_2_text: "&ldquo;I had been looking for something authentic for a while and Sofia has it all. Natural, beautiful and very attentive.&rdquo;", quote_2_author: "&mdash; R. T., Premium subscriber", quote_3_text: "&ldquo;Subscribed for 6 months and no regrets. She posts constantly and always surprises.&rdquo;", quote_3_author: "&mdash; A. K., active member",
-        final_label: "Start today", final_title: "Ready to<br><em>join?</em>",
-        final_desc: "Subscribe now and access the exclusive content only my fans get to see.",
-        final_btn_premium: "View my Premium Profile &mdash; @sofiagonzalezofficial",
-        final_disclaimer: "&#128274; Secure platform &middot; Protected payment &middot; Privacy guaranteed",
-        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; All rights reserved", footer_disclaimer: "Exclusive content for adults 18+ only",
-        age_logo: "Sofia Gonzalez &bull; Exclusive Content",
-        age_title: "Before you enter,<br><em class='age-coral-italic'>verify your age</em>",
-        age_subtitle: "This site contains content intended for adults only. You must be 18 years or older to continue.",
-        age_question: "Are you 18 years of age or older?",
-        age_btn_yes: "Yes, I'm 18+", age_btn_no: "No, exit",
-        age_legal: "By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy Policy. This site uses cookies to remember your age verification."
-      },
-      es: {
-        title: "Sofia Gonzalez — Contenido Exclusivo",
-        meta_description: "Contenido exclusivo, auténtico y profundamente personal de Sofía González. Entra en mi mundo privado.",
-        tagline: "Contenido Exclusivo &middot; Colombia",
-        hero_title_1: "Sofia", hero_title_2: "Gonzalez",
-        hero_sub: "Contenido exclusivo, auténtico y profundamente personal.<br>Entra a mi mundo privado &mdash; una experiencia que no encontrarás en ningún otro lugar.",
-        urgency_pill: "&#10024; Contenido exclusivo &middot; Actualizaciones diarias",
-        join_premium: "Únete Ahora &mdash; Contenido Premium",
-        secure_access: "&#128274; Acceso seguro &middot; Cancela en cualquier momento",
-        scroll: "Bajar",
-        stat_age_val: "23", stat_age_lbl: "Años de edad", stat_location_val: "&#127464;&#127476;", stat_location_lbl: "Colombia", stat_subscribers_val: "5K+", stat_subscribers_lbl: "Suscriptores", stat_content_val: "100%", stat_content_lbl: "Contenido original",
-        about_label: "Sobre mí", about_title: "La mujer detrás de<br>la <em>pantalla</em>",
-        about_desc: "Hola, soy <strong>Sofía González</strong> &mdash; una colombiana de 23 años con mucho que mostrarte. Soy espontánea, apasionada y auténtica. Lo que ves aquí es la verdadera yo, sin filtros ni poses falsas.<br><br>Mi perfil privado es mi espacio más <strong>íntimo y personal</strong>, donde comparto lo que nunca encontrarás en ninguna otra red social. Cada pieza de contenido está creada con amor, especialmente para ti.",
-        feature_1: "Fotos y videos exclusivos que no publico en ningún otro lugar", feature_2: "Actualizaciones diarias para mis suscriptores", feature_3: "Chat privado directo conmigo &mdash; respondo personalmente", feature_4: "Contenido personalizado a pedido para suscriptores especiales", feature_5: "Acceso anticipado a todo mi contenido nuevo", feature_6: "Comunidad privada y discreta &mdash; 100% segura",
-        offer_label: "Lo que te espera", offer_title: "Una experiencia realmente <em>única</em>",
-        card_photos_title: "Fotos Exclusivas", card_photos_desc: "Sesiones de fotos profesionales y espontáneas que comparto solo con mis suscriptores.", card_videos_title: "Videos Privados", card_videos_desc: "Contenido de video de alta calidad, íntimo y auténtico. El favorito de la comunidad.", card_chat_title: "Chat Directo", card_chat_desc: "Escríbeme directamente. Yo soy la que responde, sin asistentes. Una verdadera experiencia para fans.", card_vip_title: "Contenido VIP", card_vip_desc: "Contenido personalizado para aquellos que desean algo verdaderamente especial.",
-        testimonials_label: "Lo que dicen", testimonials_title: "Mi <em>comunidad</em> habla",
-        quote_1_text: "&ldquo;Sofía es increíble. Realmente responde, el contenido es de otro nivel. Vale cada centavo.&rdquo;", quote_1_author: "&mdash; J. M., suscriptor VIP", quote_2_text: "&ldquo;Llevaba tiempo buscando algo auténtico y Sofía lo tiene todo. Natural, hermosa y muy atenta.&rdquo;", quote_2_author: "&mdash; R. T., suscriptor Premium", quote_3_text: "&ldquo;Suscrito por 6 meses y sin arrepentimientos. Publica constantemente y siempre sorprende.&rdquo;", quote_3_author: "&mdash; A. K., miembro activo",
-        final_label: "Comienza hoy", final_title: "¿Listo para<br><em>unirte?</em>",
-        final_desc: "Suscríbete ahora y accede al contenido exclusivo que solo mis fans pueden ver.",
-        final_btn_premium: "Ver mi Perfil Premium &mdash; @sofiagonzalezofficial",
-        final_disclaimer: "&#128274; Plataforma segura &middot; Pago protegido &middot; Privacidad garantizada",
-        footer_copyright: "&copy; 2026 Sofia Gonzalez &middot; Todos los derechos reservados", footer_disclaimer: "Contenido exclusivo solo para adultos mayores de 18 años",
-        age_logo: "Sofía González &bull; Contenido Exclusivo",
-        age_title: "Antes de entrar,<br><em class='age-coral-italic'>verifica tu edad</em>",
-        age_subtitle: "Este sitio contiene contenido destinado únicamente a adultos. Debes tener 18 años o más para continuar.",
-        age_question: "¿Tienes 18 años de edad o más?",
-        age_btn_yes: "Sí, soy mayor de 18", age_btn_no: "No, salir",
-        age_legal: "Al entrar, confirmas que tienes al menos 18 años y aceptas nuestros Términos de Servicio y Política de Privacidad. Este sitio utiliza cookies para recordar tu verificación de edad."
-      }
-    };
-    const DEFAULT_LANG = 'en';
-    const SUPPORTED_LANGS = ['en', 'es'];
-    const PREMIUM_URL = 'https://www.fanvue.com/sofiagonzalezofficial';
-    function safeGetItem(key){ try{return localStorage.getItem(key);}catch(e){return null;} }
-    function safeSetItem(key,value){ try{localStorage.setItem(key,value);}catch(e){} }
-    function openAgeGateOverlay(url){ pendingRedirectUrl=url||PREMIUM_URL; const overlay=document.getElementById('age-gate-overlay'); attachOverlayListeners(); if(overlay){ overlay.style.display='flex'; overlay.offsetHeight; overlay.classList.add('active'); } }
-    function setAgeVerifiedCookie(){ const date=new Date(); date.setTime(date.getTime()+(30*24*60*60*1000)); document.cookie=`age-verified=true; expires=${date.toUTCString()}; path=/; SameSite=Lax${location.protocol==='https:'?'; Secure':''}`; }
-    function getTargetUrl(){ return pendingRedirectUrl||PREMIUM_URL; }
-    function closeActiveOverlay(){ const overlayEl=document.getElementById('age-gate-overlay'); if(overlayEl){ overlayEl.classList.remove('active'); setTimeout(()=>{overlayEl.style.display='none';},500); } }
-    function verifyAgeAndRedirect(){
-      setAgeVerifiedCookie();
-      const targetUrl=getTargetUrl();
-      closeActiveOverlay();
-      if(typeof fbq === 'function'){
-        fbq('trackCustom', 'VerifyAge');
-        fbq('track', 'Lead');
-      }
-      setTimeout(()=>{ window.location.href=targetUrl; }, 250);
-    }
-    function detectLanguage(){ const savedLang=safeGetItem('user-language'); if(savedLang&&SUPPORTED_LANGS.includes(savedLang)){return savedLang;} const browserLangs=navigator.languages||[navigator.language]; for(const lang of browserLangs){ const cleanLang=lang.split('-')[0].toLowerCase(); if(SUPPORTED_LANGS.includes(cleanLang)){return cleanLang;} } return DEFAULT_LANG; }
-    function translatePage(lang){ const translation=resources[lang]||resources[DEFAULT_LANG]; document.querySelectorAll('[data-i18n]').forEach(el=>{ const key=el.getAttribute('data-i18n'); if(translation[key]!==undefined){ if(el.tagName==='TITLE'){document.title=translation[key];}else{el.innerHTML=translation[key];} } }); const metaDesc=document.getElementById('seo-meta-description'); if(metaDesc&&translation.meta_description){metaDesc.setAttribute('content',translation.meta_description);} document.documentElement.lang=lang; document.getElementById('activeLangText').textContent=lang.toUpperCase(); document.querySelectorAll('.lang-option').forEach(opt=>{ if(opt.getAttribute('data-lang')===lang){opt.classList.add('active');}else{opt.classList.remove('active');} }); safeSetItem('user-language',lang); }
-    let overlayListenersAttached=false;
-    function attachOverlayListeners(){ if(overlayListenersAttached)return; const overlayYesBtn=document.getElementById('age-overlay-yes-btn'); const overlayNoBtn=document.getElementById('age-overlay-no-btn'); const overlayElement=document.getElementById('age-gate-overlay'); if(!overlayYesBtn||!overlayNoBtn){return;} overlayYesBtn.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();verifyAgeAndRedirect();}); if(overlayElement){ overlayElement.addEventListener('click',function delegatedOverlayClick(e){ let btn=null; const path=(e.composedPath&&e.composedPath())||e.path||null; if(path&&path.length){ for(const node of path){ if(!node)continue; try{ if(node.classList&&node.classList.contains&&node.classList.contains('age-overlay-btn')){btn=node;break;} }catch(_){} } } if(!btn){ const x=e.clientX||(e.touches&&e.touches[0]&&e.touches[0].clientX); const y=e.clientY||(e.touches&&e.touches[0]&&e.touches[0].clientY); try{const realEl=document.elementFromPoint(x,y);btn=realEl&&realEl.closest?realEl.closest('.age-overlay-btn'):null;}catch(err){} } if(!btn)return; e.preventDefault(); e.stopPropagation(); if(btn.id==='age-overlay-yes-btn'){verifyAgeAndRedirect();}else if(btn.id==='age-overlay-no-btn'){closeActiveOverlay();} }); } overlayNoBtn.addEventListener('click',(e)=>{e.preventDefault();e.stopPropagation();closeActiveOverlay();}); if(!window.__ageOverlayGeometryFallbackAttached){ window.__ageOverlayGeometryFallbackAttached=true; document.addEventListener('click',function geometryFallback(e){ try{ const overlay=document.getElementById('age-gate-overlay'); if(!overlay||overlay.style.display==='none'||!overlay.classList.contains('active'))return; const yesBtn=document.getElementById('age-overlay-yes-btn'); const noBtn=document.getElementById('age-overlay-no-btn'); if(!yesBtn||!noBtn)return; const x=e.clientX||(e.touches&&e.touches[0]&&e.touches[0].clientX); const y=e.clientY||(e.touches&&e.touches[0]&&e.touches[0].clientY); const yesRect=yesBtn.getBoundingClientRect(); const noRect=noBtn.getBoundingClientRect(); if(x>=yesRect.left&&x<=yesRect.right&&y>=yesRect.top&&y<=yesRect.bottom){e.preventDefault();e.stopPropagation();verifyAgeAndRedirect();}else if(x>=noRect.left&&x<=noRect.right&&y>=noRect.top&&y<=noRect.bottom){e.preventDefault();e.stopPropagation();closeActiveOverlay();} }catch(err){} },true); } overlayListenersAttached=true; }
-    function initializeWebsite(){
-      const initialLang=detectLanguage();
-      translatePage(initialLang);
-      document.body.classList.add('loaded');
-      const langBtn=document.getElementById('langBtn');
-      const langDropdown=document.getElementById('langDropdown');
-      langBtn.addEventListener('click',(e)=>{e.stopPropagation();const isActive=langDropdown.classList.toggle('active');langBtn.setAttribute('aria-expanded',isActive?'true':'false');});
-      document.querySelectorAll('.lang-option').forEach(option=>{ option.addEventListener('click',()=>{ const selectedLang=option.getAttribute('data-lang'); translatePage(selectedLang); langDropdown.classList.remove('active'); langBtn.setAttribute('aria-expanded','false'); }); });
-      document.addEventListener('click',()=>{langDropdown.classList.remove('active');langBtn.setAttribute('aria-expanded','false');});
-      const overlayElement=document.getElementById('age-gate-overlay');
-      attachOverlayListeners();
-      const overlayTiltWrapper=document.querySelector('.age-card-tilt-wrapper');
-      const isMobileDevice=/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      if(!isMobileDevice&&overlayElement){
-        document.addEventListener('mousemove',(e)=>{
-          if(overlayElement.classList.contains('active')){
-            const x=(e.clientX-window.innerWidth/2)/(window.innerWidth/2);
-            const y=(e.clientY-window.innerHeight/2)/(window.innerHeight/2);
-            document.documentElement.style.setProperty('--mouse-x',x);
-            document.documentElement.style.setProperty('--mouse-y',y);
-            if(overlayTiltWrapper){
-              const rotateX=y*-9;
-              const rotateY=x*9;
-              overlayTiltWrapper.style.transform=`rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-            }
-          }
-        });
-        overlayElement.addEventListener('mouseleave',()=>{
-          document.documentElement.style.setProperty('--mouse-x',0);
-          document.documentElement.style.setProperty('--mouse-y',0);
-          if(overlayTiltWrapper){overlayTiltWrapper.style.transform='rotateX(0deg) rotateY(0deg)';}
-        });
-      }
-      document.querySelectorAll('.cta-primary').forEach(button=>{
-        button.addEventListener('click',(event)=>{
-          event.preventDefault();
-          const url=button.dataset.url||button.href;
-          const value=`; ${document.cookie}`;
-          const parts=value.split(`; age-verified=`);
-          const verified=(parts.length===2&&parts.pop().split(';').shift()==='true');
-          if(verified){
-            if(url){
-              if(typeof fbq === 'function'){
-                fbq('track', 'Lead');
-              }
-              setTimeout(()=>{ window.location.href=url; }, 250);
-            }
-          }else{
-            openAgeGateOverlay(url);
-          }
-        });
-      });
-      document.querySelectorAll('footer a[href*="fanvue.com"]').forEach(link=>{
-        link.addEventListener('click',()=>{
-          if(typeof fbq === 'function'){
-            fbq('track', 'Lead');
-          }
-        });
-      });
-    }
-    setTimeout(()=>document.body.classList.add('loaded'),1500);
-    if(document.readyState==='loading'){ document.addEventListener('DOMContentLoaded',initializeWebsite); }else{ initializeWebsite(); }
-    let pendingRedirectUrl='';
-    function confirmAgeAndRedirect(e){ if(e&&e.preventDefault)e.preventDefault(); verifyAgeAndRedirect(); }
-    function closeAgeOverlay(e){ if(e&&e.preventDefault)e.preventDefault(); closeActiveOverlay(); }
-  </script>
+<!-- MODAL VERIFICACIÓN DE EDAD -->
+<div class="modal-overlay" id="ageModal">
+  <div class="modal-box">
+    <button class="modal-close-btn" type="button" onclick="cerrarVerificacionEdad()" aria-label="Cerrar" data-i18n-aria-label="closeModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="modal-warning-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+      </svg>
+    </div>
+    
+    <div class="modal-title" data-i18n="warningModalTitle">Advertencia de contenido 18+</div>
+    <div class="modal-text">
+      <span data-i18n="warningModalText1">Debes ser mayor de 18 años para continuar.</span><br>
+      <span data-i18n="warningModalText2">Este enlace puede contener contenido gráfico o para adultos.</span>
+    </div>
+    
+    <button class="modal-btn-continue" type="button" onclick="abrirExclusive(event)" data-i18n="warningModalBtn">Continuar (18+)</button>
+  </div>
+</div>
 
-  <div id="age-gate-overlay" class="age-overlay-backdrop" style="display: none;">
-    <div class="age-overlay-glows"><div class="age-glow-orb age-glow-1"></div><div class="age-glow-orb age-glow-2"></div><div class="age-glow-orb age-glow-3"></div></div>
-    <div class="age-scene-container">
-      <div class="age-card-float-wrapper">
-        <div class="age-card-tilt-wrapper">
-          <div class="age-overlay-card">
-            <div class="age-icon-container age-parallax-element age-layer-lock">
-              <div class="age-icon-glow-ring"></div>
-              <svg class="age-lock-icon" viewBox="0 0 24 24" width="72" height="72"><rect x="5" y="11" width="14" height="11" rx="2.5" stroke="url(#overlay-accent-gradient)" stroke-width="1.5" fill="rgba(201, 169, 110, 0.05)" /><path d="M12 2a5 5 0 0 0-5 5v4h10V7a5 5 0 0 0-5-5z" stroke="url(#overlay-accent-gradient)" stroke-width="1.5" fill="none" stroke-linejoin="round" /><circle cx="12" cy="16" r="1.5" fill="url(#overlay-accent-gradient)" /><line x1="12" y1="17.5" x2="12" y2="19.5" stroke="url(#overlay-accent-gradient)" stroke-width="1.5" stroke-linecap="round" /><defs><linearGradient id="overlay-accent-gradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#c96040" /><stop offset="100%" stop-color="#d4507a" /></linearGradient></defs></svg>
-            </div>
-            <div class="age-logo-label age-parallax-element age-layer-logo" data-i18n="age_logo">Sofia Gonzalez &bull; Exclusive Content</div>
-            <h2 class="age-overlay-title age-parallax-element age-layer-title" data-i18n="age_title">Before you enter,<br><em class="age-coral-italic">verify your age</em></h2>
-            <p class="age-overlay-subtitle age-parallax-element age-layer-subtitle" data-i18n="age_subtitle">This site contains content intended for adults only. You must be 18 years or older to continue.</p>
-            <div class="age-overlay-question age-parallax-element age-layer-question" data-i18n="age_question">Are you 18 years of age or older?</div>
-            <div class="age-btn-group age-parallax-element age-layer-buttons">
-              <button type="button" class="age-overlay-btn age-btn-yes" id="age-overlay-yes-btn" data-i18n="age_btn_yes" onclick="confirmAgeAndRedirect(event)">Yes, I'm 18+</button>
-              <button type="button" class="age-overlay-btn age-btn-no" id="age-overlay-no-btn" data-i18n="age_btn_no" onclick="closeAgeOverlay(event)">No, exit</button>
-            </div>
-            <p class="age-overlay-legal age-parallax-element age-layer-legal" data-i18n="age_legal">By entering, you confirm you are at least 18 years old and agree to our Terms of Service and Privacy Policy. This site uses cookies to remember your age verification.</p>
-          </div>
-        </div>
-      </div>
+<!-- MODAL PRÓXIMAMENTE -->
+<div class="modal-overlay" id="soonModal">
+  <div class="modal-box">
+    <div class="modal-badge" style="background: linear-gradient(135deg, rgba(255, 111, 181, 0.2), rgba(233, 30, 140, 0.2)); border: 1px solid rgba(255, 111, 181, 0.4); box-shadow: 0 0 20px rgba(255, 111, 181, 0.3);">✨</div>
+    <div class="modal-title" data-i18n="soonTitle">Muy pronto</div>
+    <div class="modal-text" data-i18n="soonText">¡Próximamente más contenido exclusivo para ustedes! Mantente al tanto. ❤</div>
+    <div class="modal-buttons">
+      <button class="modal-btn confirm" id="soonCloseBtn" type="button" data-i18n="soonClose">Entendido</button>
     </div>
   </div>
+</div>
+
+<script>
+/* ════════════ CONFIG ════════════
+   Cambia aquí tus datos. Los enlaces de los botones y tarjetas
+   se editan directamente en los href="#" de arriba.
+   Para personalizar los textos en distintos idiomas (ES / EN),
+   edita el diccionario "TRANSLATIONS" más abajo.               */
+const CONFIG = {
+  nombre:   "Sofía González",
+  usuario:  "@sofiagonzalezofficial",
+  seguidores: "1.0M",
+  email:    "sofiagonzalezofficial@outlook.com",
+};
+/* ════════════════════════════════ */
+
+const TRANSLATIONS = {
+  es: {
+    title: "Enlaces",
+    heroAlt: "Foto principal de Sofía González",
+    bio: "Escríbeme por DM en mi página ❤",
+    followersTotal: "Seguidores en total",
+    followersIg: "Instagram · 520K",
+    followersTk: "TikTok · 310K",
+    followersX: "Twitter/X · 180K",
+    exclusiveCard: "Contenido exclusivo",
+    exclusiveAlt: "Contenido exclusivo",
+    freePageCard: "Otra página gratis",
+    digitalPacksCard: "Packs digitales",
+    emailPlaceholder: "tu@email.com",
+    emailButton: "Conéctate conmigo 💌",
+    alertThankYou: "¡Gracias! Registramos: ",
+    alertConnect: "(Conecta este formulario a tu servicio de email favorito)",
+    emailSubject: "Nuevo registro de fan en Link-in-Bio",
+    modalTitle: "Contenido para adultos",
+    modalText: "Este enlace contiene material exclusivo para mayores de 18 años. ¿Confirmas que eres mayor de edad para ingresar?",
+    modalCancel: "No, salir",
+    modalConfirm: "Sí, ingresar",
+    soonTitle: "Muy pronto",
+    soonText: "¡Muy pronto más contenido exclusivo para ustedes! Mantente al tanto. ❤",
+    soonClose: "Entendido",
+    socialInstagram: "Instagram",
+    socialTikTok: "TikTok",
+    socialX: "X",
+    socialThreads: "Threads",
+    privacyPolicy: "Política de privacidad",
+    terms: "Términos",
+    report: "Reportar",
+    disclaimerTitle: "Aviso de contenido adulto",
+    disclaimerText: "Este enlace puede contener contenido gráfico o para adultos.",
+    disclaimerBtn: "Continuar (18+)",
+    warningModalTitle: "Advertencia de contenido 18+",
+    warningModalText1: "Debes ser mayor de 18 años para continuar.",
+    warningModalText2: "Este enlace puede contener contenido gráfico o para adultos.",
+    warningModalBtn: "Continuar (18+)",
+    closeModal: "Cerrar",
+    galleryPrev: "Anterior",
+    galleryNext: "Siguiente"
+  },
+  en: {
+    title: "Links",
+    heroAlt: "Main photo of Sofía González",
+    bio: "Send me a DM on my page ❤",
+    followersTotal: "Total followers",
+    followersIg: "Instagram · 520K",
+    followersTk: "TikTok · 310K",
+    followersX: "Twitter/X · 180K",
+    exclusiveCard: "Exclusive Content",
+    exclusiveAlt: "Exclusive content",
+    freePageCard: "Another free page",
+    digitalPacksCard: "Digital packs",
+    emailPlaceholder: "your@email.com",
+    emailButton: "Connect with me 💌",
+    alertThankYou: "Thank you! We registered: ",
+    alertConnect: "(Connect this form to your favorite email service)",
+    emailSubject: "New fan signup from Link-in-Bio",
+    modalTitle: "Adult Content",
+    modalText: "This link contains exclusive material for people over 18. Do you confirm you are of legal age to enter?",
+    modalCancel: "No, leave",
+    modalConfirm: "Yes, enter",
+    soonTitle: "Coming Soon",
+    soonText: "More exclusive content coming soon for you! Stay tuned. ❤",
+    soonClose: "Got it",
+    socialInstagram: "Instagram",
+    socialTikTok: "TikTok",
+    socialX: "X",
+    socialThreads: "Threads",
+    privacyPolicy: "Privacy Policy",
+    terms: "Terms of Service",
+    report: "Report",
+    disclaimerTitle: "Mature Content Disclaimer",
+    disclaimerText: "This link may contain graphic or adult content.",
+    disclaimerBtn: "Continue (18+)",
+    warningModalTitle: "18+ Content Warning",
+    warningModalText1: "You must be 18 or older to continue.",
+    warningModalText2: "This link may contain graphic or adult content.",
+    warningModalBtn: "Continue (18+)",
+    closeModal: "Close",
+    galleryPrev: "Previous",
+    galleryNext: "Next"
+  }
+};
+
+const nameEl = document.getElementById("name");
+if (nameEl) nameEl.childNodes[0].textContent = CONFIG.nombre + " ";
+
+const handleEl = document.getElementById("handle");
+if (handleEl) handleEl.textContent = CONFIG.usuario;
+
+const followerCountEl = document.getElementById("followerCount");
+if (followerCountEl) followerCountEl.textContent = CONFIG.seguidores;
+
+const mailTextEl = document.getElementById("mailText");
+if (mailTextEl) mailTextEl.textContent = CONFIG.email;
+
+const mailLinkEl = document.getElementById("mailLink");
+if (mailLinkEl) mailLinkEl.href = "mailto:" + CONFIG.email;
+
+function changeLanguage(lang) {
+  localStorage.setItem("prefLang", lang);
+
+  // Activar botón visualmente
+  document.querySelectorAll(".lang-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+  const activeBtn = document.getElementById(`lang-${lang}`);
+  if (activeBtn) activeBtn.classList.add("active");
+
+  // Traducir textos
+  const dict = TRANSLATIONS[lang];
+  if (!dict) return;
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.getAttribute("data-i18n");
+    if (dict[key]) {
+      el.textContent = dict[key];
+    }
+  });
+
+  // Traducir placeholders
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (dict[key]) {
+      el.placeholder = dict[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+    const key = el.getAttribute("data-i18n-alt");
+    if (dict[key]) {
+      el.alt = dict[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-title]").forEach(el => {
+    const key = el.getAttribute("data-i18n-title");
+    if (dict[key]) {
+      el.title = dict[key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+    const key = el.getAttribute("data-i18n-aria-label");
+    if (dict[key]) {
+      el.setAttribute("aria-label", dict[key]);
+    }
+  });
+
+  document.documentElement.lang = lang;
+  document.title = `${CONFIG.nombre} — ${dict.title}`;
+}
+
+function initLanguage() {
+  const saved = localStorage.getItem("prefLang");
+  if (saved && TRANSLATIONS[saved]) {
+    changeLanguage(saved);
+  } else {
+    const userLang = ((navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || "es").toLowerCase();
+    const defaultLang = userLang.startsWith("es") ? "es" : "en";
+    changeLanguage(defaultLang);
+  }
+}
+
+// Inicializar idioma al cargar la página
+initLanguage();
+
+function suscribir(e){
+  e.preventDefault();
+  const emailInput = document.getElementById("fanEmail");
+  const email = emailInput.value;
+  const currentLang = localStorage.getItem("prefLang") || "es";
+  const dict = TRANSLATIONS[currentLang] || TRANSLATIONS.es;
+
+  const btn = document.getElementById("emailBtn");
+  if (btn) btn.disabled = true;
+
+  fetch("https://formsubmit.co/ajax/mapanetwortk@gmail.com", {
+    method: "POST",
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      email: email,
+      _subject: `${dict.emailSubject} — ${CONFIG.nombre}`
+    })
+  })
+  .then(() => {
+    alert(dict.alertThankYou + email + "\n" + dict.alertConnect);
+    e.target.reset();
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert(dict.alertThankYou + email + "\n" + dict.alertConnect);
+    e.target.reset();
+  })
+  .finally(() => {
+    if (btn) btn.disabled = false;
+  });
+}
+
+// Slider horizontal click & drag logic
+const gallery = document.getElementById("gallery");
+const prevBtn = document.getElementById("galleryPrev");
+const nextBtn = document.getElementById("galleryNext");
+
+if (prevBtn && nextBtn && gallery) {
+  prevBtn.addEventListener("click", () => {
+    gallery.scrollBy({ left: -200, behavior: "smooth" });
+  });
+  nextBtn.addEventListener("click", () => {
+    gallery.scrollBy({ left: 200, behavior: "smooth" });
+  });
+}
+
+let isDown = false;
+let startX;
+let scrollLeft;
+
+if (gallery) {
+  gallery.addEventListener("mousedown", (e) => {
+    isDown = true;
+    gallery.style.cursor = "grabbing";
+    startX = e.pageX - gallery.offsetLeft;
+    scrollLeft = gallery.scrollLeft;
+  });
+  
+  gallery.addEventListener("mouseleave", () => {
+    isDown = false;
+    gallery.style.cursor = "grab";
+  });
+  
+  gallery.addEventListener("mouseup", () => {
+    isDown = false;
+    gallery.style.cursor = "grab";
+  });
+  
+  gallery.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - gallery.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    gallery.scrollLeft = scrollLeft - walk;
+  });
+}
+
+// Lógica de Popup de Verificación de Edad
+const ageModal = document.getElementById("ageModal");
+const ageConfirmBtn = document.getElementById("ageConfirmBtn");
+const ageCancelBtn = document.getElementById("ageCancelBtn");
+
+function abrirVerificacionEdad(e) {
+  e.preventDefault();
+  if (ageModal) {
+    ageModal.classList.add("open");
+  }
+}
+
+function abrirExclusive(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  cerrarVerificacionEdad();
+  window.open("https://blog.sofia-gonzalez.online/", "_blank", "noopener");
+}
+
+function mostrarDisclaimer(e) {
+  e.preventDefault();
+  const disclaimer = document.getElementById("ofDisclaimer");
+  if (disclaimer) {
+    disclaimer.classList.add("active");
+  }
+}
+
+function cerrarVerificacionEdad() {
+  if (ageModal) {
+    ageModal.classList.remove("open");
+  }
+}
+
+if (ageConfirmBtn) {
+  ageConfirmBtn.addEventListener("click", () => {
+    cerrarVerificacionEdad();
+    window.open("https://blog.sofia-gonzalez.online/", "_blank");
+  });
+}
+
+if (ageCancelBtn) {
+  ageCancelBtn.addEventListener("click", () => {
+    cerrarVerificacionEdad();
+  });
+}
+
+// Lógica de Popup de Próximamente
+const soonModal = document.getElementById("soonModal");
+const soonCloseBtn = document.getElementById("soonCloseBtn");
+
+function abrirProximamente(e) {
+  e.preventDefault();
+  if (soonModal) {
+    soonModal.classList.add("open");
+  }
+}
+
+function cerrarProximamente() {
+  if (soonModal) {
+    soonModal.classList.remove("open");
+  }
+}
+
+if (soonCloseBtn) {
+  soonCloseBtn.addEventListener("click", () => {
+    cerrarProximamente();
+  });
+}
+
+// Cerrar al hacer clic fuera del cuadro (overlay)
+if (ageModal) {
+  ageModal.addEventListener("click", (e) => {
+    if (e.target === ageModal) cerrarVerificacionEdad();
+  });
+}
+if (soonModal) {
+  soonModal.addEventListener("click", (e) => {
+    if (e.target === soonModal) cerrarProximamente();
+  });
+}
+</script>
 </body>
 </html>
