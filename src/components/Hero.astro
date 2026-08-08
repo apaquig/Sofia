@@ -1,0 +1,33 @@
+---
+interface Props {
+  name?: string;
+  handle?: string;
+  photo?: string;
+}
+
+const { 
+  name = "Sofía González", 
+  handle = "@sofiagonzalezofficial", 
+  photo = "/img/principal.webp" 
+} = Astro.props;
+---
+<header class="hero">
+  <img 
+    class="photo" 
+    src={photo} 
+    alt={name} 
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    width="800"
+    height="1040"
+    data-i18n-alt="heroAlt"
+    onerror="this.outerHTML='<div class=&quot;placeholder&quot;&gt;Agrega tu foto principal aquí / Add your main photo here</div>'" 
+  />
+
+  <div class="fade"></div>
+  <div class="id">
+    <h1 id="name">{name} <span class="badge">✔</span></h1>
+    <div class="handle" id="handle">{handle}</div>
+  </div>
+</header>

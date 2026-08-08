@@ -1,0 +1,99 @@
+---
+---
+<!-- MODAL VERIFICACIÓN DE EDAD -->
+<div class="modal-overlay" id="ageModal">
+  <div class="modal-box">
+    <button class="modal-close-btn" id="ageModalCloseBtn" type="button" aria-label="Cerrar" data-i18n-aria-label="closeModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    
+    <div class="modal-warning-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+      </svg>
+    </div>
+    
+    <div class="modal-title" data-i18n="warningModalTitle">Advertencia de contenido 18+</div>
+    <div class="modal-text">
+      <span data-i18n="warningModalText1">Debes ser mayor de 18 años para continuar.</span><br />
+      <span data-i18n="warningModalText2">Este enlace puede contener contenido gráfico o para adultos.</span>
+    </div>
+    
+    <button class="modal-btn-continue" id="ageConfirmBtn" type="button" data-i18n="warningModalBtn">Continuar (18+)</button>
+  </div>
+</div>
+
+<!-- MODAL PRÓXIMAMENTE -->
+<div class="modal-overlay" id="soonModal">
+  <div class="modal-box">
+    <div class="modal-badge" style="background: linear-gradient(135deg, rgba(255, 111, 181, 0.2), rgba(233, 30, 140, 0.2)); border: 1px solid rgba(255, 111, 181, 0.4); box-shadow: 0 0 20px rgba(255, 111, 181, 0.3);">✨</div>
+    <div class="modal-title" data-i18n="soonTitle">Muy pronto</div>
+    <div class="modal-text" data-i18n="soonText">¡Próximamente más contenido exclusivo para ustedes! Mantente al tanto. ❤</div>
+    <div class="modal-buttons">
+      <button class="modal-btn confirm" id="soonCloseBtn" type="button" data-i18n="soonClose">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const ageModal = document.getElementById("ageModal");
+  const ageConfirmBtn = document.getElementById("ageConfirmBtn");
+  const ageModalCloseBtn = document.getElementById("ageModalCloseBtn");
+
+  window.abrirVerificacionEdad = function(e) {
+    if (e) e.preventDefault();
+    if (ageModal) ageModal.classList.add("open");
+  };
+
+  window.cerrarVerificacionEdad = function() {
+    if (ageModal) ageModal.classList.remove("open");
+  };
+
+  if (ageConfirmBtn) {
+    ageConfirmBtn.addEventListener("click", (e) => {
+      if (typeof fbq === 'function') fbq('trackCustom', 'Confirmed18Plus');
+      window.cerrarVerificacionEdad();
+      window.open("https://blog.sofia-gonzalez.online/", "_blank", "noopener");
+    });
+  }
+
+  if (ageModalCloseBtn) {
+    ageModalCloseBtn.addEventListener("click", () => {
+      window.cerrarVerificacionEdad();
+    });
+  }
+
+  const soonModal = document.getElementById("soonModal");
+  const soonCloseBtn = document.getElementById("soonCloseBtn");
+
+  window.abrirProximamente = function(e) {
+    if (e) e.preventDefault();
+    if (soonModal) soonModal.classList.add("open");
+  };
+
+  window.cerrarProximamente = function() {
+    if (soonModal) soonModal.classList.remove("open");
+  };
+
+  if (soonCloseBtn) {
+    soonCloseBtn.addEventListener("click", () => {
+      window.cerrarProximamente();
+    });
+  }
+
+  if (ageModal) {
+    ageModal.addEventListener("click", (e) => {
+      if (e.target === ageModal) window.cerrarVerificacionEdad();
+    });
+  }
+
+  if (soonModal) {
+    soonModal.addEventListener("click", (e) => {
+      if (e.target === soonModal) window.cerrarProximamente();
+    });
+  }
+</script>

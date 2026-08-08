@@ -1,0 +1,165 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = "Sofía González — Enlaces" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preload" as="image" href="/img/principal.webp" type="image/webp" fetchpriority="high" />
+
+  
+  <!-- Meta Pixel Code -->
+  <script is:inline>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1335328724680596');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1335328724680596&ev=PageView&noscript=1" />
+  </noscript>
+  <!-- End Meta Pixel Code -->
+</head>
+<body>
+  <div class="backdrop"></div>
+  <main class="phone">
+    <slot />
+    
+    <footer>
+      <a href="#" data-i18n="privacyPolicy">Política de privacidad</a> | 
+      <a href="#" data-i18n="terms">Términos</a> | 
+      <a href="#" data-i18n="report">Reportar</a>
+    </footer>
+  </main>
+
+  <script is:inline>
+    const CONFIG = {
+      nombre: "Sofía González",
+      usuario: "@sofiagonzalezofficial",
+      email: "sofiagonzalezofficial@outlook.com"
+    };
+
+    const TRANSLATIONS = {
+      es: {
+        title: "Enlaces",
+        heroAlt: "Foto principal de Sofía González",
+        bio: "Escríbeme por DM en mi página ❤",
+        exclusiveCard: "Contenido exclusivo",
+        tapHint: " 👆 Toca aquí",
+        exclusiveAlt: "Contenido exclusivo",
+        digitalPacksCard: "Packs digitales",
+        privacyPolicy: "Política de privacidad",
+        terms: "Términos",
+        report: "Reportar",
+        disclaimerTitle: "Aviso de contenido adulto",
+        disclaimerText: "Este enlace puede contener contenido gráfico o para adultos.",
+        disclaimerBtn: "Continuar (18+)",
+        warningModalTitle: "Advertencia de contenido 18+",
+        warningModalText1: "Debes ser mayor de 18 años para continuar.",
+        warningModalText2: "Este enlace puede contener contenido gráfico o para adultos.",
+        warningModalBtn: "Continuar (18+)",
+        closeModal: "Cerrar",
+        galleryPrev: "Anterior",
+        galleryNext: "Siguiente",
+        soonTitle: "Muy pronto",
+        soonText: "¡Muy pronto más contenido exclusivo para ustedes! Mantente al tanto. ❤",
+        soonClose: "Entendido",
+        socialInstagram: "Instagram",
+        socialTikTok: "TikTok",
+        socialX: "X",
+        socialThreads: "Threads"
+      },
+      en: {
+        title: "Links",
+        heroAlt: "Main photo of Sofía González",
+        bio: "Send me a DM on my page ❤",
+        exclusiveCard: "Exclusive Content",
+        tapHint: " 👆 Tap here",
+        exclusiveAlt: "Exclusive content",
+        digitalPacksCard: "Digital packs",
+        privacyPolicy: "Privacy Policy",
+        terms: "Terms of Service",
+        report: "Report",
+        disclaimerTitle: "Mature Content Disclaimer",
+        disclaimerText: "This link may contain graphic or adult content.",
+        disclaimerBtn: "Continue (18+)",
+        warningModalTitle: "18+ Content Warning",
+        warningModalText1: "You must be 18 or older to continue.",
+        warningModalText2: "This link may contain graphic or adult content.",
+        warningModalBtn: "Continue (18+)",
+        closeModal: "Close",
+        galleryPrev: "Previous",
+        galleryNext: "Next",
+        soonTitle: "Coming Soon",
+        soonText: "More exclusive content coming soon for you! Stay tuned. ❤",
+        soonClose: "Got it",
+        socialInstagram: "Instagram",
+        socialTikTok: "TikTok",
+        socialX: "X",
+        socialThreads: "Threads"
+      }
+    };
+
+    window.changeLanguage = function(lang) {
+      localStorage.setItem("prefLang", lang);
+
+      document.querySelectorAll(".lang-btn").forEach(btn => btn.classList.remove("active"));
+      const activeBtn = document.getElementById(`lang-${lang}`);
+      if (activeBtn) activeBtn.classList.add("active");
+
+      const dict = TRANSLATIONS[lang];
+      if (!dict) return;
+
+      document.querySelectorAll("[data-i18n]").forEach(el => {
+        const key = el.getAttribute("data-i18n");
+        if (dict[key]) el.textContent = dict[key];
+      });
+
+      document.querySelectorAll("[data-i18n-alt]").forEach(el => {
+        const key = el.getAttribute("data-i18n-alt");
+        if (dict[key]) el.alt = dict[key];
+      });
+
+      document.querySelectorAll("[data-i18n-aria-label]").forEach(el => {
+        const key = el.getAttribute("data-i18n-aria-label");
+        if (dict[key]) el.setAttribute("aria-label", dict[key]);
+      });
+
+      document.documentElement.lang = lang;
+      document.title = `${CONFIG.nombre} — ${dict.title}`;
+    };
+
+    function initLanguage() {
+      const saved = localStorage.getItem("prefLang");
+      if (saved && TRANSLATIONS[saved]) {
+        window.changeLanguage(saved);
+      } else {
+        const userLang = ((navigator.languages && navigator.languages[0]) || navigator.language || "es").toLowerCase();
+        const defaultLang = userLang.startsWith("es") ? "es" : "en";
+        window.changeLanguage(defaultLang);
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLanguage);
+    } else {
+      initLanguage();
+    }
+  </script>
+</body>
+</html>
