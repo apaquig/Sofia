@@ -1,11 +1,12 @@
 ---
 import '../styles/global.css';
+import favicon from '../imagenes/favicon.png';
 
 interface Props {
   title?: string;
 }
 
-const { title = "Sofía González — Enlaces" } = Astro.props;
+const { title = "Sofía González" } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -13,6 +14,7 @@ const { title = "Sofía González — Enlaces" } = Astro.props;
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href={favicon.src} />
   <title>{title}</title>
   <link rel="preload" as="image" href="/img/principal.webp" type="image/webp" fetchpriority="high" />
 
@@ -141,7 +143,7 @@ const { title = "Sofía González — Enlaces" } = Astro.props;
       });
 
       document.documentElement.lang = lang;
-      document.title = `${CONFIG.nombre} — ${dict.title}`;
+      document.title = CONFIG.nombre;
     };
 
     function initLanguage() {
