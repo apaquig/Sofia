@@ -3,21 +3,21 @@
 <p class="bio" id="bio" data-i18n="bio">Escríbeme por DM en mi página ❤</p>
 
 <section class="social-section">
-  <!-- Contenido Exclusivo 18+ (Tarjeta Destacada Ancho Completo) -->
+  <!-- Contenido Exclusivo (Tarjeta Destacada Ancho Completo) -->
   <a class="card full-width" href="#" id="exclusiveCardLink">
     <img src="/img/imagen1.webp" alt="Contenido exclusivo" loading="lazy" decoding="async" width="800" height="450" data-i18n-alt="exclusiveAlt" />
     <div class="shade"></div>
     
-    <!-- Aviso de Contenido Adulto (In-Card Blur) -->
+    <!-- Aviso de Acceso Exclusivo (In-Card Blur) -->
     <div class="disclaimer-overlay" id="ofDisclaimer">
       <div class="disclaimer-content">
         <svg class="disclaimer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-          <line x1="1" y1="1" x2="23" y2="23"></line>
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
-        <div class="disclaimer-title" data-i18n="disclaimerTitle">Aviso de contenido adulto</div>
-        <div class="disclaimer-text" data-i18n="disclaimerText">Este enlace puede contener contenido gráfico o para adultos.</div>
-        <button class="disclaimer-btn" type="button" id="disclaimerBtnContinue" data-i18n="disclaimerBtn">Continuar (18+)</button>
+        <div class="disclaimer-title" data-i18n="disclaimerTitle">Acceso exclusivo</div>
+        <div class="disclaimer-text" data-i18n="disclaimerText">Haz clic para acceder a mi espacio privado y contenido especial.</div>
+        <button class="disclaimer-btn" type="button" id="disclaimerBtnContinue" data-i18n="disclaimerBtn">Continuar</button>
       </div>
     </div>
     
@@ -95,11 +95,10 @@
         <span class="label" data-i18n="socialThreads">Threads</span>
       </a>
 
-      <!-- Packs Digitales -->
-      <a class="card" href="#" id="digitalPacksLink">
-        <img src="/img/img10.webp" alt="Packs digitales" loading="lazy" decoding="async" width="600" height="600" data-i18n-alt="digitalPacksCard" />
+      <!-- Foto Destacada (Solo Imagen) -->
+      <a class="card" href="#" id="extraPhotoLink">
+        <img src="/img/img10.webp" alt="Sofía González" loading="lazy" decoding="async" width="600" height="600" />
         <div class="shade"></div>
-        <span class="label" data-i18n="digitalPacksCard">Packs digitales</span>
       </a>
     </div>
   </div>
@@ -115,11 +114,11 @@
   document.getElementById("disclaimerBtnContinue")?.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (typeof fbq === 'function') fbq('trackCustom', 'Confirmed18Plus');
+    if (typeof fbq === 'function') fbq('trackCustom', 'ExclusiveAccessClick');
     window.open("https://blog.sofia-gonzalez.online/", "_blank", "noopener");
   });
 
-  document.getElementById("digitalPacksLink")?.addEventListener("click", (e) => {
+  document.getElementById("extraPhotoLink")?.addEventListener("click", (e) => {
     e.preventDefault();
     if (window.abrirProximamente) window.abrirProximamente(e);
   });

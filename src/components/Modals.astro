@@ -1,6 +1,6 @@
 ---
 ---
-<!-- MODAL VERIFICACIÓN DE EDAD -->
+<!-- MODAL ACCESO EXCLUSIVO -->
 <div class="modal-overlay" id="ageModal">
   <div class="modal-box">
     <button class="modal-close-btn" id="ageModalCloseBtn" type="button" aria-label="Cerrar" data-i18n-aria-label="closeModal">
@@ -12,18 +12,18 @@
     
     <div class="modal-warning-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <circle cx="12" cy="12" r="10"></circle>
+        <polyline points="12 6 12 12 16 14"></polyline>
       </svg>
     </div>
     
-    <div class="modal-title" data-i18n="warningModalTitle">Advertencia de contenido 18+</div>
+    <div class="modal-title" data-i18n="warningModalTitle">Acceso exclusivo</div>
     <div class="modal-text">
-      <span data-i18n="warningModalText1">Debes ser mayor de 18 años para continuar.</span><br />
-      <span data-i18n="warningModalText2">Este enlace puede contener contenido gráfico o para adultos.</span>
+      <span data-i18n="warningModalText1">Estás a punto de acceder a mi espacio privado.</span><br />
+      <span data-i18n="warningModalText2">Contenido especial y novedades exclusivas.</span>
     </div>
     
-    <button class="modal-btn-continue" id="ageConfirmBtn" type="button" data-i18n="warningModalBtn">Continuar (18+)</button>
+    <button class="modal-btn-continue" id="ageConfirmBtn" type="button" data-i18n="warningModalBtn">Continuar</button>
   </div>
 </div>
 
@@ -55,7 +55,7 @@
 
   if (ageConfirmBtn) {
     ageConfirmBtn.addEventListener("click", (e) => {
-      if (typeof fbq === 'function') fbq('trackCustom', 'Confirmed18Plus');
+      if (typeof fbq === 'function') fbq('trackCustom', 'ExclusiveAccessClick');
       window.cerrarVerificacionEdad();
       window.open("https://blog.sofia-gonzalez.online/", "_blank", "noopener");
     });
@@ -96,4 +96,69 @@
       if (e.target === soonModal) window.cerrarProximamente();
     });
   }
+</script>
+
+<!-- MODAL LEGAL (POLÍTICA DE PRIVACIDAD Y TÉRMINOS) -->
+<div class="modal-overlay" id="legalModal">
+  <div class="modal-box" style="max-height:85vh;overflow-y:auto;text-align:left;padding:32px 24px;">
+    <button class="modal-close-btn" id="legalModalCloseBtn" type="button" aria-label="Cerrar" data-i18n-aria-label="closeModal">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="modal-title" id="legalModalTitle" style="text-align:center;margin-bottom:14px;font-size:20px;">Información Legal</div>
+    <div class="modal-text" id="legalModalBody" style="font-size:13px;line-height:1.6;color:rgba(255,255,255,0.85);white-space:pre-line;">
+    </div>
+    <div style="text-align:center;margin-top:20px;">
+      <button class="modal-btn confirm" id="legalCloseBtn" type="button" data-i18n="soonClose" style="background:#fff;color:#000;border:none;border-radius:999px;padding:8px 24px;font-weight:700;cursor:pointer;">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  const legalModal = document.getElementById("legalModal");
+  const legalModalCloseBtn = document.getElementById("legalModalCloseBtn");
+  const legalCloseBtn = document.getElementById("legalCloseBtn");
+  const legalTitle = document.getElementById("legalModalTitle");
+  const legalBody = document.getElementById("legalModalBody");
+
+  const LEGAL_CONTENT = {
+    privacy: {
+      es: {
+        title: "Política de Privacidad",
+        text: "Este sitio web respeta y protege la privacidad de sus visitantes. Los datos recogidos mediante cookies o herramientas de análisis (como Meta Pixel) se utilizan exclusivamente para optimizar la experiencia de navegación, rendimiento técnico y estadísticas de visita. No comercializamos datos personales con terceros."
+      },
+      en: {
+        title: "Privacy Policy",
+        text: "This website respects and protects visitor privacy. Data collected via cookies or analytics tools (such as Meta Pixel) is used solely to enhance browsing experience, technical performance, and visitor statistics. We do not sell personal data to third parties."
+      }
+    },
+    terms: {
+      es: {
+        title: "Términos de Servicio",
+        text: "Al acceder a este sitio, usted acepta utilizar los enlaces y contenidos únicamente con fines personales informativos y de entretenimiento. Todos los derechos sobre marcas e imágenes corresponden a sus respectivos propietarios."
+      },
+      en: {
+        title: "Terms of Service",
+        text: "By accessing this website, you agree to use links and content strictly for personal, informational, and entertainment purposes. All rights to trademarks and images belong to their respective owners."
+      }
+    }
+  };
+
+  window.abrirLegal = function(tipo, e) {
+    if (e) e.preventDefault();
+    const lang = localStorage.getItem("prefLang") || "es";
+    const data = LEGAL_CONTENT[tipo]?.[lang] || LEGAL_CONTENT[tipo]?.es;
+    if (data && legalTitle && legalBody && legalModal) {
+      legalTitle.textContent = data.title;
+      legalBody.textContent = data.text;
+      legalModal.classList.add("open");
+    }
+  };
+
+  const cerrarLegal = () => { if (legalModal) legalModal.classList.remove("open"); };
+  legalModalCloseBtn?.addEventListener("click", cerrarLegal);
+  legalCloseBtn?.addEventListener("click", cerrarLegal);
+  legalModal?.addEventListener("click", (e) => { if (e.target === legalModal) cerrarLegal(); });
 </script>

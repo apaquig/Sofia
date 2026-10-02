@@ -43,9 +43,8 @@ const { title = "Sofía González" } = Astro.props;
     <slot />
     
     <footer>
-      <a href="#" data-i18n="privacyPolicy">Política de privacidad</a> | 
-      <a href="#" data-i18n="terms">Términos</a> | 
-      <a href="#" data-i18n="report">Reportar</a>
+      <a href="#" onclick="window.abrirLegal && window.abrirLegal('privacy', event)" data-i18n="privacyPolicy">Política de privacidad</a> | 
+      <a href="#" onclick="window.abrirLegal && window.abrirLegal('terms', event)" data-i18n="terms">Términos</a>
     </footer>
   </main>
 
@@ -64,17 +63,15 @@ const { title = "Sofía González" } = Astro.props;
         exclusiveCard: "Contenido exclusivo",
         tapHint: " 👆 Toca aquí",
         exclusiveAlt: "Contenido exclusivo",
-        digitalPacksCard: "Packs digitales",
         privacyPolicy: "Política de privacidad",
         terms: "Términos",
-        report: "Reportar",
-        disclaimerTitle: "Aviso de contenido adulto",
-        disclaimerText: "Este enlace puede contener contenido gráfico o para adultos.",
-        disclaimerBtn: "Continuar (18+)",
-        warningModalTitle: "Advertencia de contenido 18+",
-        warningModalText1: "Debes ser mayor de 18 años para continuar.",
-        warningModalText2: "Este enlace puede contener contenido gráfico o para adultos.",
-        warningModalBtn: "Continuar (18+)",
+        disclaimerTitle: "Acceso exclusivo",
+        disclaimerText: "Haz clic para acceder a mi espacio privado y contenido especial.",
+        disclaimerBtn: "Continuar",
+        warningModalTitle: "Acceso exclusivo",
+        warningModalText1: "Estás a punto de acceder a mi espacio privado.",
+        warningModalText2: "Contenido especial y novedades exclusivas.",
+        warningModalBtn: "Continuar",
         closeModal: "Cerrar",
         galleryPrev: "Anterior",
         galleryNext: "Siguiente",
@@ -93,17 +90,15 @@ const { title = "Sofía González" } = Astro.props;
         exclusiveCard: "Exclusive Content",
         tapHint: " 👆 Tap here",
         exclusiveAlt: "Exclusive content",
-        digitalPacksCard: "Digital packs",
         privacyPolicy: "Privacy Policy",
         terms: "Terms of Service",
-        report: "Report",
-        disclaimerTitle: "Mature Content Disclaimer",
-        disclaimerText: "This link may contain graphic or adult content.",
-        disclaimerBtn: "Continue (18+)",
-        warningModalTitle: "18+ Content Warning",
-        warningModalText1: "You must be 18 or older to continue.",
-        warningModalText2: "This link may contain graphic or adult content.",
-        warningModalBtn: "Continue (18+)",
+        disclaimerTitle: "Exclusive Access",
+        disclaimerText: "Click to enter my private space and special content.",
+        disclaimerBtn: "Continue",
+        warningModalTitle: "Exclusive Access",
+        warningModalText1: "You are about to access my private space.",
+        warningModalText2: "Special content and exclusive updates.",
+        warningModalBtn: "Continue",
         closeModal: "Close",
         galleryPrev: "Previous",
         galleryNext: "Next",
